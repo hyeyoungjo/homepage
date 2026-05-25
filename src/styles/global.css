@@ -152,6 +152,13 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.18; font-weight: 600
 .work__interests-label { color: #9a9a9a; }
 .hero__photo img { width: 260px; height: auto; border-radius: 14px; }
 
+/* About page */
+.about__head { display: flex; align-items: center; gap: 1.25rem; margin-bottom: 1rem; }
+.about__photo { width: 110px; height: auto; border-radius: 12px; flex: none; }
+.about__head h1 { margin: 0; }
+.about__sub { color: var(--color-muted); margin: 0.35rem 0 0; }
+.about h2 { margin-top: 2.25rem; font-size: 1.3rem; }
+
 /* Social links */
 .socials { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; margin-top: 1rem; }
 .socials a { font-size: 0.95rem; display: inline-flex; align-items: center; gap: 0.35rem; }

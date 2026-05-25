@@ -1,0 +1,68 @@
+---
+import { Image } from 'astro:assets';
+import profile from '../assets/profile.jpg';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SocialLinks from '../components/SocialLinks.astro';
+import { SITE } from '../lib/site';
+---
+
+<BaseLayout title="About" description="About Hye-Young Jo">
+  <div class="container section prose about">
+    <div class="about__head">
+      <Image class="about__photo" src={profile} alt={SITE.name} widths={[160, 320]} sizes="120px" />
+      <div>
+        <h1>About</h1>
+        <p class="about__sub">Hye-Young Jo · 조혜영 — an HCI researcher, a Kendo enthusiast, a filmmaker, and an artist.</p>
+      </div>
+    </div>
+
+    <p>
+      I am a Ph.D. student in <a href="https://www.colorado.edu/cs/" target="_blank" rel="noopener">Computer
+      Science</a> at the <a href="https://www.colorado.edu/" target="_blank" rel="noopener">University of
+      Colorado Boulder</a>, advised by <a href="https://ryosuzuki.org/" target="_blank" rel="noopener">Prof.
+      Ryo Suzuki</a> in the Programmable Reality Lab at the
+      <a href="https://www.colorado.edu/atlas/" target="_blank" rel="noopener">ATLAS Institute</a>.
+    </p>
+    <p>
+      My research explores how <strong>generative AI</strong> and <strong>extended reality</strong> can
+      enable <strong>embodied learning</strong> and <strong>creative living</strong>. I design interactive
+      systems that support dynamic communication with content and turn everyday living into creative
+      activity through media that adapt, evolve, and respond to users' actions, context, and intentions.
+      I have published at ACM CHI, UIST, and HCIK, and received Best Paper (HCIK'22) and Honorable Mention
+      (CHI'21) awards. My work has been recognized and supported by the
+      <a href="https://www.colorado.edu/graduateschool/2025/10/24/cu-boulder-graduate-student-named-google-phd-fellow" target="_blank" rel="noopener">Google Ph.D. Fellowship</a>.
+    </p>
+    <p>
+      I completed my M.S. in <a href="https://id.kaist.ac.kr/" target="_blank" rel="noopener">Industrial
+      Design</a> at <a href="https://kaist.ac.kr/en/" target="_blank" rel="noopener">KAIST</a>, advised by
+      <a href="https://make.kaist.ac.kr/andrea" target="_blank" rel="noopener">Prof. Andrea Bianchi</a> in the
+      <a href="https://make.kaist.ac.kr/" target="_blank" rel="noopener">MAKE Lab</a>. I then worked as a
+      research assistant at the <a href="https://artifab.yoonji-kim.com/main-page" target="_blank" rel="noopener">Artifab
+      Lab</a>, Chung-Ang University (Prof. Yoonji Kim), and as a research intern at the
+      <a href="https://global.fujitsu/en-us/local/technology/research/converging-lab" target="_blank" rel="noopener">Fujitsu Converging Lab</a>.
+    </p>
+    <p>
+      Before joining the research community, I studied fine art for 20 years and received a B.F.A. in
+      <a href="https://art.snu.ac.kr/en/category/painting-en/" target="_blank" rel="noopener">Painting</a>
+      and <a href="https://art.snu.ac.kr/en/category/program-in-media-art-en/" target="_blank" rel="noopener">Media
+      Arts</a> at <a href="https://en.snu.ac.kr/index.html" target="_blank" rel="noopener">Seoul National
+      University</a>. After graduation, I worked at <a href="http://www.dexterstudios.com/" target="_blank" rel="noopener">Dexter
+      Studios</a>, a Korean film company, for four years — first as a VFX compositor in film
+      post-production, then as an XR generalist creating 3D characters and virtual environments.
+    </p>
+
+    <h2>Selected awards</h2>
+    <ul>
+      <li>Google Ph.D. Fellowship in Human–Computer Interaction (2025)</li>
+      <li>Ralph J. Slutz Student Excellence Award (2025)</li>
+      <li>Best Paper Award, HCI Korea 2022</li>
+      <li>Honorable Mention, ACM CHI 2021</li>
+    </ul>
+
+    <h2>Research interests</h2>
+    <p>{SITE.researchInterests.join(' · ')}</p>
+
+    <h2>Elsewhere</h2>
+    <SocialLinks />
+  </div>
+</BaseLayout>
