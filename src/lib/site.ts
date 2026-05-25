@@ -5,7 +5,7 @@ export const SITE = {
   tagline: 'An HCI researcher who came from fine art and film.',
   // Two short hero paragraphs (HTML: key entities linked + key terms bold, like the original site).
   intro:
-    'I am a Ph.D. student in <a href="https://www.colorado.edu/cs/" target="_blank" rel="noopener">Computer Science</a> at the <a href="https://www.colorado.edu/" target="_blank" rel="noopener">University of Colorado Boulder</a>, advised by <a href="https://ryosuzuki.org/" target="_blank" rel="noopener">Prof. Ryo Suzuki</a>.',
+    'I am a Ph.D. student in <a href="https://www.colorado.edu/cs/" target="_blank" rel="noopener">Computer Science</a> at the <a href="https://www.colorado.edu/" target="_blank" rel="noopener">University of Colorado Boulder</a>, advised by <a href="https://ryosuzuki.org/" target="_blank" rel="noopener">Prof. Ryo Suzuki</a>. I also worked as a research intern at <a href="https://global.fujitsu/en-us/local/technology/research/converging-lab" target="_blank" rel="noopener">Fujitsu</a> and <a href="https://www.research.autodesk.com/research-areas/science/human-computer-interaction-and-visualization/" target="_blank" rel="noopener">Autodesk</a>.',
   research:
     'My research explores how <strong>generative AI</strong> and <strong>extended reality</strong> can enable <strong>embodied learning</strong> and <strong>creative living</strong>. My work has been recognized and supported by the <a href="https://www.colorado.edu/graduateschool/2025/10/24/cu-boulder-graduate-student-named-google-phd-fellow" target="_blank" rel="noopener">Google Ph.D. Fellowship</a>.',
   researchInterests: [
