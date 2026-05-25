@@ -1,9 +1,7 @@
 ---
 import { Image } from 'astro:assets';
-import profile from '../assets/profile.jpg';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import YouTubeEmbed from '../components/YouTubeEmbed.astro';
-import { SITE } from '../lib/site';
 import kendo from '../assets/about/kendo.jpg';
 import filmmaker from '../assets/about/filmmaker.jpg';
 import artsyKid from '../assets/about/artsy-kid.jpg';
@@ -27,13 +25,8 @@ const photos = [
 
 <BaseLayout title="About" description="About Hye-Young Jo">
   <div class="container section prose about">
-    <div class="about__head">
-      <Image class="about__photo" src={profile} alt={SITE.name} widths={[160, 320]} sizes="120px" />
-      <div>
-        <h1>About</h1>
-        <p class="about__sub">Hye-Young Jo · 조혜영 — an HCI researcher who came from fine art and film.</p>
-      </div>
-    </div>
+    <h1>About</h1>
+    <p class="about__sub">Hye-Young Jo · 조혜영 — an HCI researcher who came from fine art and film.</p>
 
     <p>
       I am a Ph.D. student in <a href="https://www.colorado.edu/cs/" target="_blank" rel="noopener">Computer
