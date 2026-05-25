@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import YouTubeEmbed from '../components/YouTubeEmbed.astro';
 import LinkRow from '../components/LinkRow.astro';
@@ -28,14 +27,6 @@ const d = project.data;
     }
     <LinkRow links={d.links} originalLink={d.originalLink} />
   </header>
-
-  {
-    d.teaser && (
-      <div class="project__teaser prose">
-        <Image src={d.teaser} alt={d.teaserAlt ?? d.title} />
-      </div>
-    )
-  }
 
   {d.abstract && <p class="project__abstract prose">{d.abstract}</p>}
 
