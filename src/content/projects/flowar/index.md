@@ -1,6 +1,6 @@
 ---
 title: "FlowAR: How Different AR Visualizations of Online Fitness Videos Support Flow for At-Home Yoga"
-type: "paper"
+type: "research"
 year: 2023
 authors: ["Hye-Young Jo", "Laurenz Seidel", "Michel Pahud", "Mike Sinclair", "Andrea Bianchi"]
 venue: "ACM CHI"

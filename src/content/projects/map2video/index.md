@@ -1,6 +1,6 @@
 ---
 title: "Map2Video: Street View Imagery Driven AI Video Generation"
-type: "paper"
+type: "research"
 year: 2025
 authors: ["Hye-Young Jo", "Mose Sakashita", "Aditi Mishra", "Ryo Suzuki", "Koichiro Niinuma", "Aakar Gupta"]
 venue: "arXiv"

@@ -1,6 +1,6 @@
 ---
 title: "Generative Lecture: Making Lecture Videos Interactive with LLMs and AI Clone Instructors"
-type: "paper"
+type: "research"
 year: 2025
 authors: ["Hye-Young Jo", "Ada Zhao", "Xiaoan Liu", "Ryo Suzuki"]
 venue: "arXiv"

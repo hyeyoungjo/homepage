@@ -1,6 +1,6 @@
 ---
 title: "TrainerTap: Weightlifting Support System Simulating a Personal Trainer's Tactile and Auditory Guidance"
-type: "paper"
+type: "research"
 year: 2023
 authors: ["Hye-Young Jo", "Chan Hu Wie", "Yejin Jang", "Dong-Uk Kim", "Yurim Son", "Yoonji Kim"]
 venue: "ACM UIST (Adjunct)"

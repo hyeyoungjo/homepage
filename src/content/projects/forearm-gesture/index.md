@@ -1,6 +1,6 @@
 ---
 title: "Designing Hand and Forearm Gestures to Control a Virtual Forearm for User-Initiated Deformation"
-type: "paper"
+type: "research"
 year: 2025
 authors: ["Yilong Lin", "Han Shi", "Weitao Jiang", "Xuesong Zhang", "Hye-Young Jo", "Yoonji Kim", "Seungwoo Je"]
 venue: "IEEE ISMAR (TVCG)"

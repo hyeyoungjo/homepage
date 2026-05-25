@@ -1,6 +1,6 @@
 ---
 title: "GamesBond: Bimanual Haptic Illusion of Physically Connected Objects Using Grip Deformation"
-type: "paper"
+type: "research"
 year: 2021
 authors: ["Neung Ryu", "Hye-Young Jo", "Michel Pahud", "Mike Sinclair", "Andrea Bianchi"]
 venue: "ACM CHI"

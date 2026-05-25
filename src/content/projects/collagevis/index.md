@@ -1,6 +1,6 @@
 ---
 title: "CollageVis: Rapid Previsualization Tool for Indie Filmmaking using Video Collages"
-type: "paper"
+type: "research"
 year: 2024
 authors: ["Hye-Young Jo", "Ryo Suzuki", "Yoonji Kim"]
 venue: "ACM CHI"

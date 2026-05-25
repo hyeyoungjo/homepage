@@ -1,6 +1,6 @@
 ---
 title: "FigureOUT: A Personalized Tool for Summarizing and Visualizing Academic Literature"
-type: "paper"
+type: "research"
 year: 2023
 authors: ["Hye-Young Jo", "Minha Lee", "Wooseok Kim", "Yeonsoo Kim"]
 abstract: "FigureOUT is a personalized tool for summarizing and visualizing academic literature, helping researchers organize and make sense of papers."
