@@ -199,10 +199,6 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.18; font-weight: 600
 .about__sub { color: var(--color-muted); margin: 0.35rem 0 0; }
 .about h2 { margin-top: 2.25rem; font-size: 1.3rem; }
 .about h3 { margin-top: 1.5rem; font-size: 1.05rem; }
-.about__gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
-.about__gallery figure { margin: 0; }
-.about__gallery img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 10px; display: block; }
-.about__gallery figcaption { font-size: 0.78rem; color: var(--color-muted); text-align: center; margin-top: 0.35rem; }
 
 /* Social links */
 .socials { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; margin-top: 1rem; }
