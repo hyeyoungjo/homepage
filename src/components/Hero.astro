@@ -9,7 +9,9 @@ import SocialLinks from './SocialLinks.astro';
   <div class="hero__text">
     <h1 class="hero__greeting">
       {SITE.greeting}
-      <button class="hero__audio" type="button" aria-label="Play voice intro" data-audio>▶</button>
+      <button class="hero__audio" type="button" aria-label="Play name pronunciation" data-audio>
+        <span class="material-symbols-outlined" data-icon>play_circle</span>
+      </button>
       <audio src={SITE.audio} preload="none"></audio>
     </h1>
     <p class="hero__tagline">{SITE.tagline}</p>
@@ -26,10 +28,15 @@ import SocialLinks from './SocialLinks.astro';
   // Small play/pause toggle for the voice intro.
   document.querySelectorAll('[data-audio]').forEach((btn) => {
     const audio = btn.nextElementSibling;
+    const icon = btn.querySelector('[data-icon]');
     if (!(audio instanceof HTMLAudioElement)) return;
+    const setIcon = (name) => { if (icon) icon.textContent = name; };
     btn.addEventListener('click', () => {
       if (audio.paused) audio.play();
       else audio.pause();
     });
+    audio.addEventListener('play', () => setIcon('pause_circle'));
+    audio.addEventListener('pause', () => setIcon('play_circle'));
+    audio.addEventListener('ended', () => setIcon('play_circle'));
   });
 </script>
