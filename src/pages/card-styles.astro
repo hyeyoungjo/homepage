@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const projects = (await getCollection('projects', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.year - a.data.year)
+  .slice(0, 3);
+---
+
+<BaseLayout title="Card styles">
+  <div class="container section">
+    <h1>Card hover / click styles</h1>
+    <p style="color:#6b6b6b">Hover and click the cards in each row, then tell me 1, 2, or 3.</p>
+
+    <h2>1 — Zoom (image scales inside the frame)</h2>
+    <div class="gallery__grid cards--zoom">{projects.map((p) => <ProjectCard project={p} />)}</div>
+
+    <h2 style="margin-top:3rem">2 — Lift (card rises with a soft shadow)</h2>
+    <div class="gallery__grid cards--lift">{projects.map((p) => <ProjectCard project={p} />)}</div>
+
+    <h2 style="margin-top:3rem">3 — Reveal (overlay with “View →”)</h2>
+    <div class="gallery__grid cards--reveal">{projects.map((p) => <ProjectCard project={p} />)}</div>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  /* 1 — Zoom */
+  .cards--zoom .card__media { overflow: hidden; border-radius: var(--radius); }
+  .cards--zoom .card__media img { transition: transform 0.45s ease; }
+  .cards--zoom .card:hover .card__media img { transform: scale(1.06); }
+  .cards--zoom .card:active .card__media img { transform: scale(1.02); }
+
+  /* 2 — Lift */
+  .cards--lift .card { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+  .cards--lift .card:hover { transform: translateY(-6px); box-shadow: 0 14px 30px rgba(0, 0, 0, 0.13); }
+  .cards--lift .card:active { transform: translateY(-2px); }
+
+  /* 3 — Reveal */
+  .cards--reveal .card__media { position: relative; }
+  .cards--reveal .card__media::after {
+    content: 'View →';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    background: rgba(0, 0, 0, 0.45);
+    border-radius: var(--radius);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .cards--reveal .card:hover .card__media::after { opacity: 1; }
+</style>
