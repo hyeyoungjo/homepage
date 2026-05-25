@@ -2,7 +2,7 @@
 export const SITE = {
   name: 'Hye-Young Jo',
   greeting: "Hi, I'm Hye-Young,",
-  tagline: 'An HCI researcher, a Kendo enthusiast, a filmmaker, and an artist.',
+  tagline: 'An HCI researcher who came from fine art and film.',
   // Two short hero paragraphs (HTML: key entities linked + key terms bold, like the original site).
   intro:
     'I am a Ph.D. student in <a href="https://www.colorado.edu/cs/" target="_blank" rel="noopener">Computer Science</a> at the <a href="https://www.colorado.edu/" target="_blank" rel="noopener">University of Colorado Boulder</a>, advised by <a href="https://ryosuzuki.org/" target="_blank" rel="noopener">Prof. Ryo Suzuki</a>.',
