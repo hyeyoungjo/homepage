@@ -13,8 +13,8 @@ import SocialLinks from './SocialLinks.astro';
       <audio src={SITE.audio} preload="none"></audio>
     </h1>
     <p class="hero__tagline">{SITE.tagline}</p>
-    <p class="hero__intro">{SITE.intro}</p>
-    <p class="hero__intro">{SITE.research}</p>
+    <p class="hero__intro" set:html={SITE.intro} />
+    <p class="hero__intro" set:html={SITE.research} />
     <p class="hero__interests">
       <span class="hero__interests-label">Research interests</span>
       {SITE.researchInterests.join(' · ')}

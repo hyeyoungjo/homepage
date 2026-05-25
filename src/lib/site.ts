@@ -3,20 +3,17 @@ export const SITE = {
   name: 'Hye-Young Jo',
   greeting: "Hi, I'm Hye-Young,",
   tagline: 'An HCI researcher, a Kendo enthusiast, a filmmaker, and an artist.',
-  // Two short hero paragraphs (kept plain — no inline links, to avoid clutter).
+  // Two short hero paragraphs (HTML: key entities linked + key terms bold, like the original site).
   intro:
-    'I am a Ph.D. student in Computer Science at the University of Colorado Boulder, advised by Prof. Ryo Suzuki in the Programmable Reality Lab at the ATLAS Institute.',
+    'I am a Ph.D. student in <a href="https://www.colorado.edu/cs/" target="_blank" rel="noopener">Computer Science</a> at the <a href="https://www.colorado.edu/" target="_blank" rel="noopener">University of Colorado Boulder</a>, advised by <a href="https://ryosuzuki.org/" target="_blank" rel="noopener">Prof. Ryo Suzuki</a> in the Programmable Reality Lab at the <a href="https://www.colorado.edu/atlas/" target="_blank" rel="noopener">ATLAS Institute</a>.',
   research:
-    'My research explores how generative AI and extended reality can enable embodied learning and creative living. My work has been recognized and supported by the Google Ph.D. Fellowship.',
+    'My research explores how <strong>generative AI</strong> and <strong>extended reality</strong> can enable <strong>embodied learning</strong> and <strong>creative living</strong>. My work has been recognized and supported by the <a href="https://www.colorado.edu/graduateschool/2025/10/24/cu-boulder-graduate-student-named-google-phd-fellow" target="_blank" rel="noopener">Google Ph.D. Fellowship</a>.',
   researchInterests: [
     'Human-Computer Interaction',
     'Human-AI Interaction',
     'Creativity Support Tools',
-    'Generative Agents',
-    'AI-driven Content Adaptation',
-    'Embodied AI',
     'XR Interaction',
-    'Augmented Instruction',
+    'Embodied AI',
   ],
   audio: '/hi-im-hyeyoung.mp3',
   email: 'hye-young.jo@colorado.edu',
