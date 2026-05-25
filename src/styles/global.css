@@ -145,16 +145,7 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.18; font-weight: 600
 }
 .hero__audio .material-symbols-outlined { font-size: 1.9rem; }
 .hero__audio:hover { color: var(--color-fg); }
-.hero__tagline {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 1.45rem;
-  line-height: 1.35;
-  color: #2a2a2a;
-  max-width: 30ch;
-  margin: 0.25rem 0 1.25rem;
-}
-.hero__tagline .accent { color: var(--color-accent); font-style: normal; }
+.hero__tagline { font-size: 1rem; color: var(--color-muted); margin: 0.15rem 0 0.75rem; }
 .hero__intro { color: #333; max-width: 58ch; margin: 0 0 1rem; }
 /* Research interests — subtle, right-aligned above the Work gallery */
 .work__interests { color: #9a9a9a; font-size: 0.78rem; line-height: 1.5; text-align: right; margin: 0 0 0.5rem; }
