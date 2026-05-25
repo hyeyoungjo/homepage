@@ -156,7 +156,7 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.18; font-weight: 600
 .gallery__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.75rem; }
 .card { display: block; color: inherit; text-decoration: none; }
 .card[hidden] { display: none; } /* needed: .card{display:block} otherwise overrides [hidden] */
-.card__media img, .card__placeholder { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius); background: #f0f0f0; display: block; }
+.card__media img, .card__placeholder { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: var(--radius); background: #f0f0f0; display: block; }
 .card__type { display: inline-block; margin-top: 0.6rem; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--color-accent); }
 .card__title { font-family: var(--font-serif); font-size: 1.05rem; line-height: 1.25; margin: 0.25rem 0 0.2rem; }
 .card__meta { color: var(--color-muted); font-size: 0.88rem; margin: 0; }
