@@ -15,6 +15,14 @@ const search = [d.title, d.authors.join(' '), d.venue, d.abstract, d.tags.join('
   .filter(Boolean)
   .join(' ')
   .toLowerCase();
+
+// Meta line: avoid repeating the year when the venue already contains it.
+const yearStr = String(d.year);
+const meta = d.venue
+  ? d.venue.includes(yearStr)
+    ? d.venue
+    : `${d.venue} · ${yearStr}`
+  : yearStr;
 ---
 
 <a
@@ -43,6 +51,6 @@ const search = [d.title, d.authors.join(' '), d.venue, d.abstract, d.tags.join('
   <div class="card__body">
     <span class="card__type">{TYPE_LABELS[d.type] ?? d.type}</span>
     <h3 class="card__title">{d.title}</h3>
-    <p class="card__meta">{[d.venue, d.year].filter(Boolean).join(' · ')}</p>
+    <p class="card__meta">{meta}</p>
   </div>
 </a>
