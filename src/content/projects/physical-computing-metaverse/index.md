@@ -3,7 +3,7 @@ title: "Design of a Virtual Reality Application for Interaction Prototyping in R
 type: "paper"
 year: 2022
 authors: ["Hye-Young Jo", "Wooje Chang", "Hoonjin Jung", "Andrea Bianchi"]
-venue: "HCI Korea 2022"
+venue: "HCI Korea"
 abstract: "This work designs VR applications for remote physical-computing education, proposing four scenarios — a realistic theory class, a 3D library, circuit assembly, and mixed-reality practice — grounded in expert interviews and design considerations."
 teaser: ./teaser.png
 teaserAlt: "VR application for remote physical-computing education"

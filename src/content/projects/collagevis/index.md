@@ -3,7 +3,7 @@ title: "CollageVis: Rapid Previsualization Tool for Indie Filmmaking using Video
 type: "paper"
 year: 2024
 authors: ["Hye-Young Jo", "Ryo Suzuki", "Yoonji Kim"]
-venue: "ACM CHI 2024"
+venue: "ACM CHI"
 abstract: "CollageVis is a rapid previsualization tool that lets indie filmmakers compose scenes from video collages — with automatic actor segmentation, name tags and face swaps, role assignment, layer positioning, and mobile-based virtual camera recording. A study with six indie filmmakers showed it enables flexible and expressive previsualization."
 teaser: ./teaser.png
 teaserAlt: "CollageVis interface showing a layered video collage for previsualization"

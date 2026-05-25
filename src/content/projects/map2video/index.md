@@ -3,7 +3,7 @@ title: "Map2Video: Street View Imagery Driven AI Video Generation"
 type: "paper"
 year: 2025
 authors: ["Hye-Young Jo", "Mose Sakashita", "Aditi Mishra", "Ryo Suzuki", "Koichiro Niinuma", "Aakar Gupta"]
-venue: "arXiv 2025"
+venue: "arXiv"
 abstract: "Map2Video turns street-view imagery into spatially consistent AI-generated video. Integrating Unity, ComfyUI/VACE, OpenStreetMap, and Mapillary, filmmakers position actors and cameras in real streets and sketch paths to generate footage. An evaluation with 12 filmmakers showed superior spatial accuracy and controllability."
 teaser: ./teaser.png
 teaserAlt: "Map2Video street-view driven video generation"

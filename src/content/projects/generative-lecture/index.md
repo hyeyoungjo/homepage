@@ -3,7 +3,7 @@ title: "Generative Lecture: Making Lecture Videos Interactive with LLMs and AI C
 type: "paper"
 year: 2025
 authors: ["Hye-Young Jo", "Ada Zhao", "Xiaoan Liu", "Ryo Suzuki"]
-venue: "arXiv 2025"
+venue: "arXiv"
 abstract: "Generative Lecture embeds AI clone instructors into existing lecture videos using LLMs and avatar/voice synthesis, adding on-demand clarification, interactive examples, adaptive quizzes, and personalized explanations. A study (N=12) showed it supports personalized learning."
 teaser: ./teaser.png
 teaserAlt: "Generative Lecture interface with an AI clone instructor"

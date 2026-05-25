@@ -3,7 +3,7 @@ title: "FlowAR: How Different AR Visualizations of Online Fitness Videos Support
 type: "paper"
 year: 2023
 authors: ["Hye-Young Jo", "Laurenz Seidel", "Michel Pahud", "Mike Sinclair", "Andrea Bianchi"]
-venue: "ACM CHI 2023"
+venue: "ACM CHI"
 abstract: "FlowAR studies how different AR visualizations of online fitness videos support flow during at-home yoga. Across a motion-capture study (16 participants) and a home-like lab study (12 users), it compares persistent AR overlay layouts for following tutorials."
 teaser: ./teaser.png
 teaserAlt: "FlowAR augmented reality yoga tutorial overlays"

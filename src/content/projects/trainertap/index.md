@@ -3,7 +3,7 @@ title: "TrainerTap: Weightlifting Support System Simulating a Personal Trainer's
 type: "paper"
 year: 2023
 authors: ["Hye-Young Jo", "Chan Hu Wie", "Yejin Jang", "Dong-Uk Kim", "Yurim Son", "Yoonji Kim"]
-venue: "ACM UIST 2023 (Adjunct)"
+venue: "ACM UIST (Adjunct)"
 abstract: "TrainerTap is a weightlifting support prototype that simulates a personal trainer's tactile and auditory guidance — tapping target muscles to direct attention and giving auditory tempo cues — so solo lifters feel a trainer's presence."
 teaser: ./teaser.png
 teaserAlt: "TrainerTap weightlifting guidance prototype"

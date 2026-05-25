@@ -3,7 +3,7 @@ title: "GamesBond: Bimanual Haptic Illusion of Physically Connected Objects Usin
 type: "paper"
 year: 2021
 authors: ["Neung Ryu", "Hye-Young Jo", "Michel Pahud", "Mike Sinclair", "Andrea Bianchi"]
-venue: "ACM CHI 2021"
+venue: "ACM CHI"
 abstract: "GamesBond creates a bimanual haptic illusion of two physically connected objects in VR using dynamic grip deformation on 4-DoF controllers without any physical linkage. User studies showed enhanced realism, immersion, and enjoyment."
 teaser: ./teaser.jpg
 teaserAlt: "GamesBond bimanual VR controllers with grip deformation"
