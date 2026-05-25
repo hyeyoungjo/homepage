@@ -7,6 +7,9 @@ import Timeline from './Timeline.astro';
 ---
 
 <section class="hero container">
+  <div class="hero__photo">
+    <Image src={profile} alt={SITE.name} widths={[280, 560]} sizes="240px" />
+  </div>
   <div class="hero__text">
     <h1 class="hero__greeting">
       {SITE.greeting}
@@ -16,13 +19,12 @@ import Timeline from './Timeline.astro';
       <audio src={SITE.audio} preload="none"></audio>
     </h1>
     <p class="hero__tagline">{SITE.tagline}</p>
-    <Timeline />
     <p class="hero__intro" set:html={SITE.intro} />
     <p class="hero__intro" set:html={SITE.research} />
     <SocialLinks />
   </div>
-  <div class="hero__photo">
-    <Image src={profile} alt={SITE.name} widths={[280, 560]} sizes="280px" />
+  <div class="hero__timeline">
+    <Timeline />
   </div>
 </section>
 

@@ -1,5 +1,5 @@
 ---
-// Career flow as an SVG "draw" path (design 5). Years are approximate — tweak here.
+// Vertical career flow as an SVG "draw" path. Years are approximate — tweak here.
 const steps = [
   { y: '–2015', t: 'Fine Art' },
   { y: '2016–18', t: 'Film VFX' },
@@ -11,20 +11,20 @@ const steps = [
 <div class="tl5" data-timeline>
   <svg
     class="tl5__svg"
-    viewBox="0 0 800 110"
+    viewBox="0 0 240 360"
     preserveAspectRatio="xMidYMid meet"
     role="img"
     aria-label="Career path: fine art to film VFX to XR to HCI research"
   >
-    <polyline class="tl5__line" points="100,50 300,50 500,50 700,50" />
+    <polyline class="tl5__line" points="12,30 12,330" />
     {
       steps.map((s, i) => {
-        const x = 100 + i * 200;
+        const y = 30 + i * 100;
         return (
           <g class="tl5__node" style={`--i:${i}`}>
-            <circle cx={x} cy="50" r="9" />
-            <text x={x} y="28" text-anchor="middle" class="tl5__y">{s.y}</text>
-            <text x={x} y="82" text-anchor="middle" class="tl5__t">{s.t}</text>
+            <circle cx="12" cy={y} r="8" />
+            <text x="32" y={y} dominant-baseline="central" class="tl5__t">{s.t}</text>
+            <text x="32" y={y + 17} class="tl5__y">{s.y}</text>
           </g>
         );
       })
@@ -33,29 +33,30 @@ const steps = [
 </div>
 
 <style>
-  .tl5 { margin: 0.25rem 0 1.5rem; max-width: 560px; }
+  .tl5 { width: 100%; }
   .tl5__svg { width: 100%; height: auto; display: block; overflow: visible; }
   .tl5__line {
     fill: none;
     stroke: var(--color-accent);
     stroke-width: 2;
-    stroke-dasharray: 600;
-    stroke-dashoffset: 600;
-    transition: stroke-dashoffset 1.3s ease 0.1s;
+    stroke-dasharray: 300;
+    stroke-dashoffset: 300;
+    transition: stroke-dashoffset 1.2s ease 0.1s;
   }
   .tl5.in .tl5__line { stroke-dashoffset: 0; }
   .tl5__node {
     opacity: 0;
-    transition: opacity 0.4s ease;
-    transition-delay: calc(0.3s + var(--i) * 0.28s);
+    transform: translateX(-6px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    transition-delay: calc(0.25s + var(--i) * 0.28s);
   }
-  .tl5.in .tl5__node { opacity: 1; }
+  .tl5.in .tl5__node { opacity: 1; transform: none; }
   .tl5__node circle { fill: var(--color-accent); }
-  .tl5__y { fill: var(--color-muted); font-size: 13px; }
   .tl5__t { fill: var(--color-fg); font-size: 15px; font-weight: 600; }
+  .tl5__y { fill: var(--color-muted); font-size: 12px; }
   @media (prefers-reduced-motion: reduce) {
     .tl5__line { stroke-dashoffset: 0; }
-    .tl5__node { opacity: 1; }
+    .tl5__node { opacity: 1; transform: none; }
   }
 </style>
 
@@ -69,7 +70,7 @@ const steps = [
         }
       });
     },
-    { threshold: 0.3 }
+    { threshold: 0.2 }
   );
   document.querySelectorAll('[data-timeline]').forEach((el) => io.observe(el));
 </script>
