@@ -1,0 +1,66 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ProjectCard from './ProjectCard.astro';
+import { TYPE_LABELS, TYPE_ORDER } from '../lib/site';
+
+interface Props {
+  projects: CollectionEntry<'projects'>[];
+}
+
+const { projects } = Astro.props;
+const present = TYPE_ORDER.filter((t) => projects.some((p) => p.data.type === t));
+---
+
+<section class="gallery">
+  <div class="gallery__controls">
+    <div class="gallery__filters" role="group" aria-label="Filter by type">
+      <button class="chip is-active" data-filter="all">All</button>
+      {present.map((t) => <button class="chip" data-filter={t}>{TYPE_LABELS[t]}</button>)}
+    </div>
+    <input class="gallery__search" type="search" placeholder="Search…" aria-label="Search projects" />
+  </div>
+  <p class="gallery__count" aria-live="polite"></p>
+  <div class="gallery__grid">
+    {projects.map((p) => <ProjectCard project={p} />)}
+  </div>
+  <p class="gallery__empty" hidden>No projects match.</p>
+</section>
+
+<script>
+  // Client-side filtering: type chips + keyword search. Data is inline; no backend.
+  function initGallery(root) {
+    const chips = root.querySelectorAll('.chip');
+    const search = root.querySelector('.gallery__search');
+    const cards = Array.from(root.querySelectorAll('.card'));
+    const count = root.querySelector('.gallery__count');
+    const empty = root.querySelector('.gallery__empty');
+    let type = 'all';
+
+    const apply = () => {
+      const q = ((search && search.value) || '').trim().toLowerCase();
+      let shown = 0;
+      for (const card of cards) {
+        const okType = type === 'all' || card.dataset.type === type;
+        const okQ = !q || (card.dataset.search || '').includes(q);
+        const show = okType && okQ;
+        card.hidden = !show;
+        if (show) shown++;
+      }
+      if (count) count.textContent = shown + (shown === 1 ? ' project' : ' projects');
+      if (empty) empty.hidden = shown !== 0;
+    };
+
+    chips.forEach((chip) =>
+      chip.addEventListener('click', () => {
+        chips.forEach((c) => c.classList.remove('is-active'));
+        chip.classList.add('is-active');
+        type = chip.dataset.filter || 'all';
+        apply();
+      })
+    );
+    if (search) search.addEventListener('input', apply);
+    apply();
+  }
+
+  document.querySelectorAll('.gallery').forEach(initGallery);
+</script>

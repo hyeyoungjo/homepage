@@ -1,0 +1,34 @@
+---
+interface NewsItem {
+  date: Date;
+  text: string;
+  link?: string;
+}
+
+interface Props {
+  items: NewsItem[];
+}
+
+const { items } = Astro.props;
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+---
+
+<ul class="news">
+  {
+    items.map((n) => (
+      <li class="news__item">
+        <time class="news__date">{fmt(n.date)}</time>
+        <span class="news__text">
+          {n.link ? (
+            <a href={n.link} target="_blank" rel="noopener">
+              {n.text}
+            </a>
+          ) : (
+            n.text
+          )}
+        </span>
+      </li>
+    ))
+  }
+</ul>

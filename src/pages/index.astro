@@ -1,17 +1,40 @@
 ---
-// Step 1 placeholder page — replaced by the real homepage in a later step.
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import NewsList from '../components/NewsList.astro';
+
+const all = (await getCollection('projects', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.year - a.data.year
+);
+const featured = all.filter((p) => p.data.featured);
+const selected = (featured.length > 0 ? featured : all).slice(0, 6);
+
+const news = (await getCollection('news'))
+  .sort((a, b) => +b.data.date - +a.data.date)
+  .slice(0, 5);
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Hye-Young Jo</title>
-  </head>
-  <body>
-    <main>
-      <h1>Hye-Young Jo</h1>
-      <p>Scaffolding works. Real content coming soon.</p>
-    </main>
-  </body>
-</html>
+<BaseLayout>
+  <Hero />
+
+  <section class="container section">
+    <div class="section__head">
+      <h2>Selected Work</h2>
+      <a href="/work">View all →</a>
+    </div>
+    <div class="gallery__grid">
+      {selected.map((p) => <ProjectCard project={p} />)}
+    </div>
+  </section>
+
+  {
+    news.length > 0 && (
+      <section class="container section">
+        <h2>News</h2>
+        <NewsList items={news.map((n) => n.data)} />
+      </section>
+    )
+  }
+</BaseLayout>

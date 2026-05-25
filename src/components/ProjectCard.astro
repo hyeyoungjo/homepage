@@ -1,0 +1,47 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { TYPE_LABELS } from '../lib/site';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const d = project.data;
+
+// Precomputed search haystack for client-side filtering.
+const search = [d.title, d.authors.join(' '), d.venue, d.abstract, d.tags.join(' ')]
+  .filter(Boolean)
+  .join(' ')
+  .toLowerCase();
+---
+
+<a
+  class="card"
+  href={`/${project.id}`}
+  data-type={d.type}
+  data-year={d.year}
+  data-tags={d.tags.join(' ')}
+  data-search={search}
+>
+  <div class="card__media">
+    {
+      d.teaser ? (
+        <Image
+          src={d.teaser}
+          alt={d.teaserAlt ?? d.title}
+          widths={[400, 800]}
+          sizes="(max-width: 600px) 100vw, 400px"
+        />
+      ) : (
+        <div class="card__placeholder" />
+      )
+    }
+  </div>
+  <div class="card__body">
+    <span class="card__type">{TYPE_LABELS[d.type] ?? d.type}</span>
+    <h3 class="card__title">{d.title}</h3>
+    <p class="card__meta">{[d.venue, d.year].filter(Boolean).join(' · ')}</p>
+  </div>
+</a>

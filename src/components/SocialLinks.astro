@@ -1,0 +1,27 @@
+---
+import { SITE } from '../lib/site';
+
+const links = [
+  { label: 'Email', href: `mailto:${SITE.email}` },
+  { label: 'CV', href: SITE.cv },
+  { label: 'Scholar', href: SITE.socials.scholar },
+  { label: 'GitHub', href: SITE.socials.github },
+  { label: 'LinkedIn', href: SITE.socials.linkedin },
+  { label: 'X', href: SITE.socials.x },
+  { label: 'Instagram', href: SITE.socials.instagram },
+];
+---
+
+<div class="socials">
+  {
+    links.map((l) => (
+      <a
+        href={l.href}
+        target={l.href.startsWith('mailto') ? undefined : '_blank'}
+        rel="noopener"
+      >
+        {l.label}
+      </a>
+    ))
+  }
+</div>

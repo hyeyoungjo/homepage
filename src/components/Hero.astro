@@ -1,0 +1,18 @@
+---
+import { Image } from 'astro:assets';
+import profile from '../assets/profile.jpg';
+import { SITE } from '../lib/site';
+import SocialLinks from './SocialLinks.astro';
+---
+
+<section class="hero container">
+  <div class="hero__text">
+    <h1 class="hero__name">{SITE.name}</h1>
+    <p class="hero__tagline">{SITE.tagline}</p>
+    <p class="hero__intro">{SITE.intro}</p>
+    <SocialLinks />
+  </div>
+  <div class="hero__photo">
+    <Image src={profile} alt={SITE.name} widths={[280, 560]} sizes="280px" />
+  </div>
+</section>
