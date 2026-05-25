@@ -12,7 +12,7 @@ links:
   pdf: "https://arxiv.org/pdf/2512.17883"
   doi: "https://arxiv.org/abs/2512.17883"
   youtube: "https://youtu.be/k9t95G8ZqxM"
-featured: false
+featured: true
 draft: false
 ---
 

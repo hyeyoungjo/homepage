@@ -9,12 +9,14 @@ interface Props {
 
 const { projects } = Astro.props;
 const present = TYPE_ORDER.filter((t) => projects.some((p) => p.data.type === t));
+const hasSelected = projects.some((p) => p.data.featured);
 ---
 
 <section class="gallery">
   <div class="gallery__controls">
     <div class="gallery__filters" role="group" aria-label="Filter by type">
       <button class="chip is-active" data-filter="all">All</button>
+      {hasSelected && <button class="chip" data-filter="selected">Selected</button>}
       {present.map((t) => <button class="chip" data-filter={t}>{TYPE_LABELS[t]}</button>)}
     </div>
     <input class="gallery__search" type="search" placeholder="Search…" aria-label="Search projects" />
@@ -40,7 +42,12 @@ const present = TYPE_ORDER.filter((t) => projects.some((p) => p.data.type === t)
       const q = ((search && search.value) || '').trim().toLowerCase();
       let shown = 0;
       for (const card of cards) {
-        const okType = type === 'all' || card.dataset.type === type;
+        const okType =
+          type === 'all'
+            ? true
+            : type === 'selected'
+              ? card.dataset.featured === 'true'
+              : card.dataset.type === type;
         const okQ = !q || (card.dataset.search || '').includes(q);
         const show = okType && okQ;
         card.hidden = !show;

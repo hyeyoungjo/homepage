@@ -10,7 +10,7 @@ teaserAlt: "TingleTouch electrical stimulation guidance during weight training"
 tags: ["EMS", "fitness", "haptics"]
 links:
   youtube: "https://youtu.be/yZm9aFTJ3pE"
-featured: true
+featured: false
 draft: false
 ---
 

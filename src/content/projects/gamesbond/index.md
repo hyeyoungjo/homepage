@@ -13,7 +13,7 @@ links:
   pdf: "https://drive.google.com/file/d/15g2cdwuwwMAk6vLFfNet8wQNYtnZzPZS/view"
   doi: "https://doi.org/10.1145/3411764.3445727"
   youtube: "https://youtu.be/0f3wAVNglsk"
-featured: true
+featured: false
 draft: false
 ---
 

@@ -23,6 +23,7 @@ const search = [d.title, d.authors.join(' '), d.venue, d.abstract, d.tags.join('
   data-type={d.type}
   data-year={d.year}
   data-tags={d.tags.join(' ')}
+  data-featured={String(d.featured)}
   data-search={search}
 >
   <div class="card__media">
