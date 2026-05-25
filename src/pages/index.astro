@@ -3,7 +3,6 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import Gallery from '../components/Gallery.astro';
-import { SITE } from '../lib/site';
 
 const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.year - a.data.year
@@ -14,9 +13,6 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft)).so
   <Hero />
 
   <section id="work" class="container section">
-    <p class="work__interests">
-      <span class="work__interests-label">Research interests:</span> {SITE.researchInterests.join(' · ')}
-    </p>
     <Gallery projects={projects} />
   </section>
 </BaseLayout>
