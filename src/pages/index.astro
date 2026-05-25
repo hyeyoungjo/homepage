@@ -2,39 +2,16 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
-import NewsList from '../components/NewsList.astro';
 import Gallery from '../components/Gallery.astro';
 import { SITE } from '../lib/site';
 
 const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.year - a.data.year
 );
-const newsItems = (await getCollection('news'))
-  .sort((a, b) => +b.data.date - +a.data.date)
-  .map((n) => n.data);
-const newsTop = newsItems.slice(0, 2);
-const newsRest = newsItems.slice(2);
 ---
 
 <BaseLayout>
   <Hero />
-
-  {
-    newsItems.length > 0 && (
-      <section id="news" class="container section">
-        <NewsList items={newsTop} />
-        {newsRest.length > 0 && (
-          <details class="news-more">
-            <summary>
-              <span class="news-more__show">Show more ↓</span>
-              <span class="news-more__hide">Show less ↑</span>
-            </summary>
-            <NewsList items={newsRest} />
-          </details>
-        )}
-      </section>
-    )
-  }
 
   <section id="work" class="container section">
     <p class="work__interests">

@@ -1,0 +1,16 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import NewsList from '../components/NewsList.astro';
+
+const news = (await getCollection('news'))
+  .sort((a, b) => +b.data.date - +a.data.date)
+  .map((n) => n.data);
+---
+
+<BaseLayout title="News" description="News & updates — Hye-Young Jo">
+  <div class="container section">
+    <h1>News</h1>
+    <NewsList items={news} />
+  </div>
+</BaseLayout>
