@@ -1,8 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import YouTubeEmbed from '../components/YouTubeEmbed.astro';
-import Timeline from '../components/Timeline.astro';
+import JourneyReels from '../components/JourneyReels.astro';
 import kendo from '../assets/about/kendo.jpg';
 import filmmaker from '../assets/about/filmmaker.jpg';
 import artsyKid from '../assets/about/artsy-kid.jpg';
@@ -24,12 +23,10 @@ const photos = [
 ];
 ---
 
-<BaseLayout title="More" description="Hye-Young Jo — before research, and beyond">
+<BaseLayout title="More" description="Hye-Young Jo — before research, and beyond" theme="dark">
   <div class="container section prose about">
     <h1>More</h1>
     <p class="about__sub">Where I came from before research — and what I'm into outside it.</p>
-
-    <Timeline />
 
     <h2>Before research</h2>
     <p>
@@ -53,12 +50,7 @@ const photos = [
     </p>
 
     <h2>Showreels</h2>
-    <h3>Film VFX</h3>
-    <YouTubeEmbed url="https://youtu.be/0x7Rzw4ejqM" title="Film VFX showreel" />
-    <h3>Immersive Content (XR)</h3>
-    <YouTubeEmbed url="https://youtu.be/xaiEH6rCV44" title="Immersive content showreel" />
-    <h3>Fine Art</h3>
-    <YouTubeEmbed url="https://youtu.be/KPa9K04bg9M" title="Fine art showreel" />
+    <JourneyReels />
 
     <h2>Outside research</h2>
     <div class="about__gallery">

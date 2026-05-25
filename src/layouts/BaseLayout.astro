@@ -4,9 +4,10 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  theme?: 'light' | 'dark';
 }
 
-const { title = 'Hye-Young Jo', description = '' } = Astro.props;
+const { title = 'Hye-Young Jo', description = '', theme = 'light' } = Astro.props;
 const pageTitle = title === 'Hye-Young Jo' ? title : `${title} — Hye-Young Jo`;
 
 const nav = [
@@ -31,7 +32,7 @@ const nav = [
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=pause_circle,play_circle"
     />
   </head>
-  <body>
+  <body class={theme === 'dark' ? 'theme-dark' : undefined}>
     <header class="site-header">
       <div class="container site-header__inner">
         <a class="site-header__brand" href="/">Hye-Young Jo</a>

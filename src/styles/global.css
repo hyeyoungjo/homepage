@@ -6,10 +6,22 @@
   --color-muted: #6b6b6b;
   --color-border: #e7e7e7;
   --color-accent: #2563eb; /* deep lavender (readable on white); green alt #2f6f5e, blue alt #2563eb */
+  --header-bg: rgba(255, 255, 255, 0.85);
   --radius: 10px;
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
     Arial, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
   --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+}
+
+/* Dark theme — applied per-page via <body class="theme-dark">. Overrides the
+   CSS variables so the whole page (chrome included) follows automatically. */
+.theme-dark {
+  --color-bg: #0c0c0c;
+  --color-fg: #ededed;
+  --color-muted: #9a9a9a;
+  --color-border: #2b2b2b;
+  --color-accent: #6ea8fe;
+  --header-bg: rgba(12, 12, 12, 0.8);
 }
 
 * { box-sizing: border-box; }
@@ -38,7 +50,7 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.18; font-weight: 600
   border-bottom: 1px solid var(--color-border);
   position: sticky;
   top: 0;
-  background: rgba(255, 255, 255, 0.85);
+  background: var(--header-bg);
   backdrop-filter: saturate(180%) blur(8px);
   z-index: 10;
 }
