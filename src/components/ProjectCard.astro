@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import { TYPE_LABELS } from '../lib/site';
+import LinkRow from './LinkRow.astro';
 
 interface Props {
   project: CollectionEntry<'projects'>;
@@ -9,6 +10,7 @@ interface Props {
 
 const { project } = Astro.props;
 const d = project.data;
+const href = `/${project.id}`;
 
 // Precomputed search haystack for client-side filtering.
 const search = [d.title, d.authors.join(' '), d.venue, d.abstract, d.tags.join(' ')]
@@ -25,16 +27,15 @@ const meta = d.venue
   : yearStr;
 ---
 
-<a
+<article
   class="card"
-  href={`/${project.id}`}
   data-type={d.type}
   data-year={d.year}
   data-tags={d.tags.join(' ')}
   data-featured={String(d.featured)}
   data-search={search}
 >
-  <div class="card__media">
+  <a class="card__media" href={href} aria-label={d.title}>
     {
       d.teaser ? (
         <Image
@@ -47,11 +48,12 @@ const meta = d.venue
         <div class="card__placeholder" />
       )
     }
-  </div>
+  </a>
   <div class="card__body">
     <span class="card__type">{TYPE_LABELS[d.type] ?? d.type}</span>
-    <h3 class="card__title">{d.title}</h3>
+    <h3 class="card__title"><a href={href}>{d.title}</a></h3>
     <p class="card__meta">{meta}</p>
     {d.abstract && <p class="card__excerpt">{d.abstract}</p>}
+    <div class="card__links"><LinkRow links={d.links} originalLink={d.originalLink} /></div>
   </div>
-</a>
+</article>
