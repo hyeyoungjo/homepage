@@ -9,19 +9,29 @@ import { SITE } from '../lib/site';
 const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.year - a.data.year
 );
-const news = (await getCollection('news'))
+const newsItems = (await getCollection('news'))
   .sort((a, b) => +b.data.date - +a.data.date)
-  .slice(0, 6);
+  .map((n) => n.data);
+const newsTop = newsItems.slice(0, 2);
+const newsRest = newsItems.slice(2);
 ---
 
 <BaseLayout>
   <Hero />
 
   {
-    news.length > 0 && (
+    newsItems.length > 0 && (
       <section id="news" class="container section">
-        <h2>News</h2>
-        <NewsList items={news.map((n) => n.data)} />
+        <NewsList items={newsTop} />
+        {newsRest.length > 0 && (
+          <details class="news-more">
+            <summary>
+              <span class="news-more__show">Show more ↓</span>
+              <span class="news-more__hide">Show less ↑</span>
+            </summary>
+            <NewsList items={newsRest} />
+          </details>
+        )}
       </section>
     )
   }
@@ -30,7 +40,6 @@ const news = (await getCollection('news'))
     <p class="work__interests">
       <span class="work__interests-label">Research interests:</span> {SITE.researchInterests.join(' · ')}
     </p>
-    <h2>Work</h2>
     <Gallery projects={projects} />
   </section>
 </BaseLayout>
