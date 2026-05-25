@@ -29,12 +29,12 @@ export const SITE = {
 
 // Display labels for the project `type` field (used by gallery filters + cards).
 export const TYPE_LABELS: Record<string, string> = {
-  paper: 'Publication',
-  design: 'UX',
+  paper: 'Research',
+  design: 'Research',
   xr: 'XR',
   film: 'Film',
   art: 'Art',
 };
 
 // Order types appear in the filter bar.
-export const TYPE_ORDER = ['paper', 'design', 'xr', 'film', 'art'];
+export const TYPE_ORDER = ['paper', 'xr', 'film', 'art'];
