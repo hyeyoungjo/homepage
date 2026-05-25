@@ -2,7 +2,6 @@
 import { Image } from 'astro:assets';
 import profile from '../assets/profile.jpg';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import SocialLinks from '../components/SocialLinks.astro';
 import YouTubeEmbed from '../components/YouTubeEmbed.astro';
 import { SITE } from '../lib/site';
 ---
@@ -51,6 +50,11 @@ import { SITE } from '../lib/site';
       Studios</a>, a Korean film company, for four years — first as a VFX compositor in film
       post-production, then as an XR generalist creating 3D characters and virtual environments.
     </p>
+    <p>
+      When I'm not in the lab, I'm usually practicing Kendo, getting lost in shark documentaries, or
+      spending time with cats 🐱. Above all, I care deeply about the people around me — I believe the
+      most meaningful work grows out of genuine relationships.
+    </p>
 
     <h2>Showreels</h2>
     <p>Reels showcasing my work across fields outside research.</p>
@@ -60,19 +64,5 @@ import { SITE } from '../lib/site';
     <YouTubeEmbed url="https://youtu.be/xaiEH6rCV44" title="Immersive content showreel" />
     <h3>Fine Art</h3>
     <YouTubeEmbed url="https://youtu.be/KPa9K04bg9M" title="Fine art showreel" />
-
-    <h2>Selected awards</h2>
-    <ul>
-      <li>Google Ph.D. Fellowship in Human–Computer Interaction (2025)</li>
-      <li>Ralph J. Slutz Student Excellence Award (2025)</li>
-      <li>Best Paper Award, HCI Korea 2022</li>
-      <li>Honorable Mention, ACM CHI 2021</li>
-    </ul>
-
-    <h2>Research interests</h2>
-    <p>{SITE.researchInterests.join(' · ')}</p>
-
-    <h2>Elsewhere</h2>
-    <SocialLinks />
   </div>
 </BaseLayout>
