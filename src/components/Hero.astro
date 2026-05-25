@@ -15,10 +15,6 @@ import SocialLinks from './SocialLinks.astro';
     <p class="hero__tagline">{SITE.tagline}</p>
     <p class="hero__intro" set:html={SITE.intro} />
     <p class="hero__intro" set:html={SITE.research} />
-    <p class="hero__interests">
-      <span class="hero__interests-label">Research interests:</span>
-      {SITE.researchInterests.join(' · ')}
-    </p>
     <SocialLinks />
   </div>
   <div class="hero__photo">
