@@ -14,7 +14,7 @@ import SocialLinks from './SocialLinks.astro';
       </button>
       <audio src={SITE.audio} preload="none"></audio>
     </h1>
-    <p class="hero__tagline">{SITE.tagline}</p>
+    <p class="hero__tagline" set:html={SITE.tagline} />
     <p class="hero__intro" set:html={SITE.intro} />
     <p class="hero__intro" set:html={SITE.research} />
     <SocialLinks />
