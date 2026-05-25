@@ -3,26 +3,35 @@ title: "ASAPeople"
 type: "art"
 year: 2021
 authors: ["Hye-Young Jo"]
-abstract: "2021 material exploration of the hot ice"
-teaser: ./teaser.png
-teaserAlt: "ASAPeople"
+abstract: "A material exploration of 'hot ice' (sodium acetate) — sculpting with a liquid that freezes on demand into a solid while giving off heat."
+teaser: ./asapeople.jpg
+teaserAlt: "ASAPeople — hot ice sculpture"
+tags: ["material exploration", "sculpture"]
 featured: false
 draft: false
 ---
-ASAPeople is an exploration of the material called "hot ice(Sodium Acetate)."
 
-ASAPeople hot ice sculpture, 2021
+*Hot ice sculpture · 2021*
 
-Material Sodium Acetate Trihydrate (SAT), CH3COONa·3H2O, used in hot packs, is a phase change material (PCM) that transitions between a liquid SA aqueous solution and solid SAT. When liquid SA is poured onto a tiny amount of solid SAT, it instantly forms an ice sculpture while releasing heat. This phenomenon is commonly known as "hot ice." (Please see the fascinating video below)
+*ASAPeople* is an exploration of "hot ice" — sodium acetate.
 
-Food for Thought
+![](./asapeople.jpg)
 
-' Creating a Sodium Acetate Printer (ASAPrinter) sounds intriguing. It could be a neat way to build ice sculptures quickly. Plus, if I'm not satisfied with the result, I can easily melt it in the microwave and reuse the liquid SA solution to craft another ice sculpture with SAT. It might also be fun to try building on top of existing sculptures or connecting two sculptures using the liquid SA solution. However, I should be aware of potential downsides, such as ensuring the right solubility and avoiding syringe clogs for accurate results...'
+## The material
 
-Thickness Test (Height: 25mm, different size nozzles)
+Sodium acetate trihydrate (SAT, CH₃COONa·3H₂O), the same compound found in reusable hand warmers, is a
+phase-change material that moves between a liquid solution and a solid crystal. Pour the liquid onto a
+tiny seed of solid SAT and it instantly grows into an ice-like sculpture while releasing heat — the
+phenomenon known as "hot ice."
 
-![](./image-01.png)
+## Food for thought
 
-![](./image-02.png)
+A sodium-acetate printer ("ASAPrinter") is a tempting next step: a fast way to build ice sculptures,
+and a forgiving one — if I don't like a result, I can melt it in the microwave and reuse the same
+solution for the next attempt. Building on top of existing sculptures, or joining two with fresh
+liquid, could be just as interesting. The real challenge is control: getting the solubility right and
+keeping the syringe from clogging.
 
-![](./image-03.png)
+![](./syringe-test.jpg)
+
+*Thickness test — 25 mm height, different nozzle sizes.*

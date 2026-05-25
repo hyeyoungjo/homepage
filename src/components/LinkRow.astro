@@ -4,6 +4,9 @@ interface Props {
     pdf?: string;
     doi?: string;
     youtube?: string;
+    preview?: string;
+    presentation?: string;
+    supplement?: string;
     website?: string;
     github?: string;
   };
@@ -16,6 +19,9 @@ const items = [
   links.pdf && { label: 'PDF', href: links.pdf },
   links.doi && { label: 'DOI', href: links.doi },
   links.youtube && { label: 'Video', href: links.youtube },
+  links.preview && { label: 'Preview', href: links.preview },
+  links.presentation && { label: 'Talk', href: links.presentation },
+  links.supplement && { label: 'Supplement', href: links.supplement },
   links.website && { label: 'Website', href: links.website },
   links.github && { label: 'Code', href: links.github },
   originalLink && { label: 'Original', href: originalLink },

@@ -12,9 +12,26 @@ links:
   pdf: "https://drive.google.com/file/d/15D7VAkpKfBW5MitF5YWIJlyh6L2CnTNe/view?usp=drive_link"
   doi: "https://doi.org/10.1145/3772318.3791646"
   youtube: "https://youtu.be/yZm9aFTJ3pE"
+  presentation: "https://www.youtube.com/watch?v=c2V6KSM-8po"
 featured: false
 draft: false
 ---
 
-<!-- Add your process narrative here. Drop images/clips into this folder and embed
-     them with ![caption](./file.png). -->
+## Problem — a trainer's touch is hard to replicate alone
+
+In resistance training, trainers use touch to help trainees fix their posture and activate the right
+muscles. Haptic feedback could bring that support to solitary workouts, but translating the nuance of a
+trainer's touch into effective haptic patterns is difficult.
+
+## Solution — electrical stimulation patterns for a trainer's cues
+
+We categorized the instructional messages a trainer conveys through touch and designed electrical
+stimulation (EMS) patterns to replicate them. A preliminary study with six trainers and six trainees
+identified six core messages; we designed an EMS pattern for each and refined them with two sports
+scientists and a UX designer.
+
+## Evaluation
+
+Sixteen gym-goers tested the patterns in a controlled exercise task. They reliably distinguished the
+feedback and engaged the instructed muscles — 97.14% and 99.22% accuracy across two sessions,
+cross-checked with EMG and pose estimation — showing the feedback is intuitive and learnable.

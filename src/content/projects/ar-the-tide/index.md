@@ -2,7 +2,7 @@
 title: "AR The Tide"
 type: "xr"
 year: 2019
-authors: ["Hye-Young Jo"]
+authors: []
 venue: "Dexter Studios × Naver"
 abstract: "An AR exhibition for the Bucheon International Fantastic Film Festival promoting the VR horror film VR The Tide. As a general artist I handled 3D modeling optimization, particles, screen effects, and UI."
 teaser: ./teaser.png
@@ -14,9 +14,9 @@ draft: false
 
 ![Demo](./artide.gif)
 
-AR The Tide is an AR exhibition project created for the Bucheon International Fantastic Film
-Festival to promote the VR horror film VR The Tide. I joined as a general artist, in charge of
-3D modeling optimization, particles, screen effects, and UI.
+AR The Tide is an AR exhibition I helped build for the Bucheon International Fantastic Film Festival,
+promoting Dexter Studios' VR horror film *VR The Tide*. I worked as a technical artist, handling 3D
+model optimization, particle and screen effects, and the UI.
 
 ## How it works
 
@@ -31,13 +31,8 @@ applying lighter shaders and an outline effect, with extra visual effects (e.g.,
 effect) where needed.
 
 ![](./mockup2.png)
-![](./mockup3.png)
 ![](./mockup4.png)
-![](./mockup5.png)
 ![](./VRtide18.png)
-![](./VRtide19.png)
 ![](./bifan1.png)
-![](./bifan2.png)
 ![](./bifan3.png)
-![](./bifan4.png)
 ![](./table.png)

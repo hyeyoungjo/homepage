@@ -15,7 +15,21 @@ const d = project.data;
   <header class="prose">
     <p class="project__type">{d.type}{d.year ? ` · ${d.year}` : ''}</p>
     <h1>{d.title}</h1>
-    {d.authors.length > 0 && <p class="project__authors">{d.authors.join(', ')}</p>}
+    {
+      d.authors.length > 0 && (
+        <p class="project__authors">
+          {d.authors.map((a, i) => (
+            <>
+              {i > 0 ? ', ' : ''}
+              {a.replace(/\*+$/, '').trim() === 'Hye-Young Jo' ? <strong>{a}</strong> : a}
+            </>
+          ))}
+        </p>
+      )
+    }
+    {d.authors.some((a) => a.trim().endsWith('*')) && (
+      <p class="project__authors-note">* Equal contribution</p>
+    )}
     {
       d.venue && (
         <p class="project__venue">

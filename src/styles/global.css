@@ -90,6 +90,8 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.18; font-weight: 600
 }
 .project h1 { font-size: 2.1rem; margin: 0 0 0.75rem; }
 .project__authors { margin: 0.25rem 0; }
+.project__authors strong { font-weight: 700; }
+.project__authors-note { color: var(--color-muted); font-size: 0.82rem; margin: 0 0 1rem; }
 .project__venue { color: var(--color-muted); margin: 0.25rem 0 1.25rem; }
 .project__teaser img { width: 100%; border-radius: var(--radius); margin: 1.5rem 0; }
 .project__abstract { font-size: 1.05rem; color: #333; margin: 1.5rem auto; }
@@ -118,6 +120,22 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.18; font-weight: 600
   width: 100%;
   border-radius: var(--radius);
   margin: 1.5rem 0;
+}
+/* Grouped process images (several on consecutive lines = one paragraph) flow into a
+   neat grid; a lone image stays full-width so the finished work reads clearly. */
+.project__body p:has(img + img) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.6rem;
+  align-items: start;
+  margin: 1.5rem 0;
+}
+.project__body p:has(img + img) img { margin: 0; }
+/* The italic context label under the title/video (e.g. "Watercolor · 2014") reads as a caption. */
+.project__body > p:first-child:has(em:only-child) {
+  color: var(--color-muted);
+  font-size: 0.92rem;
+  margin: 0 0 1.75rem;
 }
 
 /* Inline media captions (remark-video + markdown images) */
@@ -172,7 +190,7 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.18; font-weight: 600
 /* Research interests — subtle, right-aligned above the Work gallery */
 .work__interests { color: #9a9a9a; font-size: 0.78rem; line-height: 1.5; text-align: right; margin: 0 0 0.5rem; }
 .work__interests-label { color: #9a9a9a; }
-.hero__photo img { width: 230px; height: auto; border-radius: 14px; }
+.hero__photo img { width: 230px; height: 230px; border-radius: 50%; object-fit: cover; }
 
 /* About page */
 .about__head { display: flex; align-items: center; gap: 1.25rem; margin-bottom: 1rem; }
@@ -243,6 +261,9 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.18; font-weight: 600
 .card__title { font-family: var(--font-serif); font-size: 1.05rem; line-height: 1.25; margin: 0.25rem 0 0.2rem; }
 .card__meta { color: var(--color-muted); font-size: 0.88rem; margin: 0; }
 .card__excerpt { display: none; color: var(--color-muted); font-size: 0.9rem; line-height: 1.5; margin: 0.45rem 0 0; }
+.card__authors { display: none; color: var(--color-muted); font-size: 0.85rem; line-height: 1.4; margin: 0.2rem 0 0.1rem; }
+.card__authors strong { color: var(--color-fg); font-weight: 600; }
+.gallery__grid.is-list .card__authors { display: block; }
 .card:hover .card__title { color: var(--color-accent); }
 
 /* News */
@@ -259,11 +280,11 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.18; font-weight: 600
 /* Mobile */
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr; gap: 1.75rem; padding-top: 2rem; }
-  .hero__photo img { width: 200px; }
+  .hero__photo img { width: 200px; height: 200px; }
   .hero__news { width: 100%; }
 }
 @media (max-width: 640px) {
-  .hero__photo img { width: 160px; }
+  .hero__photo img { width: 160px; height: 160px; }
   .news__item { flex-direction: column; gap: 0.15rem; }
   .news__date { min-width: 0; }
 }

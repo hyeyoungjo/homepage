@@ -15,18 +15,18 @@ const hasSelected = projects.some((p) => p.data.featured);
 <section class="gallery">
   <div class="gallery__controls">
     <div class="gallery__filters" role="group" aria-label="Filter by type">
-      <button class="chip is-active" data-filter="all">All</button>
-      {hasSelected && <button class="chip" data-filter="selected">Selected</button>}
+      <button class={hasSelected ? 'chip' : 'chip is-active'} data-filter="all">All</button>
+      {hasSelected && <button class="chip is-active" data-filter="selected">Selected</button>}
       {present.map((t) => <button class="chip" data-filter={t}>{TYPE_LABELS[t]}</button>)}
     </div>
     <input class="gallery__search" type="search" placeholder="Search…" aria-label="Search projects" />
     <div class="gallery__view" role="group" aria-label="View">
-      <button class="vtoggle" type="button" data-view="grid">Grid</button>
-      <button class="vtoggle is-active" type="button" data-view="list">List</button>
+      <button class="vtoggle is-active" type="button" data-view="grid">Grid</button>
+      <button class="vtoggle" type="button" data-view="list">List</button>
     </div>
   </div>
   <p class="gallery__count" aria-live="polite"></p>
-  <div class="gallery__grid is-list">
+  <div class="gallery__grid">
     {projects.map((p) => <ProjectCard project={p} />)}
   </div>
   <p class="gallery__empty" hidden>No projects match.</p>
@@ -40,7 +40,7 @@ const hasSelected = projects.some((p) => p.data.featured);
     const cards = Array.from(root.querySelectorAll('.card'));
     const count = root.querySelector('.gallery__count');
     const empty = root.querySelector('.gallery__empty');
-    let type = 'all';
+    let type = (root.querySelector('.chip.is-active') && root.querySelector('.chip.is-active').dataset.filter) || 'all';
 
     const apply = () => {
       const q = ((search && search.value) || '').trim().toLowerCase();
@@ -59,6 +59,11 @@ const hasSelected = projects.some((p) => p.data.featured);
       }
       if (count) count.textContent = shown + (shown === 1 ? ' project' : ' projects');
       if (empty) empty.hidden = shown !== 0;
+      // Remember the current filter/search so the back button returns here.
+      try {
+        sessionStorage.setItem('galleryType', type);
+        sessionStorage.setItem('gallerySearch', (search && search.value) || '');
+      } catch (e) {}
     };
 
     chips.forEach((chip) =>
@@ -77,12 +82,23 @@ const hasSelected = projects.some((p) => p.data.featured);
     const setView = (view) => {
       if (grid) grid.classList.toggle('is-list', view === 'list');
       vtoggles.forEach((b) => b.classList.toggle('is-active', b.dataset.view === view));
-      try { localStorage.setItem('galleryView', view); } catch (e) {}
+      try { localStorage.setItem('galleryView2', view); } catch (e) {}
     };
     vtoggles.forEach((b) => b.addEventListener('click', () => setView(b.dataset.view)));
     let savedView = null;
-    try { savedView = localStorage.getItem('galleryView'); } catch (e) {}
-    setView(savedView || 'list');
+    try { savedView = localStorage.getItem('galleryView2'); } catch (e) {}
+    setView(savedView || 'grid');
+
+    // Restore the last filter/search (e.g. after pressing back from a project page).
+    try {
+      const savedType = sessionStorage.getItem('galleryType');
+      const savedSearch = sessionStorage.getItem('gallerySearch');
+      if (savedType && root.querySelector('.chip[data-filter="' + savedType + '"]')) {
+        type = savedType;
+        chips.forEach((c) => c.classList.toggle('is-active', c.dataset.filter === savedType));
+      }
+      if (savedSearch && search) search.value = savedSearch;
+    } catch (e) {}
 
     apply();
   }

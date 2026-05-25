@@ -4,9 +4,9 @@ type: "art"
 year: 2020
 authors: ["Hye-Young Jo"]
 venue: "KAIST ID506 Media Interaction Design (Prof. Woohun Lee)"
-abstract: "A material exploration of polarizing film: a transparent, shape-changing physical interface that achieves a color-changing effect through the polarization and refraction of polarizing and OPP film."
-teaser: ./teaser.png
-teaserAlt: "Chameleon — polarizing films and OPP films on acrylic gears"
+abstract: "A material exploration of polarizing film: a transparent, shape-changing physical interface that produces a color-changing effect through the polarization and refraction of polarizing and OPP film."
+teaser: ./chameleon-1.jpg
+teaserAlt: "Chameleon — polarizing and OPP films on acrylic gears"
 tags: ["material exploration", "physical interface", "installation"]
 links:
   pdf: "https://drive.google.com/file/d/1Rd8HokijPSs64E9leYtFWkQcoLHfwj12/view"
@@ -14,20 +14,21 @@ featured: false
 draft: false
 ---
 
-2020 material exploration of the polarizing film. Chameleon was made in a class
-(KAIST ID506 Media Interaction Design) led by Prof. Woohun Lee.
+*Polarizing and OPP films on acrylic gears, rotated by a servo motor · 2020*
 
-![Polarizing films and OPP films on acrylic gears rotating by a servo motor, 2020](./process-01.png)
+*Chameleon* came out of a material exploration in **KAIST ID506 Media Interaction Design**
+(Prof. Woohun Lee), built around polarizing film.
 
-The polarizing film is used by many makers because of its magical effect of turning views black
-with transparent films. While previous works have succeeded in creating unexpected visual impact,
-their focus on dual layers of the polarizing film raises questions about its incomplete exploration
-of the material. Some use additional layers between polarizing films, such as OPP (oriented
-polypropylene) film, creating a color-changing effect — but these works are static and function as
-just decorative elements.
+![](./chameleon-1.jpg)
 
-I present Chameleon, a transparent shape-changing physical interface achieving a color-changing
-effect using polarization and refraction of polarizing film and OPP film. I explored the films in
-their restriction of color representation and different shapes as the basis for a controllable
-interface, proposing a layered gear mechanism as a module that can be replicated into various
-graphics.
+Polarizing film is popular with makers for its almost magical trick — transparent sheets that turn a
+view black as they rotate. Earlier works drew striking visual impact from it, but mostly stopped at
+two stacked layers; adding an in-between layer such as OPP (oriented polypropylene) film produces a
+color-changing effect, yet those pieces tend to stay static and decorative.
+
+*Chameleon* pushes the material further: a transparent, shape-changing interface that produces color
+through the polarization and refraction of polarizing and OPP film. Treating the films' limited color
+range and varied shapes as the basis for control, I built a layered gear mechanism — a module that can
+be repeated and recombined into many different graphics.
+
+![](./chameleon-2.jpg)

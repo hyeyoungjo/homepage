@@ -2,23 +2,29 @@
 title: "Along with the Gods: The Two Worlds"
 type: "film"
 year: 2017
-authors: ["Hye-Young Jo"]
-abstract: "Dexter Studios 🏆 2018 Blue Dragon Film Awards"
-teaser: ./teaser.png
+authors: []
+venue: "Dexter Studios"
+abstract: "A South Korean fantasy-action film based on the webtoon by Ho-Min Joo. I worked on the post-production as a VFX compositor at Dexter Studios."
+teaser: ./still.jpg
 teaserAlt: "Along with the Gods: The Two Worlds"
+award: "Blue Dragon Film Awards 2018"
+tags: ["VFX", "compositing", "Dexter Studios"]
+links:
+  youtube: "https://youtu.be/0x7Rzw4ejqM"
 featured: false
 draft: false
 ---
-<Along with The Gods: The Two Worlds> is a South Korean fantasy action film directed by Yong-Hwa Kim and based on a webtoon <Along with The Gods> by Ho-Min Joo. I participated in the post-production as a VFX compositor led by VFX supervisor Jong-Hyun Jin.
 
-Synopsis A firefighter dies and arrives in the afterlife, where Guardians take him through the seven trials and a perilous journey through different hells.
 
-Trailer
+*My VFX compositing showreel · Dexter Studios, 2016–2018*
 
-VFX Showreel
+*Along with the Gods: The Two Worlds*, directed by Yong-Hwa Kim, is based on Ho-Min Joo's webtoon
+*Along with the Gods*. I joined the post-production as a **VFX compositor** on the team led by VFX
+supervisor Jong-Hyun Jin at **Dexter Studios**.
 
-> Dexter Studios: Web > Watch the film: Netflix, YouTube
+## Synopsis
 
-![](./image-01.png)
+A firefighter dies and arrives in the afterlife, where Guardians lead him through seven trials and a
+perilous journey across different hells.
 
-![](./image-02.png)
+![](./still.jpg)

@@ -16,4 +16,26 @@ featured: true
 draft: false
 ---
 
-<!-- Add your process narrative here. -->
+## Problem — AI video generation isn't grounded in the real world
+
+Text- and image-to-video tools have lowered the barrier to video creation, but they struggle with
+consistency: clips fail to match characters and backgrounds, making coherent sequences hard to build.
+Crucially, they aren't grounded in real locations — users must describe a scene in text or supply
+reference images by shooting on-site or searching. A formative study with filmmakers surfaced
+challenges in shot composition, character motion, and camera control.
+
+## Solution — generating video from street-view imagery
+
+Map2Video is a street-view-imagery-driven AI video generation tool grounded in real-world geography.
+It integrates Unity and ComfyUI with the VACE video-generation model, plus OpenStreetMap and Mapillary
+for street view. Following familiar filmmaking practices like location scouting and rehearsal, users
+choose a map location, position actors and cameras in the street view, sketch movement paths, refine
+camera motion, and generate spatially consistent video.
+
+## Evaluation
+
+In a study with 12 filmmakers, Map2Video beat an image-to-video baseline on spatial accuracy, required
+less cognitive effort, and gave stronger control — for both replicating scenes and open-ended creative
+exploration.
+
+*Work done as an intern at Fujitsu Research of America.*

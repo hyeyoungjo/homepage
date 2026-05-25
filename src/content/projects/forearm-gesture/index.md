@@ -17,4 +17,15 @@ featured: false
 draft: false
 ---
 
-<!-- Add your process narrative here. -->
+## Problem — VR avatars deform passively, not on command
+
+As VR avatar body-deformation effects have grown, most work has focused on *passive* deformation,
+leaving users with few ways to actively control how their virtual body changes.
+
+## Approach — mapping gestures to forearm deformation
+
+We explored user-controlled forearm deformation by studying how hand and forearm gestures can map to
+different deformation types and degrees. A gesture-design workshop with six designers produced 15
+gesture sets; we took the three highest-rated and ran a comparative study evaluating the sense of
+embodiment and user performance. The work offers design suggestions for gesture-controlled forearm
+deformation in VR.

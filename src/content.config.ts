@@ -27,6 +27,9 @@ const projects = defineCollection({
           pdf: z.string().url().optional(),
           doi: z.string().url().optional(),
           youtube: z.string().url().optional(),
+          preview: z.string().url().optional(),
+          presentation: z.string().url().optional(),
+          supplement: z.string().url().optional(),
           website: z.string().url().optional(),
           github: z.string().url().optional(),
         })

@@ -16,4 +16,24 @@ featured: true
 draft: false
 ---
 
-<!-- Add your process narrative here. -->
+## Problem — lecture videos are the same for everyone
+
+Lecture videos on platforms like Coursera and Khan Academy are static: once published, every viewer
+watches exactly the same content, regardless of their needs or context. The experience is passive and
+one-directional — unlike an in-person lecture, you can't ask the video a question.
+
+## Solution — an AI clone instructor that answers inside the video
+
+Generative Lecture turns an existing lecture video into an interactive, personalized experience. An AI
+clone of the instructor — built with HeyGen, ElevenLabs, and GPT-5 — is embedded into the video, and
+the system generates new material on demand in response to a student's question, inserting it into the
+slides so the instructor appears to answer directly.
+
+From a design elicitation study (N=8) we identified four goals, which guided eight features: on-demand
+clarification, enhanced visuals, interactive examples, personalized explanations, adaptive quizzes,
+study summaries, automatic highlights, and adaptive breaks.
+
+## Evaluation
+
+A user study (N=12) and expert feedback (N=5) suggested the system supports effective two-way
+communication and personalized learning.

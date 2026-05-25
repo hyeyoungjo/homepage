@@ -2,23 +2,29 @@
 title: "Along with the Gods: The Last 49 Days"
 type: "film"
 year: 2018
-authors: ["Hye-Young Jo"]
-abstract: "Dexter Studios 🏆 2018 Grand Bell Award for Best Visual Effects"
-teaser: ./teaser.png
+authors: []
+venue: "Dexter Studios"
+abstract: "The sequel to The Two Worlds, based on Ho-Min Joo's webtoon. I worked on the post-production as a VFX compositor at Dexter Studios."
+teaser: ./still.jpg
 teaserAlt: "Along with the Gods: The Last 49 Days"
+award: "Grand Bell Award, Best Visual Effects (2018)"
+tags: ["VFX", "compositing", "Dexter Studios"]
+links:
+  youtube: "https://youtu.be/0x7Rzw4ejqM"
 featured: false
 draft: false
 ---
-<Along with The Gods: The Last 49 Days> is a South Korean fantasy action film directed by Yong-Hwa Kim and based on a webtoon <Along with The Gods> by Ho-Min Joo. This film is the sequel to the 2017 film <Along with the Gods: The Two Worlds>. I participated in the post-production as a VFX compositor led by VFX supervisor Jong- Hyun Jin.
 
-Synopsis While defending an unlikely soul, the afterlife Guardians investigate an elderly man who’s outstayed his time on Earth, and delve into their own past.
 
-Trailer
+*My VFX compositing showreel · Dexter Studios, 2016–2018*
 
-VFX Showreel
+*Along with the Gods: The Last 49 Days*, directed by Yong-Hwa Kim, is the sequel to *The Two Worlds*,
+based on Ho-Min Joo's webtoon *Along with the Gods*. I joined the post-production as a **VFX
+compositor** on the team led by VFX supervisor Jong-Hyun Jin at **Dexter Studios**.
 
-> Dexter Studios: Web > Watch the film: Netflix, YouTube
+## Synopsis
 
-![](./image-01.png)
+While defending an unlikely soul, the afterlife Guardians look into an elderly man who has outstayed
+his time on Earth — and into their own pasts.
 
-![](./image-02.png)
+![](./still.jpg)

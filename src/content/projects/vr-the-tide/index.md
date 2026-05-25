@@ -2,7 +2,7 @@
 title: "VR The Tide"
 type: "xr"
 year: 2020
-authors: ["Hye-Young Jo"]
+authors: []
 venue: "Dexter Studios × Naver"
 abstract: "A VR toon horror film by Dexter Studios based on Naver's webtoon The Tide — six interactive ~5-minute episodes. I worked as a VR artist on episodes 2–6, and the project was officially invited to Sundance 2019's New Frontier."
 teaser: ./teaser.png
@@ -22,8 +22,8 @@ interactive horror films, each running about five minutes.
 
 Humanity is suffering the worst drought in history; humans are no longer masters of water. Giant
 fish, far larger than people, devour humans and ravage cities, and those caught turn into fish
-zombies. So-Won Moon, a 17-year-old high-school student with a physical disability, tricks his
-zombie auntie next door into believing he is her dead son in order to survive.
+zombies. So-Won Moon, a 17-year-old high-school student with a physical disability, survives by
+tricking his zombified aunt next door into believing he is her dead son.
 
 ## Visual style & interaction
 
@@ -33,18 +33,12 @@ minimizing VR motion sickness.
 
 ## Process
 
-I joined as a VR artist on episodes 2–6, responsible for concept art, modeling, texturing, level
-design and optimization, lighting, material, effects, look development, and animated UI.
+I joined as a VR artist on episodes 2–6, working across the art pipeline — concept and modeling,
+texturing and look development, lighting, materials and effects, level optimization, and animated UI.
 
 ![](./c1.png)
-![](./c2.png)
 ![](./c3.png)
-![](./c4.png)
 ![](./c5.png)
-![](./c6.png)
 ![](./c7.png)
-![](./c8.png)
 ![](./c9.png)
-![](./c10.png)
 ![](./gearvrmockup.png)
-![](./lens.png)
