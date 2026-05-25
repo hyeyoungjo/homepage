@@ -135,8 +135,8 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.18; font-weight: 600
 .hero__audio:hover { border-color: var(--color-accent); }
 .hero__tagline { font-size: 1.2rem; color: #333; margin: 0 0 1.25rem; }
 .hero__intro { color: #333; max-width: 58ch; margin: 0 0 1rem; }
-.hero__interests { color: var(--color-muted); max-width: 58ch; margin: 1rem 0; font-size: 0.95rem; }
-.hero__interests-label { display: block; text-transform: uppercase; letter-spacing: 0.07em; font-size: 0.72rem; color: var(--color-accent); margin-bottom: 0.25rem; }
+.hero__interests { color: #9a9a9a; max-width: 58ch; margin: 0.75rem 0; font-size: 0.78rem; line-height: 1.5; }
+.hero__interests-label { color: #9a9a9a; }
 .hero__photo img { width: 260px; height: auto; border-radius: 14px; }
 
 /* Social links */
