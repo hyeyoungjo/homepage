@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import profile from '../assets/profile.jpg';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SocialLinks from '../components/SocialLinks.astro';
+import YouTubeEmbed from '../components/YouTubeEmbed.astro';
 import { SITE } from '../lib/site';
 ---
 
@@ -50,6 +51,15 @@ import { SITE } from '../lib/site';
       Studios</a>, a Korean film company, for four years — first as a VFX compositor in film
       post-production, then as an XR generalist creating 3D characters and virtual environments.
     </p>
+
+    <h2>Showreels</h2>
+    <p>Reels showcasing my work across fields outside research.</p>
+    <h3>Film VFX</h3>
+    <YouTubeEmbed url="https://youtu.be/0x7Rzw4ejqM" title="Film VFX showreel" />
+    <h3>Immersive Content (XR)</h3>
+    <YouTubeEmbed url="https://youtu.be/xaiEH6rCV44" title="Immersive content showreel" />
+    <h3>Fine Art</h3>
+    <YouTubeEmbed url="https://youtu.be/KPa9K04bg9M" title="Fine art showreel" />
 
     <h2>Selected awards</h2>
     <ul>
