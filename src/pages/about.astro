@@ -4,6 +4,21 @@ import profile from '../assets/profile.jpg';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import YouTubeEmbed from '../components/YouTubeEmbed.astro';
 import { SITE } from '../lib/site';
+import kendo from '../assets/about/kendo.jpg';
+import filmmaker from '../assets/about/filmmaker.jpg';
+import artsyKid from '../assets/about/artsy-kid.jpg';
+import wine from '../assets/about/wine.png';
+import travel from '../assets/about/travel.png';
+import haru from '../assets/about/haru.jpg';
+
+const photos = [
+  { src: kendo, caption: 'Kendo' },
+  { src: filmmaker, caption: 'Filmmaking' },
+  { src: artsyKid, caption: 'Always making' },
+  { src: travel, caption: 'Travel' },
+  { src: wine, caption: 'Red wine' },
+  { src: haru, caption: 'Haru 🐱' },
+];
 ---
 
 <BaseLayout title="About" description="About Hye-Young Jo">
@@ -54,6 +69,17 @@ import { SITE } from '../lib/site';
       Outside research, I practice Kendo, watch way too many shark documentaries, and love cats 🐱.
       And I really value the people in my life.
     </p>
+
+    <div class="about__gallery">
+      {
+        photos.map((p) => (
+          <figure>
+            <Image src={p.src} alt={p.caption} widths={[200, 400]} sizes="(max-width: 600px) 45vw, 200px" />
+            <figcaption>{p.caption}</figcaption>
+          </figure>
+        ))
+      }
+    </div>
 
     <h2>Showreels</h2>
     <p>Reels showcasing my work across fields outside research.</p>
