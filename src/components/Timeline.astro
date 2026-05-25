@@ -1,10 +1,9 @@
 ---
 // Vertical career flow as an SVG "draw" path. Years are approximate — tweak here.
 const steps = [
-  { y: '–2015', t: 'Fine Art' },
-  { y: '2016–18', t: 'Film VFX' },
-  { y: '2018–19', t: 'XR' },
-  { y: '2020–now', t: 'HCI Research' },
+  { t: 'Fine Art' },
+  { t: 'Film' },
+  { t: 'HCI Research' },
 ];
 ---
 
@@ -19,12 +18,11 @@ const steps = [
     <polyline class="tl5__line" points="12,30 12,330" />
     {
       steps.map((s, i) => {
-        const y = 30 + i * 100;
+        const y = 30 + i * 150;
         return (
           <g class="tl5__node" style={`--i:${i}`}>
             <circle cx="12" cy={y} r="8" />
             <text x="32" y={y} dominant-baseline="central" class="tl5__t">{s.t}</text>
-            <text x="32" y={y + 17} class="tl5__y">{s.y}</text>
           </g>
         );
       })
