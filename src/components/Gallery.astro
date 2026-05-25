@@ -20,6 +20,10 @@ const hasSelected = projects.some((p) => p.data.featured);
       {present.map((t) => <button class="chip" data-filter={t}>{TYPE_LABELS[t]}</button>)}
     </div>
     <input class="gallery__search" type="search" placeholder="Search…" aria-label="Search projects" />
+    <div class="gallery__view" role="group" aria-label="View">
+      <button class="vtoggle is-active" type="button" data-view="grid">Grid</button>
+      <button class="vtoggle" type="button" data-view="list">List</button>
+    </div>
   </div>
   <p class="gallery__count" aria-live="polite"></p>
   <div class="gallery__grid">
@@ -66,6 +70,20 @@ const hasSelected = projects.some((p) => p.data.featured);
       })
     );
     if (search) search.addEventListener('input', apply);
+
+    // Grid / list view toggle (remembered across visits).
+    const grid = root.querySelector('.gallery__grid');
+    const vtoggles = root.querySelectorAll('.vtoggle');
+    const setView = (view) => {
+      if (grid) grid.classList.toggle('is-list', view === 'list');
+      vtoggles.forEach((b) => b.classList.toggle('is-active', b.dataset.view === view));
+      try { localStorage.setItem('galleryView', view); } catch (e) {}
+    };
+    vtoggles.forEach((b) => b.addEventListener('click', () => setView(b.dataset.view)));
+    let savedView = null;
+    try { savedView = localStorage.getItem('galleryView'); } catch (e) {}
+    if (savedView) setView(savedView);
+
     apply();
   }
 
