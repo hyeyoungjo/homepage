@@ -3,46 +3,41 @@ title: "AR The Tide"
 type: "xr"
 year: 2019
 authors: ["Hye-Young Jo"]
-abstract: "Dexter Studios, Naver"
+venue: "Dexter Studios × Naver"
+abstract: "An AR exhibition for the Bucheon International Fantastic Film Festival promoting the VR horror film VR The Tide. As a general artist I handled 3D modeling optimization, particles, screen effects, and UI."
 teaser: ./teaser.png
-teaserAlt: "AR The Tide"
+teaserAlt: "AR The Tide app mockup"
+tags: ["AR", "exhibition", "Dexter Studios"]
 featured: false
 draft: false
 ---
-<AR The Tide> is an AR exhibition project created for the Bucheon International Fantastic Film Festival. The exhibition was designed to promote the VR horror Film <VR The Tide>(please check the link for further information on the film). I participated in project planning and content as a general artist and was in charge of 3D modeling optimization, particles, screen effects, and UI.
 
-In the pollution control room(B39) of Bucheon Art Bunker, users download android AR application, point the camera at the objects(e.g., table, window). Then, the characters and giant fish from the film appear with animation.
+![Demo](./artide.gif)
 
-Process
+AR The Tide is an AR exhibition project created for the Bucheon International Fantastic Film
+Festival to promote the VR horror film VR The Tide. I joined as a general artist, in charge of
+3D modeling optimization, particles, screen effects, and UI.
 
-First, we optimized the digital assets made specifically for VR devices to utilize them on mobile devices. Then, we applied lighter shader and outline effect. When necessary, we applied additional visual effects (e.g., shimmering effect).
+## How it works
 
-Record Swap Share
+In the pollution control room (B39) of the Bucheon Art Bunker, visitors download an Android AR app
+and point the camera at objects such as a table or a window. The characters and giant fish from
+the film then appear, animated.
 
-> Release: APK > Media Coverage: GameFocus > Related Work: VR The Tide
+## Process
 
-![](./image-01.png)
+We first optimized the digital assets — originally built for VR devices — to run on mobile,
+applying lighter shaders and an outline effect, with extra visual effects (e.g., a shimmering
+effect) where needed.
 
-![](./image-02.png)
-
-![](./image-03.png)
-
-![](./image-04.png)
-
-![](./image-05.png)
-
-![](./image-06.png)
-
-![](./image-07.png)
-
-![](./image-08.png)
-
-![](./image-09.png)
-
-![](./image-10.png)
-
-![](./image-11.png)
-
-![](./image-12.png)
-
-![](./image-13.png)
+![](./mockup2.png)
+![](./mockup3.png)
+![](./mockup4.png)
+![](./mockup5.png)
+![](./VRtide18.png)
+![](./VRtide19.png)
+![](./bifan1.png)
+![](./bifan2.png)
+![](./bifan3.png)
+![](./bifan4.png)
+![](./table.png)
