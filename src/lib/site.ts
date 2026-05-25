@@ -30,10 +30,10 @@ export const SITE = {
 // Display labels for the project `type` field (used by gallery filters + cards).
 export const TYPE_LABELS: Record<string, string> = {
   paper: 'Publication',
-  design: 'UX Research',
-  xr: 'AR/VR',
+  design: 'UX',
+  xr: 'XR',
   film: 'Film',
-  art: 'Fine Art',
+  art: 'Art',
 };
 
 // Order types appear in the filter bar.
