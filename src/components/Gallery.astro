@@ -21,12 +21,12 @@ const hasSelected = projects.some((p) => p.data.featured);
     </div>
     <input class="gallery__search" type="search" placeholder="Search…" aria-label="Search projects" />
     <div class="gallery__view" role="group" aria-label="View">
-      <button class="vtoggle is-active" type="button" data-view="grid">Grid</button>
-      <button class="vtoggle" type="button" data-view="list">List</button>
+      <button class="vtoggle" type="button" data-view="grid">Grid</button>
+      <button class="vtoggle is-active" type="button" data-view="list">List</button>
     </div>
   </div>
   <p class="gallery__count" aria-live="polite"></p>
-  <div class="gallery__grid">
+  <div class="gallery__grid is-list">
     {projects.map((p) => <ProjectCard project={p} />)}
   </div>
   <p class="gallery__empty" hidden>No projects match.</p>
@@ -82,7 +82,7 @@ const hasSelected = projects.some((p) => p.data.featured);
     vtoggles.forEach((b) => b.addEventListener('click', () => setView(b.dataset.view)));
     let savedView = null;
     try { savedView = localStorage.getItem('galleryView'); } catch (e) {}
-    if (savedView) setView(savedView);
+    setView(savedView || 'list');
 
     apply();
   }

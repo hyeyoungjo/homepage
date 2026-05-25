@@ -8,6 +8,7 @@
   --color-accent: #2563eb; /* deep lavender (readable on white); green alt #2f6f5e, blue alt #2563eb */
   --header-bg: rgba(255, 255, 255, 0.85);
   --radius: 10px;
+  --thumb-radius: 4px; /* card thumbnail corners — try 0 (sharp) or 10px (round) */
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
     Arial, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
   --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
@@ -209,6 +210,7 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.18; font-weight: 600
 /* List view — same square thumbnail as grid, plus an abstract excerpt */
 .gallery__grid.is-list { display: block; }
 .gallery__grid.is-list .card { display: grid; grid-template-columns: 220px 1fr; gap: 1.5rem; align-items: start; padding: 1.25rem 0; border-bottom: 1px solid var(--color-border); }
+.gallery__grid.is-list .card[hidden] { display: none; } /* keep filter working in list view */
 .gallery__grid.is-list .card__type { margin-top: 0; }
 .gallery__grid.is-list .card__excerpt {
   display: -webkit-box;
@@ -225,7 +227,7 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.18; font-weight: 600
 }
 .card { display: block; color: inherit; }
 .card[hidden] { display: none; } /* needed: .card{display:block} otherwise overrides [hidden] */
-.card__media { display: block; overflow: hidden; border-radius: var(--radius); }
+.card__media { display: block; overflow: hidden; border-radius: var(--thumb-radius); }
 .card__media img { transition: transform 0.45s ease; }
 .card:hover .card__media img { transform: scale(1.06); }
 .card:active .card__media img { transform: scale(1.02); }
@@ -235,7 +237,7 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.18; font-weight: 600
   .card:hover .card__media img { transform: none; }
 }
 .card__links { display: none; }
-.card__media img, .card__placeholder { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: var(--radius); background: #f0f0f0; display: block; }
+.card__media img, .card__placeholder { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: var(--thumb-radius); background: #f0f0f0; display: block; }
 .card__type { display: inline-block; margin-top: 0.6rem; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--color-accent); }
 .card__title { font-family: var(--font-serif); font-size: 1.05rem; line-height: 1.25; margin: 0.25rem 0 0.2rem; }
 .card__meta { color: var(--color-muted); font-size: 0.88rem; margin: 0; }
