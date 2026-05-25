@@ -8,6 +8,7 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "assets": "node scripts/process-assets.mjs",
     "astro": "astro"
   },
   "dependencies": {
