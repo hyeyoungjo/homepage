@@ -6,6 +6,7 @@
   --color-muted: #6b6b6b;
   --color-border: #e7e7e7;
   --color-accent: #2563eb; /* deep lavender (readable on white); green alt #2f6f5e, blue alt #2563eb */
+  --color-soft: #333; /* softened body text (hero intro, project abstract) */
   --header-bg: rgba(255, 255, 255, 0.85);
   --radius: 10px;
   --thumb-radius: 4px; /* card thumbnail corners — try 0 (sharp) or 10px (round) */
@@ -22,6 +23,7 @@
   --color-muted: #9a9a9a;
   --color-border: #2b2b2b;
   --color-accent: #6ea8fe;
+  --color-soft: #d4d4d4;
   --header-bg: rgba(12, 12, 12, 0.8);
 }
 
@@ -94,7 +96,7 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.18; font-weight: 600
 .project__authors-note { color: var(--color-muted); font-size: 0.82rem; margin: 0 0 1rem; }
 .project__venue { color: var(--color-muted); margin: 0.25rem 0 1.25rem; }
 .project__teaser img { width: 100%; border-radius: var(--radius); margin: 1.5rem 0; }
-.project__abstract { font-size: 1.05rem; color: #333; margin: 1.5rem auto; }
+.project__abstract { font-size: 1.05rem; color: var(--color-soft); margin: 1.5rem auto; }
 
 /* Link buttons */
 .linkrow { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0; }
@@ -149,7 +151,9 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.18; font-weight: 600
 }
 
 /* Sections */
-.section { padding: 3rem 0; }
+/* Vertical only — keep .container's horizontal padding (the `padding` shorthand
+   would reset left/right to 0, making sections full-bleed on narrow screens). */
+.section { padding-top: 3rem; padding-bottom: 3rem; }
 .section__head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1.25rem; }
 .section h2 { font-size: 1.5rem; margin: 0 0 1.25rem; }
 .section__head h2 { margin: 0; }
@@ -186,7 +190,7 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.18; font-weight: 600
 .hero__audio .material-symbols-outlined { font-size: 1.9rem; }
 .hero__audio:hover { color: var(--color-fg); }
 .hero__tagline { font-size: 1rem; color: var(--color-muted); margin: 0.15rem 0 0.75rem; }
-.hero__intro { color: #333; max-width: 58ch; margin: 0 0 1rem; }
+.hero__intro { color: var(--color-soft); max-width: 58ch; margin: 0 0 1rem; }
 /* Research interests — subtle, right-aligned above the Work gallery */
 .work__interests { color: #9a9a9a; font-size: 0.78rem; line-height: 1.5; text-align: right; margin: 0 0 0.5rem; }
 .work__interests-label { color: #9a9a9a; }
@@ -208,17 +212,17 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.18; font-weight: 600
 /* Gallery */
 .gallery__controls { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
 .gallery__filters { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-.chip { border: 1px solid var(--color-border); background: #fff; border-radius: 999px; padding: 0.35rem 0.9rem; font-size: 0.9rem; cursor: pointer; color: var(--color-fg); }
+.chip { border: 1px solid var(--color-border); background: var(--color-bg); border-radius: 999px; padding: 0.35rem 0.9rem; font-size: 0.9rem; cursor: pointer; color: var(--color-fg); }
 .chip:hover { border-color: var(--color-accent); }
-.chip.is-active { background: var(--color-fg); color: #fff; border-color: var(--color-fg); }
+.chip.is-active { background: var(--color-fg); color: var(--color-bg); border-color: var(--color-fg); }
 .gallery__search { border: 1px solid var(--color-border); border-radius: 999px; padding: 0.45rem 0.95rem; font-size: 0.9rem; min-width: 200px; }
 .gallery__count { color: var(--color-muted); font-size: 0.85rem; margin: 0 0 1rem; }
 
 /* View toggle (grid / list) */
 .gallery__view { display: flex; gap: 0.25rem; }
-.vtoggle { border: 1px solid var(--color-border); background: #fff; border-radius: 999px; padding: 0.35rem 0.85rem; font-size: 0.85rem; cursor: pointer; color: var(--color-fg); }
+.vtoggle { border: 1px solid var(--color-border); background: var(--color-bg); border-radius: 999px; padding: 0.35rem 0.85rem; font-size: 0.85rem; cursor: pointer; color: var(--color-fg); }
 .vtoggle:hover { border-color: var(--color-accent); }
-.vtoggle.is-active { background: var(--color-fg); color: #fff; border-color: var(--color-fg); }
+.vtoggle.is-active { background: var(--color-fg); color: var(--color-bg); border-color: var(--color-fg); }
 
 /* Cards grid */
 .gallery__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.75rem; }
@@ -252,7 +256,7 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.18; font-weight: 600
   .card:hover .card__media img { transform: none; }
 }
 .card__links { display: none; }
-.card__media img, .card__placeholder { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: var(--thumb-radius); background: #f0f0f0; display: block; }
+.card__media img, .card__placeholder { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: var(--thumb-radius); background: var(--color-border); display: block; }
 .card__type { display: inline-block; margin-top: 0.6rem; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--color-accent); }
 .card__title { font-family: var(--font-serif); font-size: 1.05rem; line-height: 1.25; margin: 0.25rem 0 0.2rem; }
 .card__meta { color: var(--color-muted); font-size: 0.88rem; margin: 0; }
@@ -283,4 +287,33 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.18; font-weight: 600
   .hero__photo img { width: 160px; height: 160px; }
   .news__item { flex-direction: column; gap: 0.15rem; }
   .news__date { min-width: 0; }
+
+  /* Header: keep brand + nav comfortably on one row */
+  .site-header__brand { font-size: 1rem; }
+  .site-nav { gap: 0.9rem; }
+  .site-nav a { font-size: 0.92rem; padding: 0.5rem 0; }
+
+  /* Hero title: scale down so it doesn't dominate small screens */
+  .hero__greeting { font-size: 2.05rem; }
+  .hero__name { font-size: 2.05rem; }
+
+  /* Gallery controls: filters + view on one row, search full-width below */
+  .gallery__controls { justify-content: flex-start; gap: 0.6rem; }
+  .gallery__view { margin-left: auto; }
+  .gallery__search { order: 1; width: 100%; min-width: 0; }
+
+  /* Comfortable touch targets for pill buttons */
+  .chip, .vtoggle, .linkrow__btn {
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+@media (max-width: 380px) {
+  /* Very small phones: tighten nav + title further so nothing overflows */
+  .site-nav { gap: 0.7rem; }
+  .site-nav a { font-size: 0.88rem; }
+  .hero__greeting { font-size: 1.85rem; }
+  .hero__name { font-size: 1.85rem; }
 }
