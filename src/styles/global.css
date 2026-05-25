@@ -154,7 +154,8 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.18; font-weight: 600
 
 /* Social links */
 .socials { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; margin-top: 1rem; }
-.socials a { font-size: 0.95rem; }
+.socials a { font-size: 0.95rem; display: inline-flex; align-items: center; gap: 0.35rem; }
+.social__icon { flex: none; }
 
 /* Gallery */
 .gallery__controls { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
