@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import YouTubeEmbed from '../components/YouTubeEmbed.astro';
+import Timeline from '../components/Timeline.astro';
 import kendo from '../assets/about/kendo.jpg';
 import filmmaker from '../assets/about/filmmaker.jpg';
 import artsyKid from '../assets/about/artsy-kid.jpg';
@@ -27,6 +28,8 @@ const photos = [
   <div class="container section prose about">
     <h1>More</h1>
     <p class="about__sub">Where I came from before research — and what I'm into outside it.</p>
+
+    <Timeline />
 
     <h2>Before research</h2>
     <p>

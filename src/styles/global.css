@@ -123,7 +123,7 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.18; font-weight: 600
 
 /* Hero */
 .hero { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 2.5rem; align-items: start; padding: 3rem 1.25rem; }
-.hero__news { width: 270px; }
+.hero__news { width: 210px; }
 .hero__news-head { margin-bottom: 0.5rem; }
 .hero__news-head a { font-family: var(--font-serif); font-weight: 600; color: var(--color-fg); }
 .hero__news-list { list-style: none; margin: 0; padding: 0; }
