@@ -52,5 +52,6 @@ const meta = d.venue
     <span class="card__type">{TYPE_LABELS[d.type] ?? d.type}</span>
     <h3 class="card__title">{d.title}</h3>
     <p class="card__meta">{meta}</p>
+    {d.abstract && <p class="card__excerpt">{d.abstract}</p>}
   </div>
 </a>
