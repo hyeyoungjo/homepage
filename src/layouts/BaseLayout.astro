@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { SITE } from '../lib/site';
 
 interface Props {
   title?: string;
@@ -10,9 +11,8 @@ const { title = 'Hye-Young Jo', description = '' } = Astro.props;
 const pageTitle = title === 'Hye-Young Jo' ? title : `${title} — Hye-Young Jo`;
 
 const nav = [
-  { label: 'Home', href: '/' },
   { label: 'Work', href: '/#work' },
-  { label: 'About', href: '/about' },
+  { label: 'Contact', href: `mailto:${SITE.email}` },
 ];
 ---
 

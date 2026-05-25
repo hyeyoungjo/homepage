@@ -7,12 +7,33 @@ import SocialLinks from './SocialLinks.astro';
 
 <section class="hero container">
   <div class="hero__text">
-    <h1 class="hero__name">{SITE.name}</h1>
+    <h1 class="hero__greeting">
+      {SITE.greeting}
+      <button class="hero__audio" type="button" aria-label="Play voice intro" data-audio>▶</button>
+      <audio src={SITE.audio} preload="none"></audio>
+    </h1>
     <p class="hero__tagline">{SITE.tagline}</p>
     <p class="hero__intro">{SITE.intro}</p>
+    <p class="hero__intro">{SITE.research}</p>
+    <p class="hero__interests">
+      <span class="hero__interests-label">Research interests</span>
+      {SITE.researchInterests.join(' · ')}
+    </p>
     <SocialLinks />
   </div>
   <div class="hero__photo">
     <Image src={profile} alt={SITE.name} widths={[280, 560]} sizes="280px" />
   </div>
 </section>
+
+<script>
+  // Small play/pause toggle for the voice intro.
+  document.querySelectorAll('[data-audio]').forEach((btn) => {
+    const audio = btn.nextElementSibling;
+    if (!(audio instanceof HTMLAudioElement)) return;
+    btn.addEventListener('click', () => {
+      if (audio.paused) audio.play();
+      else audio.pause();
+    });
+  });
+</script>
