@@ -1,11 +1,56 @@
-# Dated updates shown on the home page. Newest first is not required — the site sorts by date.
+# Dated updates shown on the home page (newest first is computed automatically).
 # Each item needs a unique `id`. `link` is optional.
 - id: autodesk-internship-2026
   date: 2026-05-04
-  text: "Excited to join the Autodesk HCI & Visualization team for a summer internship in Toronto 🇨🇦"
+  text: "Autodesk summer internship — joining the HCI & Visualization team in Toronto 🇨🇦"
 - id: tingletouch-chi-2026
   date: 2026-01-16
-  text: "TingleTouch is conditionally accepted to CHI 2026."
+  text: "TingleTouch was conditionally accepted to CHI 2026."
+- id: slutz-award-2025
+  date: 2025-12-04
+  text: "Received the Ralph J. Slutz Student Excellence Award 🏆"
 - id: google-phd-fellowship-2025
   date: 2025-10-23
-  text: "Honored to receive the Google PhD Fellowship in Human–Computer Interaction 🏆"
+  text: "Honored to receive the Google Ph.D. Fellowship in Human–Computer Interaction 🏆"
+- id: fujitsu-talk-2025
+  date: 2025-10-02
+  text: "Invited talk at Fujitsu Research of America on AI-driven video generation."
+- id: ismar-2025
+  date: 2025-09-22
+  text: "Our paper on hand and forearm gestures for avatar deformation was accepted to ISMAR 2025!"
+- id: chi26-submission-2025
+  date: 2025-09-18
+  text: "Submitted 4 papers to CHI'26. Fingers crossed 🤞"
+- id: fujitsu-internship-2025
+  date: 2025-05-27
+  text: "Joined the Fujitsu Converging Technology Lab in Pittsburgh for a summer internship."
+- id: kaist-talk-2025
+  date: 2025-05-23
+  text: "Invited talk at the MAKE Lab (Prof. Andrea Bianchi), KAIST."
+- id: snu-talk-2025
+  date: 2025-05-19
+  text: "Invited talk at the Human-Centered Computing Systems Lab (Prof. Youngki Lee), Seoul National University."
+- id: uist-2024
+  date: 2024-10-13
+  text: "At UIST 2024 in Pittsburgh — email me to chat 😊"
+- id: chi25-submission-2024
+  date: 2024-09-12
+  text: "Submitted a paper to CHI'25. Fingers crossed 🤞"
+- id: phd-start-2024
+  date: 2024-08-18
+  text: "Started my Ph.D. in the Programmable Reality Lab led by Prof. Ryo Suzuki 😃"
+- id: moved-us-2024
+  date: 2024-07-23
+  text: "Moved to Boulder, Colorado 🇺🇸"
+- id: chi24-collagevis-2024
+  date: 2024-05-14
+  text: "Presented CollageVis at CHI 2024 in Hawaii 👍"
+- id: uist23-trainertap-2023
+  date: 2023-08-28
+  text: "Presented the TrainerTap poster at UIST 2023 in San Francisco 😁"
+- id: chi23-flowar-2023
+  date: 2023-03-01
+  text: "FlowAR was accepted to CHI 2023 😊"
+- id: kaist-commencement-2023
+  date: 2023-02-17
+  text: "Graduated from the Industrial Design M.S. program at KAIST."
