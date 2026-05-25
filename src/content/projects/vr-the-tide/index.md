@@ -3,54 +3,48 @@ title: "VR The Tide"
 type: "xr"
 year: 2020
 authors: ["Hye-Young Jo"]
-abstract: "Dexter Studios, Naver officially invited to \"New Frontier\" category at the 2019 Sundance Film Festival"
+venue: "Dexter Studios × Naver"
+abstract: "A VR toon horror film by Dexter Studios based on Naver's webtoon The Tide — six interactive ~5-minute episodes. I worked as a VR artist on episodes 2–6, and the project was officially invited to Sundance 2019's New Frontier."
 teaser: ./teaser.png
-teaserAlt: "VR The Tide"
+teaserAlt: "VR The Tide key art"
+tags: ["VR", "film", "Dexter Studios"]
 featured: false
 draft: false
 ---
-<VR The Tide> is a VR Toon Film made by Dexter Studios based on the original Naver webtoon <The Tide> (written/pictured by Seok Jo) in VR. The director Tae-Kyung Yoo produced a total of 6 short, interactive horror films, each with a running time of about 5 minutes.
 
-Storyline Humanity is suffering from the worst drought in history. Humans are no longer masters of water. Giant fishes, much larger than humans, devour people and ravage cities. After the fish attack, humans turn into fish zombies.
+![Gameplay](./vrtide.gif)
 
-The main character, So-Won Moon, is a 17-year-old high school student with a physical disability. He tricks his auntie(zombie) next door into thinking he is her dead son and tries to survive.
+VR The Tide is a VR toon film made by Dexter Studios based on the original Naver webtoon
+*The Tide* (written and illustrated by Seok Jo). Director Tae-Kyung Yoo produced six short,
+interactive horror films, each running about five minutes.
 
-Visual Style and Interaction Design To avoid Uncanny Valley, which is the unpleasant feeling of seeing human-like digital characters, we keep the cartoon- like feel as it is. Also, we fix the camera's position and allow the user only to rotate it to minimize VR motion sickness.
+## Storyline
 
-Process I participated as a VR Artist in the production of episodes 2 to 6 and was in charge of concept art, modeling, level design, lighting, look development, and UI.
+Humanity is suffering the worst drought in history; humans are no longer masters of water. Giant
+fish, far larger than people, devour humans and ravage cities, and those caught turn into fish
+zombies. So-Won Moon, a 17-year-old high-school student with a physical disability, tricks his
+zombie auntie next door into believing he is her dead son in order to survive.
 
-Concept Art
+## Visual style & interaction
 
-3D Modeling
+To avoid the uncanny valley — the unease of seeing human-like digital characters — we kept the
+cartoon-like feel intact. We also fixed the camera position and let the user only rotate the view,
+minimizing VR motion sickness.
 
-3D Texturing
+## Process
 
-Level Design
+I joined as a VR artist on episodes 2–6, responsible for concept art, modeling, texturing, level
+design and optimization, lighting, material, effects, look development, and animated UI.
 
-Level Optimization
-
-Lighting
-
-Material
-
-Effect
-
-Look Development
-
-Animated UI
-
-![](./image-01.png)
-
-![](./image-02.png)
-
-![](./image-03.png)
-
-![](./image-04.png)
-
-![](./image-05.png)
-
-![](./image-06.png)
-
-![](./image-07.png)
-
-![](./image-08.png)
+![](./c1.png)
+![](./c2.png)
+![](./c3.png)
+![](./c4.png)
+![](./c5.png)
+![](./c6.png)
+![](./c7.png)
+![](./c8.png)
+![](./c9.png)
+![](./c10.png)
+![](./gearvrmockup.png)
+![](./lens.png)
