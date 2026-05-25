@@ -1,5 +1,6 @@
 ---
-// Left rail = the career timeline; each stage label titles its showreel on the right.
+// Career timeline: each stage titles its showreel. The reel spans the full text
+// width; the dot + connecting line sit in the left margin beside it.
 import YouTubeEmbed from './YouTubeEmbed.astro';
 
 const stages = [
@@ -14,10 +15,8 @@ const stages = [
   {
     stages.map((s) => (
       <li class="journey__item">
-        <div class="journey__side">
-          <span class="journey__dot" aria-hidden="true" />
-          <h3 class="journey__title">{s.label}</h3>
-        </div>
+        <span class="journey__dot" aria-hidden="true" />
+        <h3 class="journey__title">{s.label}</h3>
         <div class="journey__reel">
           <YouTubeEmbed url={s.url} title={`${s.label} reel`} />
         </div>
@@ -27,33 +26,30 @@ const stages = [
 </ol>
 
 <style>
-  .journey { list-style: none; margin: 1.5rem 0 2.5rem; padding: 0; }
-  .journey__item { display: grid; grid-template-columns: 130px 1fr; gap: 1.5rem; align-items: stretch; padding-bottom: 1.75rem; }
-  .journey__side { position: relative; padding-left: 1.5rem; }
-  .journey__side::before {
-    content: '';
-    position: absolute;
-    left: 6px;
-    top: 1.4rem;
-    bottom: -1.75rem;
-    width: 2px;
-    background: var(--color-border);
-  }
-  .journey__item:last-child .journey__side::before { display: none; }
+  .journey { list-style: none; margin: 1.5rem 0 2.5rem; padding: 0; position: relative; }
+  .journey__item { position: relative; padding-bottom: 2rem; }
+  .journey__item:last-child { padding-bottom: 0; }
+  /* dot + line in the left margin, beside the full-width content */
   .journey__dot {
     position: absolute;
-    left: 0;
+    left: -2rem;
     top: 0.45rem;
-    width: 14px;
-    height: 14px;
+    width: 13px;
+    height: 13px;
     border-radius: 50%;
     background: var(--color-accent);
     box-shadow: 0 0 0 4px var(--color-bg);
   }
-  .journey__title { margin: 0; font-size: 1.2rem; font-family: var(--font-serif); }
-  .journey__reel :global(.yt) { margin: 0; }
-  @media (max-width: 640px) {
-    .journey__item { grid-template-columns: 1fr; gap: 0.6rem; }
-    .journey__side::before { display: none; }
+  .journey__item::before {
+    content: '';
+    position: absolute;
+    left: calc(-2rem + 5.5px);
+    top: 1.7rem;
+    bottom: 0;
+    width: 2px;
+    background: var(--color-border);
   }
+  .journey__item:last-child::before { display: none; }
+  .journey__title { margin: 0 0 0.6rem; font-size: 1.2rem; font-family: var(--font-serif); }
+  .journey__reel :global(.yt) { margin: 0; }
 </style>
