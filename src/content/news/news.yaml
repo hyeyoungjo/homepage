@@ -1,0 +1,11 @@
+# Dated updates shown on the home page. Newest first is not required — the site sorts by date.
+# Each item needs a unique `id`. `link` is optional.
+- id: autodesk-internship-2026
+  date: 2026-05-04
+  text: "Excited to join the Autodesk HCI & Visualization team for a summer internship in Toronto 🇨🇦"
+- id: tingletouch-chi-2026
+  date: 2026-01-16
+  text: "TingleTouch is conditionally accepted to CHI 2026."
+- id: google-phd-fellowship-2025
+  date: 2025-10-23
+  text: "Honored to receive the Google PhD Fellowship in Human–Computer Interaction 🏆"

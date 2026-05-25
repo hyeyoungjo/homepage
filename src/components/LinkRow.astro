@@ -1,0 +1,35 @@
+---
+interface Props {
+  links?: {
+    pdf?: string;
+    doi?: string;
+    youtube?: string;
+    website?: string;
+    github?: string;
+  };
+  originalLink?: string;
+}
+
+const { links = {}, originalLink } = Astro.props;
+
+const items = [
+  links.pdf && { label: 'PDF', href: links.pdf },
+  links.doi && { label: 'DOI', href: links.doi },
+  links.youtube && { label: 'Video', href: links.youtube },
+  links.website && { label: 'Website', href: links.website },
+  links.github && { label: 'Code', href: links.github },
+  originalLink && { label: 'Original', href: originalLink },
+].filter(Boolean) as { label: string; href: string }[];
+---
+
+{
+  items.length > 0 && (
+    <div class="linkrow">
+      {items.map((it) => (
+        <a class="linkrow__btn" href={it.href} target="_blank" rel="noopener">
+          {it.label}
+        </a>
+      ))}
+    </div>
+  )
+}

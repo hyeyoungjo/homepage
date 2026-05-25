@@ -1,0 +1,25 @@
+---
+import { getYouTubeId } from '../lib/youtube';
+
+interface Props {
+  url: string;
+  title?: string;
+}
+
+const { url, title = 'Video' } = Astro.props;
+const id = getYouTubeId(url);
+---
+
+{
+  id && (
+    <div class="yt">
+      <iframe
+        src={`https://www.youtube-nocookie.com/embed/${id}`}
+        title={title}
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+      />
+    </div>
+  )
+}

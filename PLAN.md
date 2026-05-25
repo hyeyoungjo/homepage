@@ -1,201 +1,163 @@
 # Plan: Hye-Young Jo Homepage — Astro + GitHub Pages
 
 ## Context (왜 만드는가)
-Hye-Young is migrating her personal academic/portfolio site off Wix (current: hyeyoungjo.com)
-to a self-managed, version-controlled site in her own GitHub repo
-(https://github.com/hyeyoungjo/homepage, branch `main`, currently only a LICENSE).
+Hye-Young is migrating her personal academic/portfolio site off Wix to her own GitHub repo
+(https://github.com/hyeyoungjo/homepage, branch `main`). Goal: **maintainable, process-centric
+portfolio with near-zero coding for new content.**
 
-The driving goal: **maintenance with zero coding for new content.** Today, adding work to the
-Wix site (or to reference Next.js sites like advisor Ryo Suzuki's, which needs manual ID
-registration in `next.config.js`) is friction. She wants: *create one folder, drop in a markdown
-file + images + links, and the project auto-appears* — in a unified, filterable gallery that
-clearly distinguishes her mixed body of work (paper / film / art), while preserving all current
-content (9 publications, 3 projects, news, bio, social links).
+What "process-centric" means (clarified by the user): **one markdown file per project** where she
+writes the *story of how she made the project* and **inlines images, GIFs, and mp4** as she
+explains — like ryosuzuki.org/dynablock. The process narrative is the centerpiece, not just the
+final result.
 
-Decisions confirmed with the user:
-- **Astro** + Content Collections (best fit for "drop folder, auto-render" + built-in filtering/image optimization).
-- Move custom domain **hyeyoungjo.com** (apex) to GitHub Pages; `www` auto-redirects to apex.
-- **Unified filterable gallery** (type/year/tag filters + keyword search), Justin-Matejka style.
-- **Fresh, clean minimal academic design** (inspired by adazhao.info / justinmatejka.com).
-- **Process over results positioning.** Each project gets its OWN long-form page at a root-level
-  URL (e.g. hyeyoungjo.com/realitysketch/), in the style of ryosuzuki.org/dynablock/ and
-  ryosuzuki.org/realitysketch/ — step-by-step headed sections, lots of inline figures, telling
-  the *process/method story*, not just showing the final result. These detail pages are the
-  centerpiece of the site, not an afterthought.
+Scope discovered in ~/Downloads is much larger than a few papers — ~20 projects across **art, xr,
+film, and research/papers**, most with `process/` `making/` `concept/` subfolders of imagery
+(~1.2 GB raw: 210 png, 185 jpg, 32 large GIFs @16–24 MB each, 10 mp4 up to 52 MB). Filenames are
+messy (Korean, `IMG_xxxx`, `KakaoTalk_...`, mixed case).
 
-## Key technical decision (load-bearing)
-Project content MUST live under `src/content/projects/` (NOT a repo-root `content/`). Only when
-content is under `src/` does Astro's `image()` schema helper and markdown-body image optimization
-resolve **co-located relative image paths** (`teaser: ./teaser.png`, `![](./process-1.png)`).
-A base outside `src/` breaks this and would force `public/` copies or per-image imports — which
-violates the "just drop a png" requirement. Verified against current Astro 5 docs.
+### Decisions confirmed with the user
+- **Astro** + Content Collections; **homepage** repo kept (project page → temp URL
+  `hyeyoungjo.github.io/homepage/`; local `npm run dev` for dev preview). [Steps 1–2 DONE, deploy green.]
+- **Custom domain hyeyoungjo.com** connected **last** (so live Wix is not interrupted).
+- **Unified filterable gallery** (type/year/tag + search); **fresh clean minimal** design.
+- **One markdown per project = metadata + process narrative with inline media.**
+- **Hybrid media** (resolves the 1.2 GB / quality problem):
+  | Media | Home | Quality |
+  |---|---|---|
+  | Images (stills, process shots, teasers) | **GitHub**, downsized ~2000px → Astro webp/avif | no visible loss |
+  | Process GIFs | **convert GIF→mp4/webm → GitHub** inline | improves (GIF = 256-color) |
+  | Videos (showreels, demos) | **YouTube** embed | YouTube-managed |
+  | Originals / masters | **Google Drive** (her paid archive) | untouched |
+  | PDFs (papers, CV) | **Google Drive** links | untouched |
+
+## Key technical decisions (load-bearing)
+1. Project content lives under **`src/content/projects/`** (NOT repo-root) so co-located images in
+   markdown (`./teaser.png`, `![](./step-1.png)`) are auto-optimized by Astro. Verified for Astro 5.
+2. **Source media must be web-sized before commit** — Astro optimizes the *output*, but raw sources
+   stay in git. A local `npm run assets` step downsizes images and converts GIFs→mp4 so the repo
+   stays lean (target < ~250 MB). Big videos never enter git (→ YouTube).
 
 ---
 
 ## Target structure
 ```
 homepage/
-├── LICENSE                         (exists)
-├── .gitignore                      node_modules, dist, .astro, .DS_Store
-├── package.json  astro.config.mjs  tsconfig.json  README.md
-├── .github/workflows/deploy.yml    GitHub Actions → Pages (withastro/action@v6 + deploy-pages@v5)
-├── public/
-│   ├── CNAME                       single line: hyeyoungjo.com
-│   ├── favicon.svg  og-default.png
+├── .github/workflows/deploy.yml      [DONE] build → Pages on push to main
+├── astro.config.mjs                  site + custom remark plugins (mp4/youtube)
+├── scripts/process-assets.mjs        [NEW] sharp (image downsize) + ffmpeg (GIF→mp4) pipeline
+├── public/{CNAME(last), favicon.svg(from hyj.ico), og-default.png}
 └── src/
-    ├── content.config.ts           collections + Zod schema  (THE config)
-    ├── styles/global.css           design tokens, base styles (plain CSS, no Tailwind)
-    ├── assets/profile.jpg          bio headshot (imported/optimized)
-    ├── lib/{youtube.ts, filters.ts}
-    ├── layouts/{BaseLayout.astro, ProjectLayout.astro}
+    ├── content.config.ts             [DONE] type enum incl. xr + originalLink
+    ├── styles/global.css             [DONE] design tokens + markdown/figure/video styles
+    ├── assets/profile.jpg            hero headshot (from Downloads/profile)
+    ├── lib/{youtube.ts[DONE], filters.ts}
+    ├── plugins/{remark-video.mjs, remark-youtube.mjs}   [NEW] markdown authoring magic
+    ├── layouts/{BaseLayout.astro[DONE], ProjectLayout.astro[DONE]}
     ├── components/{BaseHead, Header, Footer, Hero, ProjectCard, Gallery,
-    │               NewsList, SocialLinks, YouTubeEmbed, LinkRow}.astro
-    ├── pages/
-    │   ├── index.astro             Hero + Selected Work (featured) + recent News + Gallery
-    │   ├── work/index.astro        full filterable gallery
-    │   ├── [slug].astro            ROOT-LEVEL detail page per project (e.g. /realitysketch/)
-    │   ├── about.astro             bio, education, experience, research, social, CV
-    │   └── 404.astro
+    │               NewsList, SocialLinks, YouTubeEmbed[DONE], VideoClip, LinkRow[DONE]}.astro
+    ├── pages/{index.astro, work/index.astro, [slug].astro[DONE], about.astro, 404.astro}
     └── content/
-        ├── projects/               ★ each subfolder = one project, AUTO-DISCOVERED
-        │   └── <slug>/index.md + teaser.png + process-*.png
-        └── news/news.yaml          single data file of news items
+        ├── projects/<slug>/index.md  + co-located web-sized images + converted .mp4 clips
+        └── news/news.yaml            [DONE]
 ```
 
-## Content schema — `src/content.config.ts`
-ONE unified `projects` collection (a `type` field drives filtering) + a tiny `news` collection.
-```ts
-import { defineCollection, z } from 'astro:content';
-import { glob, file } from 'astro/loaders';
-
-const projects = defineCollection({
-  loader: glob({ pattern: '**/index.md', base: './src/content/projects' }), // id === folder name
-  schema: ({ image }) => z.object({
-    title: z.string(),
-    type: z.enum(['paper', 'film', 'art', 'design']),
-    year: z.number().int(),
-    authors: z.array(z.string()).default([]),
-    venue: z.string().optional(),
-    abstract: z.string().optional(),
-    teaser: image().optional(),
-    teaserAlt: z.string().optional(),
-    tags: z.array(z.string()).default([]),
-    award: z.string().optional(),
-    acceptanceRate: z.string().optional(),
-    links: z.object({
-      pdf: z.string().url().optional(),
-      doi: z.string().url().optional(),
-      youtube: z.string().url().optional(),
-      website: z.string().url().optional(),
-      github: z.string().url().optional(),
-    }).default({}),
-    bibtex: z.string().optional(),
-    featured: z.boolean().default(false),
-    draft: z.boolean().default(false),
-  }),
-});
-
-const news = defineCollection({
-  loader: file('./src/content/news/news.yaml'),
-  schema: z.object({ date: z.coerce.date(), text: z.string(), link: z.string().url().optional() }),
-});
-
-export const collections = { projects, news };
+### One project folder (the authoring model)
 ```
-Using `index.md` per folder makes the slug deterministically equal the folder name, so
-`[slug].astro` resolves with zero registration.
-
-## Filtering & search (client-side, no backend, near-zero JS)
-Render the full grid server-side; each `ProjectCard` carries `data-type`, `data-year`,
-`data-tags`, and a precomputed lowercased `data-search` (title+authors+venue+abstract+tags).
-`src/lib/filters.ts` (an Astro `<script>`) ANDs the active type/year/tag/query predicates and
-toggles each card's `hidden`, updates a result count + empty state, and optionally syncs state to
-the URL query (`?type=film`) via `history.replaceState`. Filter controls are built from the actual
-collection data so they never go stale. Data is inline in the HTML — no fetch/JSON.
-
-## Project detail page = the process story (CENTERPIECE) — `src/pages/[slug].astro`
-Root-level URL so links read `hyeyoungjo.com/realitysketch/` (matches ryosuzuki.org/dynablock/).
-Astro resolves static routes (about/work/404/index) before the dynamic `[slug].astro`, so the only
-reserved slugs are `about`, `work`, `404`. Confirmed structure of the reference pages:
-title + authors + venue + award badge → links row (PDF/video/slides/GitHub/DOI/arXiv) → teaser →
-abstract → **multiple headed step sections with inline figures (often 3-up, full width)** →
-citation/BibTeX block.
-```astro
----
-import { getCollection, render } from 'astro:content';
-import ProjectLayout from '../layouts/ProjectLayout.astro';
-export async function getStaticPaths() {
-  const projects = await getCollection('projects', ({ data }) => !data.draft);
-  return projects.map((p) => ({ params: { slug: p.id }, props: { project: p } }));
-}
-const { project } = Astro.props;
-const { Content } = await render(project);   // the markdown PROCESS body → <Content/>
----
-<ProjectLayout project={project}><Content /></ProjectLayout>
+src/content/projects/package-for-me/
+├── index.md          frontmatter (metadata) + PROCESS NARRATIVE body
+├── teaser.jpg        web-sized
+├── step-01.jpg ...   web-sized process images (ordered names)
+└── eating.mp4        converted from eating.gif
 ```
-`ProjectLayout.astro` renders the chrome (title, authors, venue, award badge, `LinkRow`,
-teaser `<Image>`, `YouTubeEmbed` if `links.youtube`, abstract, then `<slot/>` for the body,
-then citation/BibTeX `<details>`). **The markdown body is the star** — she writes step-by-step
-headed sections (`## Step 1: …`) and drops figures inline; `global.css` styles markdown images
-to full width with captions (from alt text) and styles consecutive images into responsive rows
-(`figure + figure` flex) so a 2–3-up figure strip needs no special syntax. For richer layouts
-(explicit galleries, side-by-side video) `index.md` can be renamed `index.mdx` and use small
-optional components (`<Figure>`, `<Row>`) — but plain markdown is the default so "drop png + write
-text" always works.
+`index.md` body is plain markdown the user writes:
+```markdown
+## Concept
+Text about the idea...
+![Early sketch](./step-01.jpg)
 
-**Positioning:** gallery cards and the hero copy lean into *process* (e.g. card hover/label hints
-at "see the process"); the detail page foregrounds method/iteration over the final artifact.
+## Making
+How it was built...
+![Module test](./eating.mp4)        <!-- .mp4/.webm auto-render as <video> -->
 
-## YouTube / links
-`src/lib/youtube.ts` → `getYouTubeId(url)` handles youtu.be / watch?v= / embed/ / shorts/.
-`YouTubeEmbed.astro` → responsive 16:9 lazy iframe (`youtube-nocookie.com/embed/{id}`).
-`LinkRow.astro` → renders a button only for present `links.*` keys. CV = Google Drive link
-(matches current setup; avoids committing a large PDF).
+https://youtu.be/XXXX                <!-- a bare YouTube URL on its own line auto-embeds -->
+```
 
-## Deployment
-`astro.config.mjs`: `site: 'https://hyeyoungjo.com'`, no `base` (apex, not project page).
-`public/CNAME`: `hyeyoungjo.com`. `.github/workflows/deploy.yml`: on push to main →
-`actions/checkout@v6` → `withastro/action@v6` (build) → `actions/deploy-pages@v5`; permissions
-`pages: write`, `id-token: write`; `concurrency: pages`.
-One-time: GitHub repo Settings → Pages → Source = **GitHub Actions**; set custom domain; enforce HTTPS.
+## Authoring conventions (uniform + easy — nothing to memorize)
+Two small custom remark plugins (registered in `astro.config.mjs` `markdown.remarkPlugins`):
+- **`remark-video.mjs`** — any `![caption](./x.mp4|.webm)` becomes a responsive
+  `<video muted loop playsinline controls>` (short process clips can autoplay). Same `![]()` syntax
+  as images, so the user never switches notation.
+- **`remark-youtube.mjs`** — a **bare YouTube URL on its own line** becomes a lazy 16:9 embed.
 
-**DNS records the user adds at her registrar:**
-| Type | Host | Value |
-|------|------|-------|
-| A | @ | 185.199.108.153 / .109.153 / .110.153 / .111.153 (four records) |
-| CNAME | www | hyeyoungjo.github.io. |
+## Content schema — `src/content.config.ts` [DONE]
+ONE unified `projects` collection (a `type` field drives filtering) + a `news` collection.
+Type enum: `paper | art | film | xr | design`. Fields: title, year, authors, venue, abstract,
+teaser(image()), teaserAlt, tags, award, acceptanceRate, links{pdf,doi,youtube,website,github},
+bibtex, originalLink, featured, draft. Auto-discovery via glob loader (folder name = slug); adding a
+project needs ZERO code edits here.
 
-## "Add a new project" runbook (also goes in README.md)
-1. Create `src/content/projects/<slug>/` (folder name = URL).
-2. Add `index.md`, paste frontmatter template, edit title/type/year/authors/venue/abstract/tags/links, set `featured: true` to surface on home.
-3. Drop `teaser.png` (+ process images); `teaser: ./teaser.png`, body `![](./process-1.png)`.
-4. `npm run dev` → card + `/<slug>` page + filters/search update automatically.
-5. `git add . && git commit && git push` → Action deploys to hyeyoungjo.com. No config/route edits ever.
+## Asset pipeline — `scripts/process-assets.mjs` (`npm run assets`)
+Run locally before committing new content. Idempotent. For each project folder:
+- **Images** → `sharp`: resize to max 2000px long edge, strip metadata, re-encode; skip small files.
+- **GIFs** → `ffmpeg`: convert `*.gif` → `*.mp4` (H.264, faststart); remove source GIF.
+  (Requires `ffmpeg`; script prints `brew install ffmpeg` if missing.)
+- **Videos** (large `*.mp4`) → flagged for the user to upload to YouTube (not committed).
+- Prints a size report. Originals stay safe in ~/Downloads / Drive.
 
-## Build order (each step explained + confirmed before moving on)
-1. Scaffold Astro (minimal, TS strict): package.json, astro.config.mjs, tsconfig.json, .gitignore → `npm run dev` blank page works.
-2. **Infra first:** astro.config (`site`), public/CNAME, deploy.yml → push, confirm Action green + Pages serves.
-3. `src/content.config.ts` (schema).
-4. Sample content: 2–3 real entries (kare-mcm + one paper) + news.yaml → validates schema + image() early.
-5. Chrome: BaseLayout, BaseHead, Header, Footer, global.css (tokens).
-6. Components: ProjectCard, YouTubeEmbed (+youtube.ts), LinkRow, SocialLinks, NewsList.
-7. Gallery + filters.ts (wire data-attributes).
-8. Pages: index, work/index, [slug] (root-level detail + ProjectLayout), about, 404.
-9. Migrate all content: 9 publications + 3 projects + About from bio.
-10. Styling/responsiveness pass (serif headings + clean sans body, whitespace, single accent, `repeat(auto-fill, minmax())` grid, mobile filter bar).
-11. DNS + Enforce HTTPS + verify live.
+## Detail page = the process story — `src/pages/[slug].astro` + `ProjectLayout.astro` [DONE]
+Root-level URL (`hyeyoungjo.com/<slug>/`). Header (title, authors, venue, year, award, LinkRow,
+teaser) → abstract → primary YouTube → `<Content/>` narrative with inline optimized media. Markdown
+images full-width; consecutive images flow into responsive rows. Optional BibTeX `<details>`.
+
+## Gallery / filter / search
+`Gallery.astro` renders non-draft projects as `ProjectCard`s with `data-type/-year/-tags/-search`;
+`src/lib/filters.ts` (vanilla `<script>`) ANDs type/year/tag/query, toggles `hidden`, syncs to URL.
+Types shown: Paper / Art / Film / XR.
+
+## Pages
+- `index.astro` — Hero (name + "HCI researcher · Kendo · filmmaker · artist") + Selected Work
+  (featured) + recent News + gallery (or link to /work).
+- `work/index.astro` — full filterable gallery.
+- `[slug].astro` [DONE] — auto-generated process detail page.
+- `about.astro` — bio, education (KAIST MS, SNU BFA), experience (Dexter Studios VFX), research,
+  SocialLinks (email, Scholar, LinkedIn, GitHub, X, Instagram) + CV (Drive link).
+- `404.astro`.
+
+## Deployment (mostly DONE)
+`astro.config.mjs` `site: 'https://hyeyoungjo.com'`; deploy workflow green. **Last step:** add
+`public/CNAME`, set GitHub custom domain, DNS A records (185.199.108–111.153) + `www` CNAME →
+hyeyoungjo.github.io, enforce HTTPS. Don't touch DNS until the site is ready (keeps Wix live).
+NOTE: until the custom domain, the github.io project-page URL shows broken CSS/images (root-path
+assets) — that's expected; **local `npm run dev` is the accurate preview**.
+
+## Content migration (~20 projects from ~/Downloads → src/content/projects/)
+Per project: make `<slug>/`, run assets pipeline (downsize/convert + clean ordered filenames),
+write `index.md` (metadata from the Wix inventory; narrative body = skeleton headings for the user
+to fill), pick a teaser. Videos → user uploads to YouTube; originals → user keeps on Drive.
+
+Proposed slugs/types (confirm/prune during migration; `featured` = home):
+- **art**: one-to-one-bar, groping-sight, human-furniture, package-for-me, walking-spot,
+  closet-inside-the-closet, painting
+- **xr**: artide, vrtide, fashion-for-help, (meta-boxing — VR game, 26-page deck)
+- **film**: film-compositing (+ showreels via YouTube; Fine-Art / VR-AR / Research reels)
+- **paper**: collagevis [DONE sample], flowar, korea-hci-2022 (physical-computing-metaverse),
+  gamesbond, trainertap, forearm-gesture, generative-lecture, map2video, tingletouch, hot-ice(?)
+- **design**: kare-mcm, figureout
+Drive PDFs provided for: cv, gamesbond, physical-computing-metaverse, flowar, trainertap, collagevis,
+figureout, forearm-gesture, chameleon, poster.
+
+## Build order
+1. [DONE] Scaffold Astro. 2. [DONE] Deploy pipeline (green). 3. [DONE] Schema (xr, originalLink).
+3.5 [DONE] Layout + first process detail page ([slug], ProjectLayout, YouTubeEmbed, LinkRow, CSS).
+4. Remark plugins (mp4→video, bare-YouTube→embed). 5. Asset pipeline (sharp + ffmpeg) — verify on one
+   art project. 6. Components: ProjectCard, Gallery+filters, SocialLinks, NewsList, Hero.
+7. Pages: index (home), work (gallery), about, 404. 8. Migrate all ~20 projects. 9. Styling/responsive.
+10. Domain + DNS + HTTPS.
 
 ## Verification
-- `npm run dev`: home/work/about + a sample `/<slug>` detail page render; teaser + body images load optimized (`/_astro/`); markdown step sections + inline figures look right.
-- **Drop-folder proof:** add `src/content/projects/__test/index.md` + teaser (`type: film`), refresh → new card appears, `/__test` resolves, Film filter + year/tag + search all include it, with NO code edits. Delete after.
-- Filter test: type buttons hide/show correctly; year narrows; search substring-matches; count + empty state update.
-- `npm run build && npm run preview`: no schema errors; each project page generated at dist root (e.g. dist/realitysketch/index.html); dist/CNAME present; images hashed.
-- Push to main → Action green; live at https://hyeyoungjo.com (HTTPS, www→apex redirect).
-
-## Content to migrate (from current Wix site)
-- 9 publications (2021–2026): TingleTouch, Generative Lecture, Map2Video, Forearm-deformation (ISMAR'25),
-  CollageVis (CHI'24), TrainerTap (UIST'23), FlowAR (CHI'23), VR-Remote-Education (HCIK'22, Best Paper),
-  GamesBond (CHI'21, Honorable Mention) — each with authors/venue/year/abstract/PDF/YouTube/DOI/award.
-- 3 projects: KARE-MCM (art/design, iF + IDEA awards), FigureOUT (tool), Meta-Boxing (art/VR).
-- News entries (dated), About (CU Boulder PhD, advisor Ryo Suzuki, KAIST MS, SNU BFA, Dexter Studios VFX),
-  social: email, Google Scholar, LinkedIn, GitHub, X, Instagram, CV (Drive link).
+- **Authoring proof:** `![](./clip.mp4)` → `<video>`; bare YouTube URL → embed; `![](./img.png)` optimized.
+- **Drop-folder proof:** new `<slug>/index.md` + teaser → card appears, `/<slug>` resolves, filters
+  include it, NO code edits.
+- **Asset pipeline:** `npm run assets` shrinks a 24 MB GIF to a small mp4 and a 6000px photo to ~2000px.
+- Filter test; `npm run build && npm run preview` (no schema errors, pages under dist/, images hashed);
+  push → Action green; finally live at hyeyoungjo.com (HTTPS, www→apex).
