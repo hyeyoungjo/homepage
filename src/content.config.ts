@@ -11,7 +11,7 @@ const projects = defineCollection({
     z.object({
       title: z.string(),
       // Drives the gallery type filter.
-      type: z.enum(['research', 'art', 'film', 'xr']),
+      type: z.enum(['research', 'art', 'film', 'xr', 'tool']),
       year: z.number().int(),
       authors: z.array(z.string()).default([]),
       venue: z.string().optional(),

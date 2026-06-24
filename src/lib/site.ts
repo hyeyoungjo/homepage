@@ -33,7 +33,8 @@ export const TYPE_LABELS: Record<string, string> = {
   xr: 'XR',
   film: 'Film',
   art: 'Art',
+  tool: 'Tool',
 };
 
 // Order types appear in the filter bar.
-export const TYPE_ORDER = ['research', 'xr', 'film', 'art'];
+export const TYPE_ORDER = ['research', 'xr', 'film', 'art', 'tool'];
