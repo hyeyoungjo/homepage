@@ -2,6 +2,7 @@
 title: "Dear My Routines"
 type: "tool"
 year: 2026
+date: 2026-06-24
 abstract: "A personal time-management tool that helps you compare your planned time with your actual time — so you can understand your own time patterns better."
 teaser: ./teaser.png
 teaserAlt: "Dear My Routines interface showing Plan, Act, and Reflect columns"

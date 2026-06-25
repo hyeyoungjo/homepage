@@ -13,6 +13,7 @@ const projects = defineCollection({
       // Drives the gallery type filter.
       type: z.enum(['research', 'art', 'film', 'xr', 'tool']),
       year: z.number().int(),
+      date: z.coerce.date().optional(),
       authors: z.array(z.string()).default([]),
       venue: z.string().optional(),
       abstract: z.string().optional(),
