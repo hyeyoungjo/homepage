@@ -1,41 +1,43 @@
 ---
-title: "Map2Video: Street View Imagery Driven AI Video Generation"
+title: "Map2Video: Guiding Real-World-Grounded AI Video Generation"
 type: "research"
-year: 2025
+year: 2026
 authors: ["Hye-Young Jo", "Mose Sakashita", "Aditi Mishra", "Ryo Suzuki", "Koichiro Niinuma", "Aakar Gupta"]
-venue: "arXiv"
-abstract: "Map2Video turns street-view imagery into spatially consistent AI-generated video. Integrating Unity, ComfyUI/VACE, OpenStreetMap, and Mapillary, filmmakers position actors and cameras in real streets and sketch paths to generate footage. An evaluation with 12 filmmakers showed superior spatial accuracy and controllability."
+venue: "ACM UIST"
+abstract: "Map2Video guides AI video generation grounded in street view imagery through map-based character trajectory annotation and direct manipulation of cameras and character masks defined in geodetic coordinates. In an evaluation with 12 filmmakers, it provided stronger controllability, reduced cognitive effort, and improved spatial consistency across shots compared to an image-to-video baseline."
 teaser: ./teaser.png
 teaserAlt: "Map2Video street-view driven video generation"
 tags: ["filmmaking", "AI video", "maps"]
 links:
-  pdf: "https://arxiv.org/pdf/2512.17883"
-  doi: "https://arxiv.org/abs/2512.17883"
-  youtube: "https://youtu.be/k9t95G8ZqxM"
+  pdf: "https://drive.google.com/file/d/1CxQPw1nv-FWDHfxyys1_W-JLa7uv9vNY/view?usp=sharing"
+  doi: "https://doi.org/10.1145/3830398.3830538"
+  youtube: "https://youtu.be/TSwM24UpXzs"
 featured: true
 draft: false
 ---
 
 ## Problem — AI video generation isn't grounded in the real world
 
-Text- and image-to-video tools have lowered the barrier to video creation, but they struggle with
-consistency: clips fail to match characters and backgrounds, making coherent sequences hard to build.
-Crucially, they aren't grounded in real locations — users must describe a scene in text or supply
-reference images by shooting on-site or searching. A formative study with filmmakers surfaced
-challenges in shot composition, character motion, and camera control.
+AI video generation lowers the barrier to video creation, but existing tools give little support for
+grounding content in real-world locations — a requirement in applications like film previsualization
+and scenario generation. In practice, users fall back on verbose textual descriptions or reference
+images from on-site photos or street view imagery (SVI), which are cumbersome and unreliable across
+shots. Our formative study with five filmmakers surfaced challenges in shot composition, character
+motion, and camera control when using SVI with an image-to-video tool.
 
-## Solution — generating video from street-view imagery
+## Solution — guiding generation from the map
 
-Map2Video is a street-view-imagery-driven AI video generation tool grounded in real-world geography.
-It integrates Unity and ComfyUI with the VACE video-generation model, plus OpenStreetMap and Mapillary
-for street view. Following familiar filmmaking practices like location scouting and rehearsal, users
-choose a map location, position actors and cameras in the street view, sketch movement paths, refine
-camera motion, and generate spatially consistent video.
+Map2Video guides SVI-grounded AI video generation through map-based character trajectory annotation
+and direct manipulation of cameras and character masks. Both are defined in geodetic coordinates and
+projected onto panoramic screen coordinates, so what the user lays out on the map stays consistent
+with what the model generates. Following familiar filmmaking practices like location scouting and
+rehearsal, users pick a location, place actors and cameras in the street view, sketch movement paths,
+refine camera motion, and generate the shot.
 
 ## Evaluation
 
-In a study with 12 filmmakers, Map2Video beat an image-to-video baseline on spatial accuracy, required
-less cognitive effort, and gave stronger control — for both replicating scenes and open-ended creative
-exploration.
+In a study with 12 filmmakers, Map2Video provided stronger controllability than an image-to-video
+baseline — for both scene replication and open-ended creative exploration — while reducing cognitive
+effort and improving spatial consistency across multiple shots.
 
 *Work done as an intern at Fujitsu Research of America.*

@@ -1,5 +1,9 @@
 # Dated updates shown on the home page (newest first is computed automatically).
 # Each item needs a unique `id`. `link` is optional.
+- id: map2video-uist-2026
+  date: 2026-08-12
+  text: "Map2Video was accepted to UIST 2026! 🎉"
+  link: "https://doi.org/10.1145/3830398.3830538"
 - id: autodesk-internship-2026
   date: 2026-05-04
   text: "Autodesk summer internship — joining the HCI & Visualization team in Toronto 🇨🇦"
