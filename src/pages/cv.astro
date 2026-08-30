@@ -131,7 +131,8 @@ function publication(item: CvPublication) {
 
 <style is:global>
   /* Mirrors the Google Docs original: Letter, 1in margins, Georgia 11pt,
-     #1155cc links, #980000 for the italic award lines. */
+     #1155cc links, #980000 for the italic award lines. Sizes are measured
+     from the original PDF, not the docx styles, which the document overrides. */
   @page {
     size: letter;
     margin: 1in;
@@ -151,7 +152,7 @@ function publication(item: CvPublication) {
   body {
     margin: 0;
     font-family: Georgia, 'Times New Roman', serif;
-    font-size: 11pt;
+    font-size: 10pt;
     line-height: 1.15;
     color: var(--cv-fg);
   }
@@ -171,7 +172,7 @@ function publication(item: CvPublication) {
 
   .cv__name {
     margin: 0;
-    font-size: 16pt;
+    font-size: 18pt;
     line-height: 1.2;
   }
 
