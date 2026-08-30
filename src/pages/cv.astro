@@ -43,7 +43,7 @@ function publication(item: CvPublication) {
     d.links.pdf && { label: 'PDF', href: d.links.pdf },
   ].filter(Boolean) as { label: string; href: string }[];
 
-  return { title: d.title, authors, venue, links, note: d.award };
+  return { title: d.title, authors, venue, links, note: item.note ?? d.award };
 }
 ---
 

@@ -28,6 +28,9 @@ export interface CvPublication {
   ref: string;
   /** Overrides the venue line when the record needs wording the site lacks. */
   venueNote?: string;
+  /** Overrides the award line, which otherwise comes from the project. The CV
+   *  names the award without the site's selectivity band. */
+  note?: string;
 }
 
 /** Long-form venue names for the CV, keyed by the site's short `venue`. */
@@ -103,7 +106,7 @@ export const CV: { name: string; contact: string[]; sections: CvSection[] } = {
         { label: 'E1', ref: 'trainertap' },
         { label: 'C3', ref: 'flowar' },
         { label: 'C2', ref: 'physical-computing-metaverse' },
-        { label: 'C1', ref: 'gamesbond' },
+        { label: 'C1', ref: 'gamesbond', note: 'Honorable Mention Award' },
       ],
     },
     {
@@ -169,7 +172,7 @@ export const CV: { name: string; contact: string[]; sections: CvSection[] } = {
           date: '2021',
           lines: ['Winner, User Interface (UI), User Experience (UX), Mobile Clinic Module Control UX/UI (awarded to Make lab)'],
         },
-        { title: 'Honorable Mention Award (top 5%)', date: '2021', lines: ['CHI 2021 [C1]'] },
+        { title: 'Honorable Mention Award', date: '2021', lines: ['CHI 2021 [C1]'] },
         { title: 'Top Award', date: '2016', lines: ['Green Computer Academy'] },
         { title: 'Alumni Award', date: '2016', lines: ['Seoul National University Alumni Association'] },
       ],
