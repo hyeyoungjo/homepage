@@ -112,6 +112,14 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.18; font-weight: 600
 }
 .linkrow__btn:hover { border-color: var(--color-accent); color: var(--color-accent); text-decoration: none; }
 
+/* Awards read as a distinct line, not more venue metadata */
+.project__award, .card__award {
+  margin: 0.15rem 0 0;
+  color: var(--color-accent);
+  font-size: 0.9rem;
+}
+.card__award { font-size: 0.85rem; }
+
 /* Cite: a pill matching .linkrow__btn that drops a menu of citation formats */
 .cite { position: relative; display: inline-flex; }
 .cite__btn { font: inherit; font-size: 0.9rem; background: none; cursor: pointer; }

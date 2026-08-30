@@ -4,6 +4,7 @@ type: "research"
 year: 2026
 authors: ["Dong-Uk Kim", "Hye-Young Jo", "Hankyung Kim", "Ryo Suzuki", "Seungwoo Je", "Yoonji Kim"]
 venue: "ACM CHI"
+acceptanceRate: "25.3%"
 abstract: "TingleTouch uses electrical muscle stimulation to recreate a personal trainer's touch guidance during resistance training. In a study with 16 gym-goers, participants distinguished instructional cues with 97-99% accuracy across two sessions."
 teaser: ./teaser.png
 teaserAlt: "TingleTouch electrical stimulation guidance during weight training"

@@ -4,6 +4,7 @@ type: "research"
 year: 2026
 authors: ["Hye-Young Jo", "Mose Sakashita", "Aditi Mishra", "Ryo Suzuki", "Koichiro Niinuma", "Aakar Gupta"]
 venue: "ACM UIST"
+acceptanceRate: "20.1%"
 abstract: "Map2Video guides AI video generation grounded in street view imagery through map-based character trajectory annotation and direct manipulation of cameras and character masks defined in geodetic coordinates. In an evaluation with 12 filmmakers, it provided stronger controllability, reduced cognitive effort, and improved spatial consistency across shots compared to an image-to-video baseline."
 teaser: ./teaser.png
 teaserAlt: "Map2Video street-view driven video generation"

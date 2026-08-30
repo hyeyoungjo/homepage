@@ -4,6 +4,7 @@ type: "research"
 year: 2026
 authors: ["Keiichi Ihara", "DaeHo Lee", "Manato Abe", "Hye-Young Jo", "Ryo Suzuki"]
 venue: "ACM UIST"
+acceptanceRate: "20.1%"
 abstract: "CinemaWorld is a generative augmented reality system that augments the viewer's physical surroundings with mixed reality 3D content extracted from and synchronized with a movie. Multimodal LLMs analyze the film, generative AI produces dynamic 3D augmentations, and the Meta Quest 3 embeds them into the room. A technical evaluation over 100 clips, a usability study with 12 participants, and interviews with 8 film creators show gains in immersion and enjoyment."
 teaser: ./teaser.png
 teaserAlt: "A viewer in a Quest 3 watching a movie while the room is augmented with matching 3D content"

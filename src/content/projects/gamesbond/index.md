@@ -8,7 +8,8 @@ abstract: "GamesBond creates a bimanual haptic illusion of two physically connec
 teaser: ./teaser.jpg
 teaserAlt: "GamesBond bimanual VR controllers with grip deformation"
 tags: ["VR", "haptics", "controllers"]
-award: "Honorable Mention"
+award: "Honorable Mention (top 5%)"
+acceptanceRate: "26.3%"
 links:
   pdf: "https://drive.google.com/file/d/15g2cdwuwwMAk6vLFfNet8wQNYtnZzPZS/view"
   doi: "https://doi.org/10.1145/3411764.3445727"

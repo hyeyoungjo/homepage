@@ -20,11 +20,12 @@ const search = [d.title, d.authors.join(' '), d.venue, d.abstract, d.tags.join('
 
 // Meta line: avoid repeating the year when the venue already contains it.
 const yearStr = String(d.year);
-const meta = d.venue
-  ? d.venue.includes(yearStr)
-    ? d.venue
-    : `${d.venue} · ${yearStr}`
-  : yearStr;
+const meta = [
+  d.venue ? (d.venue.includes(yearStr) ? d.venue : `${d.venue} · ${yearStr}`) : yearStr,
+  d.acceptanceRate && `Acceptance ${d.acceptanceRate}`,
+]
+  .filter(Boolean)
+  .join(' · ');
 ---
 
 <article
@@ -65,6 +66,7 @@ const meta = d.venue
       )
     }
     <p class="card__meta">{meta}</p>
+    {d.award && <p class="card__award">{d.award}</p>}
     {d.abstract && <p class="card__excerpt">{d.abstract}</p>}
     <div class="card__links"><LinkRow links={d.links} originalLink={d.originalLink} /></div>
   </div>
