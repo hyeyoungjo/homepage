@@ -40,8 +40,9 @@ const d = project.data;
         </p>
       )
     }
-    <LinkRow links={d.links} originalLink={d.originalLink} />
-    <CiteBlock bibtex={d.bibtex} />
+    <LinkRow links={d.links} originalLink={d.originalLink} hasExtra={Boolean(d.bibtex)}>
+      <CiteBlock bibtex={d.bibtex} />
+    </LinkRow>
   </header>
 
   {d.abstract && <p class="project__abstract prose">{d.abstract}</p>}

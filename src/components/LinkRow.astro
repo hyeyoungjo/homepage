@@ -11,9 +11,11 @@ interface Props {
     github?: string;
   };
   originalLink?: string;
+  // Set when a slotted button (e.g. CiteBlock) should keep the row alive on its own.
+  hasExtra?: boolean;
 }
 
-const { links = {}, originalLink } = Astro.props;
+const { links = {}, originalLink, hasExtra = false } = Astro.props;
 
 const items = [
   links.pdf && { label: 'PDF', href: links.pdf },
@@ -29,13 +31,14 @@ const items = [
 ---
 
 {
-  items.length > 0 && (
+  (items.length > 0 || hasExtra) && (
     <div class="linkrow">
       {items.map((it) => (
         <a class="linkrow__btn" href={it.href} target="_blank" rel="noopener">
           {it.label}
         </a>
       ))}
+      <slot />
     </div>
   )
 }

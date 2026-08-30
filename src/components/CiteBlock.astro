@@ -1,4 +1,8 @@
 ---
+// Rendered *inside* LinkRow's flex row so the button sits on the same line as
+// PDF/DOI/Video. Clicking copies the entry straight to the clipboard; the
+// source text is kept in a hidden node rather than a data attribute so the
+// BibTeX stays readable in the markup.
 interface Props {
   bibtex?: string;
 }
@@ -8,37 +12,33 @@ const { bibtex } = Astro.props;
 
 {
   bibtex && (
-    <details class="cite">
-      <summary class="cite__toggle">BibTeX</summary>
-      <div class="cite__body">
-        <button class="cite__copy" type="button">Copy</button>
-        <pre class="cite__pre"><code>{bibtex.trim()}</code></pre>
-      </div>
-    </details>
+    <>
+      <button class="cite__btn linkrow__btn" type="button">
+        BibTeX
+      </button>
+      <pre class="cite__source" hidden>{bibtex.trim()}</pre>
+    </>
   )
 }
 
 <script>
-  document.querySelectorAll<HTMLButtonElement>('.cite__copy').forEach((btn) => {
+  document.querySelectorAll<HTMLButtonElement>('.cite__btn').forEach((btn) => {
+    const source = btn.nextElementSibling;
+    if (!source) return;
+
     btn.addEventListener('click', async () => {
-      const code = btn.parentElement?.querySelector('code');
-      if (!code) return;
       try {
-        await navigator.clipboard.writeText(code.textContent ?? '');
+        await navigator.clipboard.writeText(source.textContent ?? '');
         btn.textContent = 'Copied';
         btn.classList.add('is-done');
         setTimeout(() => {
-          btn.textContent = 'Copy';
+          btn.textContent = 'BibTeX';
           btn.classList.remove('is-done');
         }, 1600);
       } catch {
-        // Clipboard unavailable (non-secure context): select the text so the
-        // reader can copy it by hand.
-        const sel = window.getSelection();
-        const range = document.createRange();
-        range.selectNodeContents(code);
-        sel?.removeAllRanges();
-        sel?.addRange(range);
+        // Clipboard unavailable (non-secure context): reveal the entry so the
+        // reader can select and copy it by hand.
+        (source as HTMLElement).hidden = false;
       }
     });
   });

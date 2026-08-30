@@ -20,7 +20,7 @@ const ICONS: Record<string, string> = {
 };
 
 const links = [
-  { label: 'Email', href: `mailto:${SITE.email}`, icon: ICONS.email },
+  { label: 'Email', href: `mailto:${SITE.email}`, icon: ICONS.email, copy: SITE.email },
   { label: 'CV', href: SITE.cv, icon: ICONS.cv },
   { label: 'Scholar', href: SITE.socials.scholar, icon: ICONS.scholar },
   { label: 'GitHub', href: SITE.socials.github, icon: ICONS.github },
@@ -33,7 +33,12 @@ const links = [
 <div class="socials">
   {
     links.map((l) => (
-      <a href={l.href} target={l.href.startsWith('mailto') ? undefined : '_blank'} rel="noopener">
+      <a
+        href={l.href}
+        target={l.href.startsWith('mailto') ? undefined : '_blank'}
+        rel="noopener"
+        data-copy={l.copy}
+      >
         <svg
           class="social__icon"
           viewBox="0 0 24 24"
@@ -48,3 +53,29 @@ const links = [
     ))
   }
 </div>
+
+<script>
+  // The email link copies the address rather than handing off to a mail client,
+  // which is what most visitors actually want. The mailto: href stays put so
+  // "open link" and "copy link" still work from the context menu.
+  document.querySelectorAll<HTMLAnchorElement>('.socials a[data-copy]').forEach((a) => {
+    const address = a.dataset.copy;
+    const label = a.querySelector('span');
+    if (!address || !label) return;
+
+    a.addEventListener('click', async (e) => {
+      e.preventDefault();
+      try {
+        await navigator.clipboard.writeText(address);
+        label.textContent = 'Copied';
+        a.classList.add('is-done');
+        setTimeout(() => {
+          label.textContent = 'Email';
+          a.classList.remove('is-done');
+        }, 1600);
+      } catch {
+        window.location.href = a.href;
+      }
+    });
+  });
+</script>

@@ -112,50 +112,9 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.18; font-weight: 600
 }
 .linkrow__btn:hover { border-color: var(--color-accent); color: var(--color-accent); text-decoration: none; }
 
-/* Cite block: a pill that matches .linkrow__btn, expanding to the BibTeX entry */
-.cite { margin: -0.5rem 0 1.25rem; }
-.cite__toggle {
-  display: inline-block;
-  padding: 0.4rem 0.9rem;
-  border: 1px solid var(--color-border);
-  border-radius: 999px;
-  font-size: 0.9rem;
-  color: var(--color-fg);
-  cursor: pointer;
-  list-style: none;
-  user-select: none;
-}
-.cite__toggle::-webkit-details-marker { display: none; }
-.cite__toggle:hover { border-color: var(--color-accent); color: var(--color-accent); }
-.cite[open] .cite__toggle { border-color: var(--color-accent); color: var(--color-accent); }
-.cite__body { position: relative; margin-top: 0.75rem; }
-.cite__pre {
-  margin: 0;
-  padding: 1rem 1rem 1rem;
-  overflow-x: auto;
-  background: var(--color-code-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  font-size: 0.8rem;
-  line-height: 1.6;
-  tab-size: 2;
-}
-.cite__pre code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-.cite__copy {
-  position: absolute;
-  top: 0.55rem;
-  right: 0.55rem;
-  padding: 0.25rem 0.6rem;
-  border: 1px solid var(--color-border);
-  border-radius: 999px;
-  background: var(--color-bg);
-  color: var(--color-muted);
-  font: inherit;
-  font-size: 0.75rem;
-  cursor: pointer;
-}
-.cite__copy:hover { border-color: var(--color-accent); color: var(--color-accent); }
-.cite__copy.is-done { border-color: var(--color-accent); color: var(--color-accent); }
+/* Cite button: same pill as .linkrow__btn, copies the BibTeX entry on click */
+.cite__btn { font: inherit; font-size: 0.9rem; background: none; cursor: pointer; }
+.cite__btn.is-done, .socials a.is-done { border-color: var(--color-accent); color: var(--color-accent); }
 
 /* Responsive YouTube / video */
 .yt { position: relative; width: 100%; aspect-ratio: 16 / 9; margin: 1.5rem 0; }
