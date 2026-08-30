@@ -1,5 +1,5 @@
 ---
-title: "Design of a Virtual Reality Application for Interaction Prototyping in Remote Education"
+title: "Design of Virtual Reality Application for Interaction Prototyping Remote Education"
 type: "research"
 year: 2022
 authors: ["Hye-Young Jo", "Wooje Chang", "Hoonjin Jung", "Andrea Bianchi"]
@@ -17,10 +17,10 @@ links:
 featured: false
 draft: false
 bibtex: |
-  @article{조혜영2022인터랙션,
-  title = {인터랙션 프로토타이핑 원격교육을 위한 가상현실 어플리케이션 디자인},
-  author = {조혜영 and 장우제 and 정훈진 and 안드리아 비앙키},
-  journal = {한국 HCI 학회 학술대회},
+  @inproceedings{jo2022design,
+  author = {Jo, Hye-Young and Chang, Wooje and Jung, Hoonjin and Bianchi, Andrea},
+  title = {Design of Virtual Reality Application for Interaction Prototyping Remote Education},
+  booktitle = {HCI Korea 2022},
   pages = {214--219},
   year = {2022}
   }

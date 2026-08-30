@@ -34,6 +34,23 @@ bibtex: |
   location = {Honolulu, HI, USA},
   series = {CHI '24}
   }
+endnote: |
+  %0 Conference Paper
+  %T CollageVis: Rapid Previsualization Tool for Indie Filmmaking using Video Collages
+  %@ 9798400703300
+  %U https://doi.org/10.1145/3613904.3642575
+  %R 10.1145/3613904.3642575
+  %B Proceedings of the 2024 CHI Conference on Human Factors in Computing Systems
+  %I Association for Computing Machinery
+  %A Hye-Young Jo
+  %A Ryo Suzuki
+  %A Yoonji Kim
+  %D 2024
+  %P Article 164
+  %K indie filmmaking, previsualization, storyboard
+  %C Honolulu, HI, USA
+acmref: |
+  Hye-Young Jo, Ryo Suzuki, and Yoonji Kim. 2024. CollageVis: Rapid Previsualization Tool for Indie Filmmaking using Video Collages. In Proceedings of the 2024 CHI Conference on Human Factors in Computing Systems (CHI '24). Association for Computing Machinery, New York, NY, USA, Article 164, 1–16. https://doi.org/10.1145/3613904.3642575
 ---
 
 

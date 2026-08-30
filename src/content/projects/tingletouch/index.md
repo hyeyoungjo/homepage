@@ -31,6 +31,26 @@ bibtex: |
   location = {Barcelona, Spain},
   series = {CHI '26}
   }
+endnote: |
+  %0 Conference Paper
+  %T TingleTouch: Touch Guidance through Electrical Stimulation in Resistance Training
+  %@ 9798400722783
+  %U https://doi.org/10.1145/3772318.3791646
+  %R 10.1145/3772318.3791646
+  %B Proceedings of the 2026 CHI Conference on Human Factors in Computing Systems
+  %I Association for Computing Machinery
+  %A Dong-Uk Kim
+  %A Hye-Young Jo
+  %A Hankyung Kim
+  %A Ryo Suzuki
+  %A Seungwoo Je
+  %A Yoonji Kim
+  %D 2026
+  %P Article 230
+  %K Resistance Training, Mind-Muscle Connection, User-Centered Design, Electrical Stimulation
+  %C Barcelona, Spain
+acmref: |
+  Dong-Uk Kim, Hye-Young Jo, Hankyung Kim, Ryo Suzuki, Seungwoo Je, and Yoonji Kim. 2026. TingleTouch: Touch Guidance through Electrical Stimulation in Resistance Training. In Proceedings of the 2026 CHI Conference on Human Factors in Computing Systems (CHI '26). Association for Computing Machinery, New York, NY, USA, Article 230, 1–20. https://doi.org/10.1145/3772318.3791646
 ---
 
 ## Problem: a trainer's touch is hard to replicate alone

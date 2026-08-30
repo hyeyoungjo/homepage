@@ -33,6 +33,25 @@ bibtex: |
   location = {Yokohama, Japan},
   series = {CHI '21}
   }
+endnote: |
+  %0 Conference Paper
+  %T GamesBond: Bimanual Haptic Illusion of Physically Connected Objects for Immersive VR Using Grip Deformation
+  %@ 9781450380966
+  %U https://doi.org/10.1145/3411764.3445727
+  %R 10.1145/3411764.3445727
+  %B Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems
+  %I Association for Computing Machinery
+  %A Neung Ryu
+  %A Hye-Young Jo
+  %A Michel Pahud
+  %A Mike Sinclair
+  %A Andrea Bianchi
+  %D 2021
+  %P Article 125
+  %K Haptics, Virtual Reality, bimanual interaction, grip deformation, shape-changing
+  %C Yokohama, Japan
+acmref: |
+  Neung Ryu, Hye-Young Jo, Michel Pahud, Mike Sinclair, and Andrea Bianchi. 2021. GamesBond: Bimanual Haptic Illusion of Physically Connected Objects for Immersive VR Using Grip Deformation. In Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems (CHI '21). Association for Computing Machinery, New York, NY, USA, Article 125, 1–10. https://doi.org/10.1145/3411764.3445727
 ---
 
 

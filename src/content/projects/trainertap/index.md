@@ -32,6 +32,26 @@ bibtex: |
   location = {San Francisco, CA, USA},
   series = {UIST '23 Adjunct}
   }
+endnote: |
+  %0 Conference Paper
+  %T TrainerTap: Weightlifting Support System Prototype Simulating Personal Trainer's Tactile and Auditory Guidance
+  %@ 9798400700965
+  %U https://doi.org/10.1145/3586182.3616644
+  %R 10.1145/3586182.3616644
+  %B Adjunct Proceedings of the 36th Annual ACM Symposium on User Interface Software and Technology
+  %I Association for Computing Machinery
+  %A Hye-Young Jo
+  %A Chan Hu Wie
+  %A Yejin Jang
+  %A Dong-Uk Kim
+  %A Yurim Son
+  %A Yoonji Kim
+  %D 2023
+  %P Article 14
+  %K haptic wearable, mind-muscle connection, weightlifting
+  %C San Francisco, CA, USA
+acmref: |
+  Hye-Young Jo, Chan Hu Wie, Yejin Jang, Dong-Uk Kim, Yurim Son, and Yoonji Kim. 2023. TrainerTap: Weightlifting Support System Prototype Simulating Personal Trainer's Tactile and Auditory Guidance. In Adjunct Proceedings of the 36th Annual ACM Symposium on User Interface Software and Technology (UIST '23 Adjunct). Association for Computing Machinery, New York, NY, USA, Article 14, 1–3. https://doi.org/10.1145/3586182.3616644
 ---
 
 
