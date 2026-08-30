@@ -1,14 +1,15 @@
 ---
 // Career timeline: each stage titles its showreel. The reel spans the full text
 // width; the dot + connecting line sit in the left margin beside it.
-import YouTubeEmbed from './YouTubeEmbed.astro';
-
+//
+// The videos are served from this repo rather than YouTube, so they cannot be
+// broken by a platform visibility setting. A stage without a file is skipped.
 const stages = [
-  { label: 'Fine Art', url: 'https://youtu.be/KPa9K04bg9M' },
-  { label: 'Film', url: 'https://youtu.be/0x7Rzw4ejqM' },
-  { label: 'XR', url: 'https://youtu.be/xaiEH6rCV44' },
-  { label: 'Research', url: 'https://youtu.be/4TNg1E6FP04' },
-];
+  { label: 'Fine Art', src: '/reels/fine-art.mp4', poster: '/reels/fine-art.jpg' },
+  { label: 'Film', src: '/reels/film.mp4', poster: '/reels/film.jpg' },
+  { label: 'XR', src: null, poster: null },
+  { label: 'Research', src: '/reels/research.mp4', poster: '/reels/research.jpg' },
+].filter((s) => s.src);
 ---
 
 <ol class="journey">
@@ -18,7 +19,16 @@ const stages = [
         <span class="journey__dot" aria-hidden="true" />
         <h3 class="journey__title">{s.label}</h3>
         <div class="journey__reel">
-          <YouTubeEmbed url={s.url} title={`${s.label} reel`} />
+          <video
+            class="journey__video"
+            controls
+            playsinline
+            preload="none"
+            poster={s.poster}
+            aria-label={`${s.label} showreel`}
+          >
+            <source src={s.src} type="video/mp4" />
+          </video>
         </div>
       </li>
     ))
@@ -51,5 +61,11 @@ const stages = [
   }
   .journey__item:last-child::before { display: none; }
   .journey__title { margin: 0 0 0.6rem; font-size: 1.2rem; font-family: var(--font-serif); }
-  .journey__reel :global(.yt) { margin: 0; }
+  .journey__video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius);
+    background: #000;
+  }
 </style>
