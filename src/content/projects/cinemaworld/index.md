@@ -10,6 +10,7 @@ teaserAlt: "A viewer in a Quest 3 watching a movie while the room is augmented w
 tags: ["AR", "generative AI", "film"]
 links:
   pdf: "https://arxiv.org/pdf/2603.08060"
+  doi: "https://doi.org/10.1145/3830398.3830520"
   website: "https://ryosuzuki.org/cinemaworld"
 featured: false
 draft: false
