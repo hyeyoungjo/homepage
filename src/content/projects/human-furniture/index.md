@@ -8,8 +8,6 @@ abstract: "Part of Dirt Luv, my 2015 media art graduation exhibition. A projecti
 teaser: ./human-furniture.jpg
 teaserAlt: "Human-furniture projection"
 tags: ["projection", "video", "body"]
-links:
-  youtube: "https://youtu.be/T_EZoXktQq0"
 featured: false
 draft: false
 ---
@@ -26,6 +24,8 @@ furniture, someone with even less function than the objects around them.
 In a single-channel video, a body slowly takes on the posture and stillness of the furniture it shares
 the frame with, settling onto and around a chair until person and object are hard to tell apart. The
 figure eats, slumps, and waits: dull, and seemingly without purpose.
+
+![Human-furniture, single-channel video](./human-furniture.mp4)
 
 ![](./mannequin-1.gif)
 ![](./mannequin-2.gif)
