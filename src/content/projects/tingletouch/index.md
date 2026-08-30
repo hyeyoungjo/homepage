@@ -28,6 +28,7 @@ bibtex: |
   booktitle = {Proceedings of the 2026 CHI Conference on Human Factors in Computing Systems},
   articleno = {230},
   numpages = {20},
+  location = {Barcelona, Spain},
   series = {CHI '26}
   }
 ---
