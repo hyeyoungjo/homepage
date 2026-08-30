@@ -17,7 +17,7 @@ export const SITE = {
   ],
   audio: '/hi-im-hyeyoung.mp3',
   email: 'hye-young.jo@colorado.edu',
-  cv: 'https://drive.google.com/file/d/1aD67ueC10ioStVUcb-Th5bKqan8H3bTk/view',
+  cv: '/cv.pdf',
   socials: {
     scholar: 'https://scholar.google.com/citations?user=vSQMUMgAAAAJ&hl=en',
     github: 'https://github.com/hyeyoungjo',

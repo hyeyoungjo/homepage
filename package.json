@@ -9,7 +9,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "assets": "node scripts/process-assets.mjs",
-    "astro": "astro"
+    "astro": "astro",
+    "cv": "node scripts/build-cv-pdf.mjs"
   },
   "dependencies": {
     "astro": "^5"

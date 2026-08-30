@@ -1,0 +1,265 @@
+---
+import { getCollection } from 'astro:content';
+import { CV, VENUE_LONG, type CvPublication } from '../data/cv';
+
+const projects = await getCollection('projects');
+const bySlug = new Map(projects.map((p) => [p.id, p]));
+
+/** Inline markup shared by every CV string: **bold**, *italic*, [text](href). */
+function inline(src: string): string {
+  return src
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_m, t, h) => `<a href="${h}">${t}</a>`)
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*([^*]+)\*/g, '<em>$1</em>');
+}
+
+/** Build a publication line from the projects collection, so the CV and the
+ *  site can never disagree about a title, author list, venue or award. */
+function publication(item: CvPublication) {
+  const p = bySlug.get(item.ref);
+  if (!p) throw new Error(`cv: no project "${item.ref}"`);
+  const d = p.data;
+
+  const authors = d.authors
+    .map((a) => {
+      const name = a.replace(/\*+$/, '').trim();
+      return name === 'Hye-Young Jo' ? `**${name}**` : name;
+    })
+    .join(', ');
+
+  const long = d.venue ? VENUE_LONG[d.venue] : undefined;
+  const venue = [
+    long ? long.replace('{year}', String(d.year)) : `${d.venue ?? ''} ${d.year}`.trim(),
+    item.venueNote,
+  ]
+    .filter(Boolean)
+    .join(' ');
+
+  const links = [
+    d.links.youtube && { label: 'video', href: d.links.youtube },
+    d.links.pdf && { label: 'PDF', href: d.links.pdf },
+  ].filter(Boolean) as { label: string; href: string }[];
+
+  return { title: d.title, authors, venue, links, note: d.award };
+}
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{CV.name} · CV</title>
+    <meta name="description" content={`Curriculum vitae of ${CV.name}`} />
+  </head>
+  <body>
+    <main class="cv">
+      <h1 class="cv__name">{CV.name}</h1>
+      <p class="cv__contact">{CV.contact.join(' | ')}</p>
+
+      {
+        CV.sections.map((section) => (
+          <section class={`cv__section${'spaced' in section && section.spaced ? ' is-spaced' : ''}`}>
+            <h2>{section.title}</h2>
+
+            {section.kind === 'prose' &&
+              section.body.map((p) => <p class="cv__prose" set:html={inline(p)} />)}
+
+            {section.kind === 'entries' &&
+              section.entries.map((e) => (
+                <div class="cv__entry">
+                  <p class="cv__head">
+                    <span
+                      set:html={inline(e.href ? `[**${e.title}**](${e.href})` : `**${e.title}**`)}
+                    />
+                    {e.date && <span class="cv__date">{e.date}</span>}
+                  </p>
+                  {e.lines?.map((l) => <p class="cv__line" set:html={inline(l)} />)}
+                  {e.rows?.map((r) => (
+                    <p class="cv__line cv__head">
+                      <span set:html={inline(r.text)} />
+                      {r.date && <span class="cv__date">{r.date}</span>}
+                    </p>
+                  ))}
+                </div>
+              ))}
+
+            {section.kind === 'publications' && (
+              <>
+                <p class="cv__prose" set:html={inline(section.summary)} />
+                {section.items.map((item) => {
+                  const pub = publication(item);
+                  return (
+                    <div class="cv__pub">
+                      <p class="cv__pub-title">
+                        [{item.label}] {pub.title}
+                      </p>
+                      <p class="cv__pub-meta" set:html={inline(pub.authors)} />
+                      <p
+                        class="cv__pub-meta"
+                        set:html={[
+                          pub.venue,
+                          ...pub.links.map((l) => `(<a href="${l.href}">${l.label}</a>)`),
+                        ].join(' ')}
+                      />
+                      {pub.note && <p class="cv__pub-note">{pub.note}</p>}
+                    </div>
+                  );
+                })}
+              </>
+            )}
+
+            {section.kind === 'list' && (
+              <>
+                {section.summary && <p class="cv__prose" set:html={inline(section.summary)} />}
+                {section.groups.map((g) => (
+                  <div class="cv__group">
+                    {g.title && <p class="cv__head"><strong>{g.title}</strong></p>}
+                    {g.items.map((i) => <p class="cv__line" set:html={inline(i)} />)}
+                  </div>
+                ))}
+              </>
+            )}
+          </section>
+        ))
+      }
+    </main>
+  </body>
+</html>
+
+<style is:global>
+  /* Mirrors the Google Docs original: Letter, 1in margins, Georgia 11pt,
+     #1155cc links, #980000 for the italic award lines. */
+  @page {
+    size: letter;
+    margin: 1in;
+  }
+
+  :root {
+    --cv-fg: #000;
+    --cv-link: #1155cc;
+    --cv-award: #980000;
+    --cv-indent: 0.44in;
+  }
+
+  html {
+    background: #f4f4f5;
+  }
+
+  body {
+    margin: 0;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 11pt;
+    line-height: 1.15;
+    color: var(--cv-fg);
+  }
+
+  .cv {
+    box-sizing: content-box;
+    width: 6.5in;
+    margin: 2rem auto;
+    padding: 1in;
+    background: #fff;
+    box-shadow: 0 2px 16px rgb(0 0 0 / 0.12);
+  }
+
+  .cv a {
+    color: var(--cv-link);
+  }
+
+  .cv__name {
+    margin: 0;
+    font-size: 16pt;
+    line-height: 1.2;
+  }
+
+  .cv__contact {
+    margin: 3pt 0 0;
+  }
+
+  .cv__section h2 {
+    margin: 20pt 0 6pt;
+    font-size: 14pt;
+    line-height: 1.2;
+  }
+
+  .cv__prose {
+    margin: 0 0 6pt;
+  }
+
+  .cv__entry {
+    margin-bottom: 0;
+  }
+
+  /* Sections that put a blank line between items in the original. */
+  .cv__section.is-spaced .cv__entry + .cv__entry {
+    margin-top: 1.15em;
+  }
+
+  /* Title left, date hard right, matching the original's right tab stop. */
+  .cv__head {
+    display: flex;
+    justify-content: space-between;
+    gap: 1em;
+    margin: 0;
+  }
+
+  .cv__date {
+    flex: none;
+  }
+
+  .cv__line {
+    margin: 0;
+  }
+
+  .cv__pub {
+    margin-bottom: 0;
+  }
+
+  .cv__pub-title {
+    margin: 0;
+  }
+
+  .cv__pub-meta,
+  .cv__pub-note {
+    margin: 0;
+    padding-left: var(--cv-indent);
+  }
+
+  .cv__pub-note {
+    color: var(--cv-award);
+    font-style: italic;
+  }
+
+  .cv em {
+    color: var(--cv-award);
+  }
+
+  .cv__group {
+    margin-bottom: 6pt;
+  }
+
+  @media print {
+    html {
+      background: #fff;
+    }
+    .cv {
+      width: auto;
+      margin: 0;
+      padding: 0;
+      box-shadow: none;
+    }
+    .cv__section {
+      break-inside: auto;
+    }
+    .cv__section h2 {
+      break-after: avoid;
+    }
+    .cv__entry,
+    .cv__pub {
+      break-inside: avoid;
+    }
+  }
+</style>
