@@ -33,6 +33,25 @@ bibtex: |
   location = {Hamburg, Germany},
   series = {CHI '23}
   }
+endnote: |
+  %0 Conference Paper
+  %T FlowAR: How Different Augmented Reality Visualizations of Online Fitness Videos Support Flow for At-Home Yoga Exercises
+  %@ 9781450394215
+  %U https://doi.org/10.1145/3544548.3580897
+  %R 10.1145/3544548.3580897
+  %B Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems
+  %I Association for Computing Machinery
+  %A Hye-Young Jo
+  %A Laurenz Seidel
+  %A Michel Pahud
+  %A Mike Sinclair
+  %A Andrea Bianchi
+  %D 2023
+  %P Article 469
+  %K augmented reality, fitness video, home workouts, yoga
+  %C Hamburg, Germany
+acmref: |
+  Hye-Young Jo, Laurenz Seidel, Michel Pahud, Mike Sinclair, and Andrea Bianchi. 2023. FlowAR: How Different Augmented Reality Visualizations of Online Fitness Videos Support Flow for At-Home Yoga Exercises. In Proceedings of the 2023 CHI Conference on Human Factors in Computing Systems (CHI '23). Association for Computing Machinery, New York, NY, USA, Article 469, 1–17. https://doi.org/10.1145/3544548.3580897
 ---
 
 

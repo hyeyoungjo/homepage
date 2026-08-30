@@ -35,7 +35,11 @@ const projects = defineCollection({
           github: z.string().url().optional(),
         })
         .default({}),
+      // Citation formats, mirroring ACM DL's "Export Citations" menu. Each is
+      // pasted verbatim from the publisher; only the ones present are offered.
       bibtex: z.string().optional(),
+      endnote: z.string().optional(),
+      acmref: z.string().optional(),
       // Optional full-resolution original (e.g. a Google Drive link for artworks).
       originalLink: z.string().url().optional(),
       // Show on the home page "Selected Work" section.

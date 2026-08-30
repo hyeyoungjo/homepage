@@ -1,44 +1,93 @@
 ---
 // Rendered *inside* LinkRow's flex row so the button sits on the same line as
-// PDF/DOI/Video. Clicking copies the entry straight to the clipboard; the
-// source text is kept in a hidden node rather than a data attribute so the
-// BibTeX stays readable in the markup.
+// PDF/DOI/Video. Clicking opens a small menu of the citation formats we
+// actually hold for this paper; picking one copies it straight to the
+// clipboard. Each format's text lives in a hidden node rather than a data
+// attribute so it stays readable in the markup.
 interface Props {
   bibtex?: string;
+  endnote?: string;
+  acmref?: string;
 }
 
-const { bibtex } = Astro.props;
+const { bibtex, endnote, acmref } = Astro.props;
+
+const formats = [
+  bibtex && { id: 'bibtex', label: 'BibTeX', text: bibtex },
+  endnote && { id: 'endnote', label: 'EndNote', text: endnote },
+  acmref && { id: 'acmref', label: 'ACM Ref', text: acmref },
+].filter(Boolean) as { id: string; label: string; text: string }[];
 ---
 
 {
-  bibtex && (
-    <>
-      <button class="cite__btn linkrow__btn" type="button">
-        BibTeX
+  formats.length > 0 && (
+    <div class="cite">
+      <button
+        class="cite__btn linkrow__btn"
+        type="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        Cite
       </button>
-      <pre class="cite__source" hidden>{bibtex.trim()}</pre>
-    </>
+      <div class="cite__menu" role="menu" hidden>
+        {formats.map((f) => (
+          <button class="cite__item" type="button" role="menuitem" data-fmt={f.id}>
+            {f.label}
+          </button>
+        ))}
+      </div>
+      {formats.map((f) => (
+        <pre class="cite__src" data-fmt={f.id} hidden>{f.text.trim()}</pre>
+      ))}
+    </div>
   )
 }
 
 <script>
-  document.querySelectorAll<HTMLButtonElement>('.cite__btn').forEach((btn) => {
-    const source = btn.nextElementSibling;
-    if (!source) return;
+  document.querySelectorAll<HTMLDivElement>('.cite').forEach((root) => {
+    const btn = root.querySelector<HTMLButtonElement>('.cite__btn');
+    const menu = root.querySelector<HTMLDivElement>('.cite__menu');
+    if (!btn || !menu) return;
 
-    btn.addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText(source.textContent ?? '');
-        btn.textContent = 'Copied';
-        btn.classList.add('is-done');
-        setTimeout(() => {
-          btn.textContent = 'BibTeX';
-          btn.classList.remove('is-done');
-        }, 1600);
-      } catch {
-        // Clipboard unavailable (non-secure context): reveal the entry so the
-        // reader can select and copy it by hand.
-        (source as HTMLElement).hidden = false;
+    const setOpen = (open: boolean) => {
+      btn.setAttribute('aria-expanded', String(open));
+      menu.hidden = !open;
+    };
+
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      setOpen(btn.getAttribute('aria-expanded') !== 'true');
+    });
+
+    menu.querySelectorAll<HTMLButtonElement>('.cite__item').forEach((item) => {
+      item.addEventListener('click', async () => {
+        const src = root.querySelector(`.cite__src[data-fmt="${item.dataset.fmt}"]`);
+        setOpen(false);
+        if (!src) return;
+        try {
+          await navigator.clipboard.writeText(src.textContent ?? '');
+          btn.textContent = 'Copied';
+          btn.classList.add('is-done');
+          setTimeout(() => {
+            btn.textContent = 'Cite';
+            btn.classList.remove('is-done');
+          }, 1600);
+        } catch {
+          // Clipboard unavailable (non-secure context): reveal the entry so the
+          // reader can select and copy it by hand.
+          (src as HTMLElement).hidden = false;
+        }
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!root.contains(e.target as Node)) setOpen(false);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') {
+        setOpen(false);
+        btn.focus();
       }
     });
   });

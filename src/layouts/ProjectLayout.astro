@@ -41,7 +41,7 @@ const d = project.data;
       )
     }
     <LinkRow links={d.links} originalLink={d.originalLink} hasExtra={Boolean(d.bibtex)}>
-      <CiteBlock bibtex={d.bibtex} />
+      <CiteBlock bibtex={d.bibtex} endnote={d.endnote} acmref={d.acmref} />
     </LinkRow>
   </header>
 

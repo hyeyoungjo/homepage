@@ -112,9 +112,38 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.18; font-weight: 600
 }
 .linkrow__btn:hover { border-color: var(--color-accent); color: var(--color-accent); text-decoration: none; }
 
-/* Cite button: same pill as .linkrow__btn, copies the BibTeX entry on click */
+/* Cite: a pill matching .linkrow__btn that drops a menu of citation formats */
+.cite { position: relative; display: inline-flex; }
 .cite__btn { font: inherit; font-size: 0.9rem; background: none; cursor: pointer; }
 .cite__btn.is-done, .socials a.is-done { border-color: var(--color-accent); color: var(--color-accent); }
+.cite[data-open] .cite__btn, .cite__btn[aria-expanded='true'] { border-color: var(--color-accent); }
+.cite__menu {
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  left: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  min-width: 9rem;
+  padding: 0.3rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
+}
+.cite__menu[hidden] { display: none; }
+.cite__item {
+  padding: 0.4rem 0.6rem;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  color: var(--color-fg);
+  font: inherit;
+  font-size: 0.85rem;
+  text-align: left;
+  cursor: pointer;
+}
+.cite__item:hover { background: var(--color-code-bg); color: var(--color-accent); }
 
 /* Responsive YouTube / video */
 .yt { position: relative; width: 100%; aspect-ratio: 16 / 9; margin: 1.5rem 0; }
