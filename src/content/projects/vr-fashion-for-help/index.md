@@ -20,7 +20,7 @@ the showroom end to end.
 
 Mountain climbing is one of the most popular hobbies in South Korea, especially among people over
 40. As climbing has grown, so has the frequency of falls. Kookmin University designed a smart
-outdoor jacket and a "mass customization" strategy — jackets tailored to each user's needs, from
+outdoor jacket and a "mass customization" strategy: jackets tailored to each user's needs, from
 design preferences to aging-related conditions (decreased eyesight and physical ability, posture
 and blood-pressure changes, higher skin-cancer risk, reduced memory).
 

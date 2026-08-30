@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import YouTubeEmbed from '../components/YouTubeEmbed.astro';
 import LinkRow from '../components/LinkRow.astro';
+import CiteBlock from '../components/CiteBlock.astro';
 
 interface Props {
   project: CollectionEntry<'projects'>;
@@ -34,12 +35,13 @@ const d = project.data;
       d.venue && (
         <p class="project__venue">
           {d.venue}
-          {d.award ? ` — ${d.award}` : ''}
+          {d.award ? ` · ${d.award}` : ''}
           {d.acceptanceRate ? ` (acceptance ${d.acceptanceRate})` : ''}
         </p>
       )
     }
     <LinkRow links={d.links} originalLink={d.originalLink} />
+    <CiteBlock bibtex={d.bibtex} />
   </header>
 
   {d.abstract && <p class="project__abstract prose">{d.abstract}</p>}

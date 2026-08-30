@@ -14,18 +14,28 @@ links:
   youtube: "https://youtu.be/kyzg7RN4rUo"
 featured: true
 draft: false
+bibtex: |
+  @misc{jo2025generativelecturemakinglecture,
+  title = {Generative Lecture: Making Lecture Videos Interactive with LLMs and AI Clone Instructors},
+  author = {Hye-Young Jo and Ada Yi Zhao and Xiaoan Liu and Ryo Suzuki},
+  year = {2025},
+  eprint = {2512.21796},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.HC},
+  url = {https://arxiv.org/abs/2512.21796}
+  }
 ---
 
-## Problem — lecture videos are the same for everyone
+## Problem: lecture videos are the same for everyone
 
 Lecture videos on platforms like Coursera and Khan Academy are static: once published, every viewer
 watches exactly the same content, regardless of their needs or context. The experience is passive and
-one-directional — unlike an in-person lecture, you can't ask the video a question.
+one-directional: unlike an in-person lecture, you can't ask the video a question.
 
-## Solution — an AI clone instructor that answers inside the video
+## Solution: an AI clone instructor that answers inside the video
 
 Generative Lecture turns an existing lecture video into an interactive, personalized experience. An AI
-clone of the instructor — built with HeyGen, ElevenLabs, and GPT-5 — is embedded into the video, and
+clone of the instructor (built with HeyGen, ElevenLabs, and GPT-5) is embedded into the video, and
 the system generates new material on demand in response to a student's question, inserting it into the
 slides so the instructor appears to answer directly.
 

@@ -4,7 +4,7 @@ type: "xr"
 year: 2020
 authors: []
 venue: "Dexter Studios × Naver"
-abstract: "A VR toon horror film by Dexter Studios based on Naver's webtoon The Tide — six interactive ~5-minute episodes. I worked as a VR artist on episodes 2–6, and the project was officially invited to Sundance 2019's New Frontier."
+abstract: "A VR toon horror film by Dexter Studios based on Naver's webtoon The Tide, six interactive ~5-minute episodes. I worked as a VR artist on episodes 2-6, and the project was officially invited to Sundance 2019's New Frontier."
 teaser: ./teaser.png
 teaserAlt: "VR The Tide key art"
 tags: ["VR", "film", "Dexter Studios"]
@@ -27,13 +27,13 @@ tricking his zombified aunt next door into believing he is her dead son.
 
 ## Visual style & interaction
 
-To avoid the uncanny valley — the unease of seeing human-like digital characters — we kept the
+To avoid the uncanny valley (the unease of seeing human-like digital characters), we kept the
 cartoon-like feel intact. We also fixed the camera position and let the user only rotate the view,
 minimizing VR motion sickness.
 
 ## Process
 
-I joined as a VR artist on episodes 2–6, working across the art pipeline — concept and modeling,
+I joined as a VR artist on episodes 2-6, working across the art pipeline: concept and modeling,
 texturing and look development, lighting, materials and effects, level optimization, and animated UI.
 
 ![](./c1.png)

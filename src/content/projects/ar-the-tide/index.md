@@ -26,7 +26,7 @@ the film then appear, animated.
 
 ## Process
 
-We first optimized the digital assets — originally built for VR devices — to run on mobile,
+We first optimized the digital assets, originally built for VR devices, to run on mobile,
 applying lighter shaders and an outline effect, with extra visual effects (e.g., a shimmering
 effect) where needed.
 

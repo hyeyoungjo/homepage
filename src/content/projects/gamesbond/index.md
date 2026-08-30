@@ -1,5 +1,5 @@
 ---
-title: "GamesBond: Bimanual Haptic Illusion of Physically Connected Objects Using Grip Deformation"
+title: "GamesBond: Bimanual Haptic Illusion of Physically Connected Objects for Immersive VR Using Grip Deformation"
 type: "research"
 year: 2021
 authors: ["Neung Ryu", "Hye-Young Jo", "Michel Pahud", "Mike Sinclair", "Andrea Bianchi"]
@@ -17,21 +17,37 @@ links:
   presentation: "https://youtu.be/YXd-a0asYJ0"
 featured: false
 draft: false
+bibtex: |
+  @inproceedings{10.1145/3411764.3445727,
+  author = {Ryu, Neung and Jo, Hye-Young and Pahud, Michel and Sinclair, Mike and Bianchi, Andrea},
+  title = {GamesBond: Bimanual Haptic Illusion of Physically Connected Objects for Immersive VR Using Grip Deformation},
+  year = {2021},
+  isbn = {9781450380966},
+  publisher = {Association for Computing Machinery},
+  address = {New York, NY, USA},
+  url = {https://doi.org/10.1145/3411764.3445727},
+  doi = {10.1145/3411764.3445727},
+  booktitle = {Proceedings of the 2021 CHI Conference on Human Factors in Computing Systems},
+  articleno = {125},
+  numpages = {10},
+  location = {Yokohama, Japan},
+  series = {CHI '21}
+  }
 ---
 
 
-## Problem — mechanical links between controllers are rigid and unremovable
+## Problem: mechanical links between controllers are rigid and unremovable
 
 To give both hands the feeling of holding one object in VR, previous work physically linked two
 controllers with a mechanism that renders adjustable stiffness. But a physical link restricts
 movement, can't be removed for free motion, and can't keep up with highly dynamic objects with many
-degrees of freedom — like a jumping rope swung between the hands.
+degrees of freedom, like a jumping rope swung between the hands.
 
-## Solution — a "virtual bond" from grip deformation
+## Solution: a "virtual bond" from grip deformation
 
 GamesBond is a pair of 4-DoF controllers with *no* physical link between them that still create the
 haptic illusion of a single connected object. Each handle mechanically bends, twists, and stretches;
-those kinesthetic deformations of the skin make both hands feel one coordinated motion — a virtual
+those kinesthetic deformations of the skin make both hands feel one coordinated motion, a virtual
 bond.
 
 ![](./system.gif)
@@ -39,7 +55,7 @@ bond.
 ## Applications
 
 By rendering different grip deformations, the controllers can simulate a range of immersive
-two-handed experiences — a jumping rope, the illusion of force, and various rigid grip shapes. A user
+two-handed experiences: a jumping rope, the illusion of force, and various rigid grip shapes. A user
 study showed GamesBond increased the realism, immersion, and enjoyment of bimanual interaction.
 
 ![](./application.gif)

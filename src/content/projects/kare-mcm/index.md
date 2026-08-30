@@ -3,7 +3,7 @@ title: "KARE-MCM: Mobile Clinic Module Control UX"
 type: "research"
 year: 2021
 authors: ["Hye-Young Jo", "Tek-Jin Nam", "et al."]
-abstract: "KARE-MCM (Korea Aid for Respiratory Epidemic — Mobile Clinic Module) is an expandable negative-pressure mobile ward for infectious-disease outbreaks. As a junior researcher, I designed the information architecture for its control UI."
+abstract: "KARE-MCM (Korea Aid for Respiratory Epidemic, Mobile Clinic Module) is an expandable negative-pressure mobile ward for infectious-disease outbreaks. As a junior researcher, I designed the information architecture for its control UI."
 teaser: ./teaser.png
 teaserAlt: "KARE-MCM mobile clinic module control UX"
 tags: ["UX", "healthcare", "industrial design"]
@@ -16,7 +16,7 @@ draft: false
 ---
 
 
-KARE-MCM (Korea Aid for Respiratory Epidemic — Mobile Clinic Module) is a mobile, expandable
+KARE-MCM (Korea Aid for Respiratory Epidemic, Mobile Clinic Module) is a mobile, expandable
 negative-pressure ward with advanced medical facilities, developed to respond to infectious-disease
 outbreaks. I was a junior researcher on the team led by Prof. Tek-Jin Nam, where I designed the
 **information architecture of the control interface**.

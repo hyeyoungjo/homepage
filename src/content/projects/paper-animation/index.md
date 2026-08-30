@@ -3,9 +3,9 @@ title: "Paper Animation"
 type: "art"
 year: 2016
 authors: ["Hye-Young Jo"]
-abstract: "My Childhood — a single-channel, paper-based video animation, from my 2016 graphic design portfolio."
+abstract: "My Childhood: a single-channel, paper-based video animation, from my 2016 graphic design portfolio."
 teaser: ./teaser.png
-teaserAlt: "Paper Animation — My Childhood"
+teaserAlt: "Paper Animation: My Childhood"
 tags: ["animation", "paper", "video"]
 links:
   youtube: "https://www.youtube.com/watch?v=u90llQ3Xf40"

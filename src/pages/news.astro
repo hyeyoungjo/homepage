@@ -8,7 +8,7 @@ const news = (await getCollection('news'))
   .map((n) => n.data);
 ---
 
-<BaseLayout title="News" description="News & updates — Hye-Young Jo">
+<BaseLayout title="News" description="News & updates · Hye-Young Jo">
   <div class="container section">
     <h1>News</h1>
     <NewsList items={news} />

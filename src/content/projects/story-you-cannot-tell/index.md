@@ -5,7 +5,7 @@ year: 2010
 authors: ["Hye-Young Jo"]
 abstract: "Acrylic painting, 2010."
 teaser: ./story-you-cannot-tell.jpg
-teaserAlt: "Story You Cannot Tell — acrylic painting"
+teaserAlt: "Story You Cannot Tell: acrylic painting"
 tags: ["painting"]
 featured: false
 draft: false

@@ -5,7 +5,7 @@ year: 2010
 authors: ["Hye-Young Jo"]
 abstract: "Watercolor paintings, 2010."
 teaser: ./summer.jpg
-teaserAlt: "Summer — watercolor painting"
+teaserAlt: "Summer: watercolor painting"
 featured: false
 draft: false
 ---

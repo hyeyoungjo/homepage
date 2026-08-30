@@ -3,9 +3,9 @@ title: "A Touching Gaze"
 type: "art"
 year: 2014
 authors: ["Hye-Young Jo"]
-abstract: "A series of 1:1 watercolors of body fragments, traced and painted on translucent paper — an attempt to render a tactile, close-up gaze."
+abstract: "A series of 1:1 watercolors of body fragments, traced and painted on translucent paper, an attempt to render a tactile, close-up gaze."
 teaser: ./a-touching-gaze.jpg
-teaserAlt: "A Touching Gaze — watercolor on translucent paper"
+teaserAlt: "A Touching Gaze: watercolor on translucent paper"
 tags: ["painting", "body", "watercolor"]
 featured: false
 draft: false
@@ -16,7 +16,7 @@ draft: false
 ![A Touching Gaze](./a-touching-gaze.jpg)
 
 When I look at myself through my own eyes, or caress someone else's body, I see the subject far closer
-than a mirror or a camera allows — as if examining a skin specimen under a microscope. Looking at a
+than a mirror or a camera allows, as if examining a skin specimen under a microscope. Looking at a
 section sliced from a whole, we cannot help but imagine the whole. As viewers follow the numbered parts
 of a body, they piece the entire figure back together. By observing and drawing the subject this
 closely, over and over, I tried to render a *tactile gaze*.

@@ -4,7 +4,7 @@ type: "research"
 year: 2024
 authors: ["Hye-Young Jo", "Ryo Suzuki", "Yoonji Kim"]
 venue: "ACM CHI"
-abstract: "CollageVis is a rapid previsualization tool that lets indie filmmakers compose scenes from video collages — with automatic actor segmentation, name tags and face swaps, role assignment, layer positioning, and mobile-based virtual camera recording. A study with six indie filmmakers showed it enables flexible and expressive previsualization."
+abstract: "CollageVis is a rapid previsualization tool that lets indie filmmakers compose scenes from video collages, with automatic actor segmentation, name tags and face swaps, role assignment, layer positioning, and mobile-based virtual camera recording. A study with six indie filmmakers showed it enables flexible and expressive previsualization."
 teaser: ./teaser.png
 teaserAlt: "CollageVis interface showing a layered video collage for previsualization"
 tags: ["filmmaking", "previsualization", "video"]
@@ -18,17 +18,33 @@ links:
   supplement: "https://youtu.be/vTSTTmsuShk"
 featured: true
 draft: false
+bibtex: |
+  @inproceedings{10.1145/3613904.3642575,
+  author = {Jo, Hye-Young and Suzuki, Ryo and Kim, Yoonji},
+  title = {CollageVis: Rapid Previsualization Tool for Indie Filmmaking using Video Collages},
+  year = {2024},
+  isbn = {9798400703300},
+  publisher = {Association for Computing Machinery},
+  address = {New York, NY, USA},
+  url = {https://doi.org/10.1145/3613904.3642575},
+  doi = {10.1145/3613904.3642575},
+  booktitle = {Proceedings of the 2024 CHI Conference on Human Factors in Computing Systems},
+  articleno = {164},
+  numpages = {16},
+  location = {Honolulu, HI, USA},
+  series = {CHI '24}
+  }
 ---
 
 
-## Problem — previs is out of reach for indie filmmakers
+## Problem: previs is out of reach for indie filmmakers
 
-Before shooting, directors work with storyboard artists or animators to visualize their ideas — a
+Before shooting, directors work with storyboard artists or animators to visualize their ideas, a
 step called *previsualization* (previs) that is crucial for creative decisions and collaboration. But
 traditional previs (2D storyboards, 3D animation) takes substantial time, money, and technical skill.
 Big-budget teams can absorb that; indie filmmakers usually can't.
 
-## Solution — previs from video collages
+## Solution: previs from video collages
 
 CollageVis lets filmmakers build previs by collecting short video clips and compositing them into a
 video collage. Video recording is already a familiar tool for filmmakers, and the resulting collage
@@ -41,17 +57,17 @@ made replicating a scene from *Squid Game*.
 
 The system runs mainly on a laptop, with a phone as a supplementary camera tool.
 
-**① Collage Board — source collection & modification.** It takes videos (a test shot of a real actor,
+**① Collage Board: source collection & modification.** It takes videos (a test shot of a real actor,
 or a crew member standing in) and composites them on a board in real time, with an image as the
 backdrop. Name tags, color filters, and face-swap filters distinguish each character.
 
-**② Virtual Stage — layout & camera exploration.** For more complex shots, it simulates a detailed
+**② Virtual Stage: layout & camera exploration.** For more complex shots, it simulates a detailed
 3D shooting environment (weather, location) where the user lays out actors, crew, lighting, and
 multiple cameras. The companion mobile app drives a virtual camera, so camerawork can be explored
 without 3D-software expertise. The system then outputs a previs video plus a floor-plan video tracing
 each element's movement.
 
 We grounded these features in formative interviews with indie filmmakers, replicated seven film
-scenes to demonstrate the system, and evaluated it with six indie filmmakers — who found it a more
+scenes to demonstrate the system, and evaluated it with six indie filmmakers, who found it a more
 flexible yet expressive way to develop and communicate ideas.
 

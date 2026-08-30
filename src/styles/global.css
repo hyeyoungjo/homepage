@@ -9,6 +9,7 @@
   --color-soft: #333; /* softened body text (hero intro, project abstract) */
   --header-bg: rgba(255, 255, 255, 0.85);
   --radius: 10px;
+  --color-code-bg: #f7f7f8;
   --thumb-radius: 4px; /* card thumbnail corners — try 0 (sharp) or 10px (round) */
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
     Arial, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
@@ -25,6 +26,7 @@
   --color-accent: #6ea8fe;
   --color-soft: #d4d4d4;
   --header-bg: rgba(12, 12, 12, 0.8);
+  --color-code-bg: #161616;
 }
 
 * { box-sizing: border-box; }
@@ -109,6 +111,51 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.18; font-weight: 600
   color: var(--color-fg);
 }
 .linkrow__btn:hover { border-color: var(--color-accent); color: var(--color-accent); text-decoration: none; }
+
+/* Cite block: a pill that matches .linkrow__btn, expanding to the BibTeX entry */
+.cite { margin: -0.5rem 0 1.25rem; }
+.cite__toggle {
+  display: inline-block;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font-size: 0.9rem;
+  color: var(--color-fg);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+.cite__toggle::-webkit-details-marker { display: none; }
+.cite__toggle:hover { border-color: var(--color-accent); color: var(--color-accent); }
+.cite[open] .cite__toggle { border-color: var(--color-accent); color: var(--color-accent); }
+.cite__body { position: relative; margin-top: 0.75rem; }
+.cite__pre {
+  margin: 0;
+  padding: 1rem 1rem 1rem;
+  overflow-x: auto;
+  background: var(--color-code-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  tab-size: 2;
+}
+.cite__pre code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+.cite__copy {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.55rem;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-bg);
+  color: var(--color-muted);
+  font: inherit;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+.cite__copy:hover { border-color: var(--color-accent); color: var(--color-accent); }
+.cite__copy.is-done { border-color: var(--color-accent); color: var(--color-accent); }
 
 /* Responsive YouTube / video */
 .yt { position: relative; width: 100%; aspect-ratio: 16 / 9; margin: 1.5rem 0; }

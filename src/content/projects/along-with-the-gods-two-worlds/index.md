@@ -16,7 +16,7 @@ draft: false
 ---
 
 
-*My VFX compositing showreel · Dexter Studios, 2016–2018*
+*My VFX compositing showreel · Dexter Studios, 2016-2018*
 
 *Along with the Gods: The Two Worlds*, directed by Yong-Hwa Kim, is based on Ho-Min Joo's webtoon
 *Along with the Gods*. I joined the post-production as a **VFX compositor** on the team led by VFX

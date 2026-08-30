@@ -1,0 +1,45 @@
+---
+interface Props {
+  bibtex?: string;
+}
+
+const { bibtex } = Astro.props;
+---
+
+{
+  bibtex && (
+    <details class="cite">
+      <summary class="cite__toggle">BibTeX</summary>
+      <div class="cite__body">
+        <button class="cite__copy" type="button">Copy</button>
+        <pre class="cite__pre"><code>{bibtex.trim()}</code></pre>
+      </div>
+    </details>
+  )
+}
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.cite__copy').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const code = btn.parentElement?.querySelector('code');
+      if (!code) return;
+      try {
+        await navigator.clipboard.writeText(code.textContent ?? '');
+        btn.textContent = 'Copied';
+        btn.classList.add('is-done');
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('is-done');
+        }, 1600);
+      } catch {
+        // Clipboard unavailable (non-secure context): select the text so the
+        // reader can copy it by hand.
+        const sel = window.getSelection();
+        const range = document.createRange();
+        range.selectNodeContents(code);
+        sel?.removeAllRanges();
+        sel?.addRange(range);
+      }
+    });
+  });
+</script>
