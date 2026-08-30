@@ -11,7 +11,8 @@
     "assets": "node scripts/process-assets.mjs",
     "astro": "astro",
     "cv": "node scripts/build-cv-pdf.mjs",
-    "check-videos": "node scripts/check-videos.mjs"
+    "check-videos": "node scripts/check-videos.mjs",
+    "shrink": "node scripts/shrink-video.mjs"
   },
   "dependencies": {
     "astro": "^5"
