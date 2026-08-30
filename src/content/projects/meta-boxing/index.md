@@ -8,7 +8,7 @@ abstract: "A multiplayer VR boxing game with controllable, physics-based charact
 teaser: ./teaser.jpg
 teaserAlt: "Meta-Boxing title slide"
 tags: ["VR", "game", "physics"]
-award: "Excellence Award, Korea Metaverse Developer Contest 2021 · Top Research Award, 2021 four-university joint seminar"
+award: "Excellence Award, Korea Metaverse Developer Contest 2021 · Top Research Award, 2022 four-university joint seminar"
 links:
   youtube: "https://youtu.be/-d2arU9pzFM"
 featured: false
