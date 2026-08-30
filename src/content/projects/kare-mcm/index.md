@@ -10,7 +10,8 @@ tags: ["UX", "healthcare", "industrial design"]
 award: "iF Design Award 2021 · IDEA Bronze 2021"
 links:
   youtube: "https://youtu.be/1Gy9nrLfa_Q"
-  website: "http://mcm.kaist.ac.kr/"
+  # The KAIST project server stopped responding in 2026; the archived copy is complete.
+  website: "https://web.archive.org/web/20250823154103/http://mcm.kaist.ac.kr/"
 featured: false
 draft: false
 ---
