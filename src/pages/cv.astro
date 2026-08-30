@@ -126,6 +126,17 @@ function publication(item: CvPublication) {
         ))
       }
     </main>
+    <script>
+      // Paged.js implements @page margin boxes (the running header and page
+      // number), which Chrome does not support natively. It re-paginates the
+      // document, so it is opt-in: scripts/build-cv-pdf.mjs requests ?paged.
+      if (new URLSearchParams(location.search).has('paged')) {
+        document.documentElement.classList.add('is-paged');
+        // The package's exports map blocks a deep import of the polyfill
+        // bundle, so the Previewer is driven directly instead.
+        import('pagedjs').then(({ Previewer }) => new Previewer().preview());
+      }
+    </script>
   </body>
 </html>
 
@@ -136,6 +147,35 @@ function publication(item: CvPublication) {
   @page {
     size: letter;
     margin: 1in;
+
+    /* Matches the original's header/footer: right-aligned, #999999. */
+    @top-right {
+      content: 'Hye-Young Jo';
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 10pt;
+      color: #999;
+      vertical-align: bottom;
+      padding-bottom: 12pt;
+    }
+
+    @bottom-right {
+      content: 'page ' counter(page);
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 10pt;
+      color: #999;
+      vertical-align: top;
+      padding-top: 12pt;
+    }
+  }
+
+  /* The original sets "different first page", leaving page 1 bare. */
+  @page :first {
+    @top-right {
+      content: none;
+    }
+    @bottom-right {
+      content: none;
+    }
   }
 
   :root {
@@ -240,6 +280,23 @@ function publication(item: CvPublication) {
 
   .cv__group {
     margin-bottom: 6pt;
+  }
+
+  .is-paged body {
+    background: #f4f4f5;
+  }
+
+  .is-paged .cv {
+    width: auto;
+    margin: 0;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+  }
+
+  .pagedjs_page {
+    background: #fff;
+    margin: 0 auto 1rem;
   }
 
   @media print {

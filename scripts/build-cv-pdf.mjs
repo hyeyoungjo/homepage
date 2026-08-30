@@ -40,7 +40,9 @@ execFileSync(
     '--disable-gpu',
     '--no-pdf-header-footer',
     `--print-to-pdf=${out}`,
-    `file://${page}`,
+    // Paged.js needs a moment to lay the pages out before the print.
+    '--virtual-time-budget=10000',
+    `file://${page}?paged=1`,
   ],
   { stdio: ['ignore', 'ignore', 'pipe'] },
 );
