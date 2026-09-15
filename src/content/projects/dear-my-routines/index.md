@@ -8,7 +8,7 @@ teaser: ./teaser.png
 teaserAlt: "Dear My Routines interface showing Plan, Act, and Reflect columns"
 tags: ["time-management", "productivity", "personal"]
 links:
-  website: "https://dearmyroutines.hyeyoungjo.com/"
+  github: "https://github.com/hyeyoungjo/dear-my-routines"
 featured: false
 draft: false
 ---
@@ -28,3 +28,5 @@ The interface is split into three columns:
 - **Reflect:** see where your estimates diverged from reality, with AI-generated insights
 
 The goal isn't to be more productive in the conventional sense: it's to build an honest picture of how you actually spend your time, so your future plans can be grounded in reality.
+
+The hosted version is no longer running, but the code is open source. You can run your own copy by following the setup guide on GitHub.
