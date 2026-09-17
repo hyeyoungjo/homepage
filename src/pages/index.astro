@@ -1,14 +1,24 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import Gallery from '../components/Gallery.astro';
 
-const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort((a, b) => {
-  const aVal = a.data.date ? +a.data.date : a.data.year * 10000;
-  const bVal = b.data.date ? +b.data.date : b.data.year * 10000;
-  return bVal - aVal;
-});
+type Project = CollectionEntry<'projects'>;
+
+// Within a year, a paper I first-authored outranks the rest. Only papers:
+// solo artwork is trivially "first author" and should not jump the queue.
+const isFirstAuthorPaper = (p: Project) =>
+  p.data.type === 'research' && (p.data.authors[0]?.startsWith('Hye-Young Jo') ?? false);
+// Projects without an exact date count as January 1 of their year.
+const timeOf = (p: Project) => +(p.data.date ?? new Date(p.data.year, 0, 1));
+
+const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
+  (a, b) =>
+    b.data.year - a.data.year ||
+    Number(isFirstAuthorPaper(b)) - Number(isFirstAuthorPaper(a)) ||
+    timeOf(b) - timeOf(a)
+);
 ---
 
 <BaseLayout>

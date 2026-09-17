@@ -2,6 +2,7 @@
 title: "Map2Video: Guiding Real-World-Grounded AI Video Generation"
 type: "research"
 year: 2026
+date: 2026-08-12
 authors: ["Hye-Young Jo", "Mose Sakashita", "Aditi Mishra", "Ryo Suzuki", "Koichiro Niinuma", "Aakar Gupta"]
 venue: "ACM UIST"
 acceptanceRate: "20.1%"

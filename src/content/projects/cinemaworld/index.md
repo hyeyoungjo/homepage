@@ -2,6 +2,7 @@
 title: "CinemaWorld: Generative Augmented Reality with LLMs and 3D Scene Generation for Movie Augmentation"
 type: "research"
 year: 2026
+date: 2026-08-12
 authors: ["Keiichi Ihara", "DaeHo Lee", "Manato Abe", "Hye-Young Jo", "Ryo Suzuki"]
 venue: "ACM UIST"
 acceptanceRate: "20.1%"

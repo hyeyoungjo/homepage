@@ -2,6 +2,7 @@
 title: "TingleTouch: Touch Guidance through Electrical Stimulation in Resistance Training"
 type: "research"
 year: 2026
+date: 2026-01-16
 authors: ["Dong-Uk Kim", "Hye-Young Jo", "Hankyung Kim", "Ryo Suzuki", "Seungwoo Je", "Yoonji Kim"]
 venue: "ACM CHI"
 acceptanceRate: "25.3%"
