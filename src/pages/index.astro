@@ -6,10 +6,13 @@ import Gallery from '../components/Gallery.astro';
 
 type Project = CollectionEntry<'projects'>;
 
-// Within a year, a paper I first-authored outranks the rest. Only papers:
-// solo artwork is trivially "first author" and should not jump the queue.
+// Within a year, a paper I first-authored outranks the rest. A venue is what
+// separates a published paper from a class project, and solo artwork is
+// trivially "first author", so neither should jump the queue.
 const isFirstAuthorPaper = (p: Project) =>
-  p.data.type === 'research' && (p.data.authors[0]?.startsWith('Hye-Young Jo') ?? false);
+  p.data.type === 'research' &&
+  !!p.data.venue &&
+  (p.data.authors[0]?.startsWith('Hye-Young Jo') ?? false);
 // Projects without an exact date count as January 1 of their year.
 const timeOf = (p: Project) => +(p.data.date ?? new Date(p.data.year, 0, 1));
 
