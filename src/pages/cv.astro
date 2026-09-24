@@ -1,20 +1,59 @@
 ---
 import { getCollection } from 'astro:content';
 import { getImage } from 'astro:assets';
-import { CV, VENUE_LONG, type CvPublication } from '../data/cv';
+import { CV, VENUES, type CvListItem, type CvPublication } from '../data/cv';
 
 const projects = await getCollection('projects');
 const bySlug = new Map(projects.map((p) => [p.id, p]));
 
-/** Inline markup shared by every CV string: **bold**, *italic*, [text](href). */
+/** Inline markup shared by every CV string: **bold**, *italic*, [text](href),
+ *  and citations such as [C4], [F1-F6] or [C7, C8, U1], which link to the
+ *  cited item (a range links to its first item). */
 function inline(src: string): string {
   return src
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_m, t, h) => `<a href="${h}">${t}</a>`)
+    .replace(/\[([A-Z]\d+(?:-[A-Z]\d+)?(?:, [A-Z]\d+(?:-[A-Z]\d+)?)*)\]/g, (_m, refs: string) =>
+      '[' +
+      refs
+        .split(', ')
+        .map((r) => `<a class="cv__ref" href="#${r.split('-')[0]}">${r}</a>`)
+        .join(', ') +
+      ']',
+    )
     .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
     .replace(/\*([^*]+)\*/g, '<em>$1</em>');
+}
+
+/** "[F6] rest" → { label: 'F6', rest }, so the label can anchor the item. */
+function splitLabel(text: string): { label?: string; rest: string } {
+  const m = text.match(/^\[([A-Z]\d+)\]\s*(.*)$/s);
+  return m ? { label: m[1], rest: m[2] } : { rest: text };
+}
+
+const assets = import.meta.glob<{ default: ImageMetadata }>('../assets/cv/**/*.{jpg,png}', { eager: true });
+
+/** A list item's thumbnail: a project's teaser, or a file under src/assets/cv/. */
+async function listThumb(item: CvListItem) {
+  if (typeof item === 'string') return undefined;
+  let src: ImageMetadata | undefined;
+  if (item.ref) {
+    src = bySlug.get(item.ref)?.data.teaser;
+    if (!src) throw new Error(`cv: no teaser for project "${item.ref}"`);
+  } else if (item.image) {
+    src = assets[`../assets/cv/${item.image}`]?.default;
+    if (!src) throw new Error(`cv: no image src/assets/cv/${item.image}`);
+  }
+  // 300 dpi at the printed width (--cv-thumb), shared with the papers.
+  return src && (await getImage({ src, width: 270, format: 'jpg', quality: 85 })).src;
+}
+
+/** A range becomes two gutter lines, start (with its dash) over end. */
+function dateLines(date: string): string[] {
+  const [start, end] = date.split(' - ');
+  return end ? [`${start} –`, end] : [start];
 }
 
 /** Build a publication line from the projects collection, so the CV and the
@@ -31,14 +70,21 @@ async function publication(item: CvPublication) {
     })
     .join(', ');
 
-  const long = d.venue ? VENUE_LONG[d.venue] : undefined;
-  const venue = [
-    long ? long.replace('{year}', String(d.year)) : `${d.venue ?? ''} ${d.year}`.trim(),
-    item.venueNote,
-    d.acceptanceRate && `(Acceptance rate: ${d.acceptanceRate})`,
+  // Authors. Title. Source. Publisher, year.
+  // then on its own line: (ACRONYM 'yy, acceptance rate) Award (video) (PDF)
+  const v = d.venue ? VENUES[d.venue] : undefined;
+  if (d.venue && !v) throw new Error(`cv: no VENUES entry for "${d.venue}"`);
+  const short = v?.acronym && `**${v.acronym} ’${String(d.year).slice(2)}${v.suffix ?? ''}**`;
+  const detail = [short, d.acceptanceRate && `acceptance rate: ${d.acceptanceRate}`].filter(Boolean).join(', ');
+  const citation = [
+    `${authors}.`,
+    `**${d.title}**.`,
+    v ? `${v.source}.` : '',
+    `${v?.publisher ? `${v.publisher}, ` : ''}${d.year}.`,
   ]
     .filter(Boolean)
     .join(' ');
+  const meta = detail && `(${detail})`;
 
   const links = [
     d.links.youtube && { label: 'video', href: d.links.youtube },
@@ -49,11 +95,11 @@ async function publication(item: CvPublication) {
   const thumb = d.teaser && (await getImage({ src: d.teaser, width: 270, format: 'jpg', quality: 85 }));
 
   return {
-    title: d.title,
-    authors,
-    venue,
+    citation,
+    meta,
     links,
-    note: item.note ?? d.award,
+    award: item.note ?? d.award,
+    also: item.also,
     thumb: thumb && { src: thumb.src, alt: d.teaserAlt ?? '' },
   };
 }
@@ -61,7 +107,19 @@ async function publication(item: CvPublication) {
 const pubs = new Map(
   await Promise.all(
     CV.sections.flatMap((s) =>
-      s.kind === 'publications' ? s.items.map(async (i) => [i.label, await publication(i)] as const) : [],
+      s.kind === 'publications'
+        ? s.items.map(async (i) => [i.label, await publication(i)] as const)
+        : [],
+    ),
+  ),
+);
+
+const listItems = new Map(
+  await Promise.all(
+    CV.sections.flatMap((s) =>
+      s.kind === 'list'
+        ? s.groups.flatMap((g) => g.items).map(async (i) => [i, { ...splitLabel(typeof i === 'string' ? i : i.text), thumb: await listThumb(i) }] as const)
+        : [],
     ),
   ),
 );
@@ -76,67 +134,73 @@ const pubs = new Map(
   </head>
   <body>
     <main class="cv">
-      <h1 class="cv__name">{CV.name}</h1>
-      <p class="cv__contact">{CV.contact.join(' | ')}</p>
+      <header class="cv__header">
+        <h1 class="cv__name">{CV.name}<span class="cv__doc">Curriculum Vitae</span></h1>
+        <div class="cv__contact">
+          <p>{CV.address.map((l) => <span>{l}</span>)}</p>
+          <p class="cv__contact-right">{CV.contact.map((l) => <span set:html={inline(l)} />)}</p>
+        </div>
+      </header>
 
       {
         CV.sections.map((section) => (
-          <section
-            class:list={[
-              'cv__section',
-              'spaced' in section && section.spaced && (section.spaced === 'half' ? 'is-half-spaced' : 'is-spaced'),
-            ]}
-          >
+          <section class="cv__section">
             <h2>{section.title}</h2>
 
             {section.kind === 'prose' &&
               section.body.map((p) => <p class="cv__prose" set:html={inline(p)} />)}
 
+            {section.kind === 'prose' && section.keywords && (
+              <p class="cv__prose cv__keywords">Keywords: {section.keywords.join(', ')}</p>
+            )}
+
             {section.kind === 'entries' && section.summary && (
-              <p class="cv__prose" set:html={inline(section.summary)} />
+              <p class="cv__prose cv__summary" set:html={inline(section.summary)} />
             )}
 
             {section.kind === 'entries' &&
               section.entries.map((e) => (
-                <div class="cv__entry">
-                  <p class="cv__head">
-                    <span
+                <div class="cv__entry cv__row">
+                  <span class="cv__gutter cv__date">
+                    {e.date && dateLines(e.date).map((d) => <span>{d}</span>)}
+                  </span>
+                  <div>
+                    <p
                       set:html={inline(e.href ? `[**${e.title}**](${e.href})` : `**${e.title}**`)}
                     />
-                    {e.date && <span class="cv__date">{e.date}</span>}
-                  </p>
-                  {e.lines?.map((l) => <p class="cv__line" set:html={inline(l)} />)}
-                  {e.rows?.map((r) => (
-                    <p class="cv__line cv__head">
-                      <span set:html={inline(r.text)} />
-                      {r.date && <span class="cv__date">{r.date}</span>}
-                    </p>
-                  ))}
+                    {e.lines?.map((l) => <p class="cv__line" set:html={inline(l)} />)}
+                    {e.rows?.map((r) => (
+                      <p class="cv__row">
+                        <span class="cv__gutter cv__date">
+                          {r.date && dateLines(r.date).map((d) => <span>{d}</span>)}
+                        </span>
+                        <span set:html={inline(r.text)} />
+                      </p>
+                    ))}
+                  </div>
                 </div>
               ))}
 
             {section.kind === 'publications' && (
               <>
-                <p class="cv__prose" set:html={inline(section.summary)} />
+                {section.summary && <p class="cv__prose cv__summary" set:html={inline(section.summary)} />}
                 {section.items.map((item) => {
                   const pub = pubs.get(item.label)!;
                   return (
-                    <div class="cv__pub">
-                      {pub.thumb && <img class="cv__pub-thumb" src={pub.thumb.src} alt={pub.thumb.alt} />}
-                      <div class="cv__pub-body">
-                        <p class="cv__pub-title">
-                          [{item.label}] {pub.title}
-                        </p>
-                        <p class="cv__pub-meta" set:html={inline(pub.authors)} />
-                        <p
-                          class="cv__pub-meta"
-                          set:html={[
-                            pub.venue,
-                            ...pub.links.map((l) => `(<a href="${l.href}">${l.label}</a>)`),
-                          ].join(' ')}
+                    <div class="cv__pub" id={item.label}>
+                      <span class="cv__gutter">
+                        {pub.thumb && <img class="cv__pub-thumb" src={pub.thumb.src} alt={pub.thumb.alt} />}
+                      </span>
+                      <p>
+                        [{item.label}] <Fragment set:html={inline(pub.citation)} />
+                        <br />
+                        <Fragment set:html={inline(pub.meta)} />
+                        {pub.award && <strong class="cv__pub-award">{pub.award}</strong>}
+                        {pub.also}
+                        <Fragment
+                          set:html={pub.links.map((l) => `(<a href="${l.href}">${l.label}</a>)`).join(' ')}
                         />
-                        {pub.note && <p class="cv__pub-note">{pub.note}</p>}
-                      </div>
+                      </p>
                     </div>
                   );
                 })}
@@ -145,11 +209,19 @@ const pubs = new Map(
 
             {section.kind === 'list' && (
               <>
-                {section.summary && <p class="cv__prose" set:html={inline(section.summary)} />}
+                {section.summary && <p class="cv__prose cv__summary" set:html={inline(section.summary)} />}
                 {section.groups.map((g) => (
                   <div class="cv__group">
-                    {g.title && <p class="cv__head"><strong>{g.title}</strong></p>}
-                    {g.items.map((i) => <p class="cv__line" set:html={inline(i)} />)}
+                    {g.title && <p class="cv__line"><strong>{g.title}</strong></p>}
+                    {g.items.map((i) => {
+                      const it = listItems.get(i)!;
+                      return (
+                        <p class="cv__row cv__item" id={it.label}>
+                          <span class="cv__gutter">{it.thumb && <img class="cv__item-thumb" src={it.thumb} alt="" />}</span>
+                          <span set:html={(it.label ? `[${it.label}] ` : '') + inline(it.rest)} />
+                        </p>
+                      );
+                    })}
                   </div>
                 ))}
               </>
@@ -162,47 +234,34 @@ const pubs = new Map(
 </html>
 
 <style is:global>
-  /* Mirrors the Google Docs original: Letter, 1in margins, Georgia 11pt,
-     #1155cc links, #980000 for the italic award lines. Sizes are measured
-     from the original PDF, not the docx styles, which the document overrides. */
+  /* Laid out like a LaTeX academic CV: a left gutter carries each entry's
+     dates (and each paper's teaser), so the reader can scan the timeline
+     down one column, and the content sits in a single column to its right. */
   @page {
     size: letter;
-    margin: 1in;
+    margin: 0.8in 0.9in 0.8in 0.6in;
 
-    /* Matches the original's header/footer: right-aligned, #999999. */
-    @top-right {
-      content: 'Hye-Young Jo';
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: 10pt;
-      color: #999;
-      vertical-align: bottom;
-      padding-bottom: 12pt;
-    }
-
+    /* One footer on every page, right-aligned. Chrome draws margin boxes as
+       plain generated text, so the whole line shares one style. */
     @bottom-right {
-      content: 'page ' counter(page);
-      font-family: Georgia, 'Times New Roman', serif;
+      content: 'Hye-Young Jo · curriculum vitae, page ' counter(page);
+      font-family: var(--cv-font);
       font-size: 10pt;
-      color: #999;
+      color: var(--cv-muted);
       vertical-align: top;
       padding-top: 12pt;
     }
   }
 
-  /* The original sets "different first page", leaving page 1 bare. */
-  @page :first {
-    @top-right {
-      content: none;
-    }
-    @bottom-right {
-      content: none;
-    }
-  }
-
   :root {
+    --cv-font: Palatino, 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
     --cv-fg: #000;
+    --cv-muted: #999;
+    --cv-rule: #bbb;
     --cv-link: #1155cc;
     --cv-award: #980000;
+    --cv-gutter: 1.15in;
+    --cv-gap: 12pt;
     --cv-thumb: 0.9in;
   }
 
@@ -212,17 +271,19 @@ const pubs = new Map(
 
   body {
     margin: 0;
-    font-family: Georgia, 'Times New Roman', serif;
+    font-family: var(--cv-font);
     font-size: 10pt;
-    line-height: 1.15;
+    line-height: 1.2;
     color: var(--cv-fg);
   }
 
+  /* Everything sits in the content column; gutter items reach back into
+     the padding with a negative margin. */
   .cv {
     box-sizing: content-box;
-    width: 6.5in;
+    width: 5.75in;
     margin: 2rem auto;
-    padding: 1in;
+    padding: 0.8in 0.9in 0.8in calc(0.6in + var(--cv-gutter) + var(--cv-gap));
     background: #fff;
     box-shadow: 0 2px 16px rgb(0 0 0 / 0.12);
   }
@@ -231,90 +292,128 @@ const pubs = new Map(
     color: var(--cv-link);
   }
 
-  .cv__name {
+  .cv p {
     margin: 0;
+  }
+
+  .cv__name {
+    margin: 0 0 8pt;
     font-size: 18pt;
     line-height: 1.2;
   }
 
+  .cv__doc {
+    margin-left: 0.6em;
+    font-weight: normal;
+  }
+
   .cv__contact {
-    margin: 3pt 0 0;
+    display: flex;
+    justify-content: space-between;
+    gap: 1em;
+  }
+
+  .cv__contact span {
+    display: block;
+  }
+
+  .cv__contact-right {
+    text-align: right;
   }
 
   .cv__section h2 {
-    margin: 20pt 0 6pt;
+    margin: 20pt 0 8pt;
+    padding-bottom: 2pt;
+    border-bottom: 0.5pt solid var(--cv-rule);
     font-size: 14pt;
     line-height: 1.2;
   }
 
-  .cv__prose {
-    margin: 0 0 6pt;
+  .cv .cv__prose {
+    margin-bottom: 6pt;
+    text-align: justify;
   }
 
-  .cv__entry {
-    margin-bottom: 0;
+  /* A short list; justifying it would stretch the few gaps it has. */
+  .cv .cv__keywords {
+    text-align: left;
   }
 
-  /* Sections that put a blank line between items in the original. */
-  .cv__section.is-spaced .cv__entry + .cv__entry {
-    margin-top: 1.15em;
+  /* A section summary is read apart from the items it introduces. */
+  .cv .cv__summary {
+    margin-bottom: 12pt;
   }
 
-  /* Enough to separate entries that carry a description, without the full
-     blank line that would push the CV onto another page. */
-  .cv__section.is-half-spaced .cv__entry + .cv__entry {
-    margin-top: 0.3em;
+  .cv__entry + .cv__entry {
+    margin-top: 0.7em;
   }
 
-  /* Title left, date hard right, matching the original's right tab stop. */
-  .cv__head {
-    display: flex;
-    justify-content: space-between;
-    gap: 1em;
-    margin: 0;
+  /* An entry, row or paper with something in the gutter: the gutter cell
+     hangs left of the content column by exactly its own width plus the gap,
+     and spans the whole item so a two-line date never pushes text down. */
+  .cv .cv__row,
+  .cv .cv__pub {
+    display: grid;
+    grid-template-columns: var(--cv-gutter) 1fr;
+    column-gap: var(--cv-gap);
+    margin-left: calc(-1 * (var(--cv-gutter) + var(--cv-gap)));
+  }
+
+  .cv__gutter {
+    text-align: right;
   }
 
   .cv__date {
-    flex: none;
+    font-style: italic;
   }
 
-  .cv__line {
-    margin: 0;
+  .cv__date span {
+    display: block;
   }
 
-  /* Teaser figure left, citation right: each paper's figure is the fastest
-     way to read what it contributes. */
   .cv__pub {
-    display: grid;
-    grid-template-columns: var(--cv-thumb) 1fr;
-    gap: 10pt;
     align-items: start;
     margin-bottom: 8pt;
   }
 
+  /* A line of text starts visually at its cap height, a few points below
+     the top of its line box, so thumbnails drop by the same amount to line
+     up with the first line. The hairline border gives white-background
+     figures an edge to align by. */
+  .cv__pub-thumb,
+  .cv__item-thumb {
+    margin-top: 2.5pt;
+    box-sizing: border-box;
+    border: 0.5pt solid var(--cv-rule);
+  }
+
   .cv__pub-thumb {
-    grid-column: 1;
-    width: 100%;
+    width: var(--cv-thumb);
     aspect-ratio: 1;
     object-fit: cover;
   }
 
-  .cv__pub-body {
-    grid-column: 2;
+  /* Citations stay in the text colour; they are links, not emphasis. */
+  .cv a.cv__ref {
+    color: inherit;
+    text-decoration: none;
   }
 
-  .cv__pub-title {
-    margin: 0;
+
+  .cv .cv__item {
+    align-items: start;
+    margin-bottom: 6pt;
   }
 
-  .cv__pub-meta,
-  .cv__pub-note {
-    margin: 0;
+  /* Same width as the paper thumbnails; height follows the image, so
+     posters stay tall and photos stay wide. */
+  .cv__item-thumb {
+    width: var(--cv-thumb);
+    height: auto;
   }
 
-  .cv__pub-note {
+  .cv__pub-award {
     color: var(--cv-award);
-    font-style: italic;
   }
 
   .cv em {
@@ -332,13 +431,14 @@ const pubs = new Map(
     .cv {
       width: auto;
       margin: 0;
-      padding: 0;
+      padding: 0 0 0 calc(var(--cv-gutter) + var(--cv-gap));
       box-shadow: none;
     }
     .cv__section {
       break-inside: auto;
     }
-    .cv__section h2 {
+    .cv__section h2,
+    .cv__summary {
       break-after: avoid;
     }
     .cv__entry,
