@@ -6,7 +6,7 @@ authors: []
 venue: "Dexter Studios × Naver"
 abstract: "A VR toon horror film by Dexter Studios based on Naver's webtoon The Tide, six interactive ~5-minute episodes. I worked as a VR artist on episodes 2-6, and the project was officially invited to Sundance 2019's New Frontier."
 teaser: ./teaser.png
-teaserAlt: "The Tide key art: a diver reflected in a giant fish eye, with festival laurels"
+teaserAlt: "The Tide poster: a diver reflected in a giant fish eye, with festival laurels including Sundance"
 tags: ["VR", "film", "Dexter Studios"]
 links:
   store: "https://store.steampowered.com/app/1263410/The_Tide/"
