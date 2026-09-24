@@ -9,6 +9,8 @@ interface Props {
     supplement?: string;
     website?: string;
     github?: string;
+    article?: string;
+    store?: string;
   };
   originalLink?: string;
   // Set when a slotted button (e.g. CiteBlock) should keep the row alive on its own.
@@ -26,6 +28,8 @@ const items = [
   links.supplement && { label: 'Supplement', href: links.supplement },
   links.website && { label: 'Website', href: links.website },
   links.github && { label: 'Code', href: links.github },
+  links.article && { label: 'Article', href: links.article },
+  links.store && { label: 'Store', href: links.store },
   originalLink && { label: 'Original', href: originalLink },
 ].filter(Boolean) as { label: string; href: string }[];
 ---

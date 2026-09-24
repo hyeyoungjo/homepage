@@ -33,6 +33,9 @@ const projects = defineCollection({
           supplement: z.string().url().optional(),
           website: z.string().url().optional(),
           github: z.string().url().optional(),
+          // Press coverage and a store page (e.g. Steam) for released work.
+          article: z.string().url().optional(),
+          store: z.string().url().optional(),
         })
         .default({}),
       // Citation formats, mirroring ACM DL's "Export Citations" menu. Each is

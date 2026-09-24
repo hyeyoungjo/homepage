@@ -6,7 +6,7 @@ authors: ["Jungjin Park", "Hye-Young Jo"]
 venue: "KAIST GCT700"
 abstract: "A multiplayer VR boxing game with controllable, physics-based characters (a KAIST class project). I worked on the study design, graphic design, and user study."
 teaser: ./teaser.png
-teaserAlt: "Physics-based VR boxing characters and the arm model driven by the controller"
+teaserAlt: "Two players boxing in VR through physics-based characters, with the controller-driven arm model shown above"
 tags: ["VR", "game", "physics"]
 award: "Excellence Award, Korea Metaverse Developer Contest 2021 · Top Research Award, 2022 four-university joint seminar"
 links:

@@ -6,8 +6,11 @@ authors: []
 venue: "LG U+ · 8i · Dexter Studios"
 abstract: "A volumetric 4K AR capture studio built in Seoul for 5G content. I worked as a camera operator and graphic designer on the team."
 teaser: ./teaser.png
-teaserAlt: "LG U+ AR Studio"
+teaserAlt: "The camera array ringing the green-screen capture studio, a performer being captured, and AR graphic effects added to the capture in Unity"
 tags: ["AR", "volumetric capture", "Dexter Studios"]
+links:
+  youtube: "https://www.youtube.com/watch?v=jodknL45kXE"
+  article: "https://www.koreajoongangdaily.com/business/want-a-tiny-kpop-star-to-perform-on-your-desk-lg-u-has-you-covered/10886585"
 featured: false
 draft: false
 ---

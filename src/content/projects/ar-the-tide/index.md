@@ -6,7 +6,7 @@ authors: []
 venue: "Dexter Studios × Naver"
 abstract: "An AR exhibition for the Bucheon International Fantastic Film Festival promoting the VR horror film VR The Tide. As a general artist I handled 3D modeling optimization, particles, screen effects, and UI."
 teaser: ./teaser.png
-teaserAlt: "AR The Tide app mockup"
+teaserAlt: "An AR character appearing at a table on a phone held up in The Tide exhibition"
 tags: ["AR", "exhibition", "Dexter Studios"]
 featured: false
 draft: false

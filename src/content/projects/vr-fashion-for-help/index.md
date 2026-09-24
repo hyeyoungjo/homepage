@@ -6,8 +6,10 @@ authors: ["Hye-Young Jo"]
 venue: "Kookmin University"
 abstract: "A VR show room for smart outdoor climbing jackets designed at Kookmin University. As freelance lead developer and VR generalist, I designed and built the VR show room for mass-customized smart jackets."
 teaser: ./teaser.png
-teaserAlt: "VR Fashion for Help show room"
+teaserAlt: "Customizing a jacket's colors and functions in the VR Fashion for Help showroom"
 tags: ["VR", "fashion", "show room"]
+links:
+  youtube: "https://youtu.be/ZBZmPHuDVew"
 featured: false
 draft: false
 ---
