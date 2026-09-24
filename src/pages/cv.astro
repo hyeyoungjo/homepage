@@ -92,6 +92,10 @@ const pubs = new Map(
             {section.kind === 'prose' &&
               section.body.map((p) => <p class="cv__prose" set:html={inline(p)} />)}
 
+            {section.kind === 'entries' && section.summary && (
+              <p class="cv__prose" set:html={inline(section.summary)} />
+            )}
+
             {section.kind === 'entries' &&
               section.entries.map((e) => (
                 <div class="cv__entry">

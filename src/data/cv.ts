@@ -47,7 +47,7 @@ export const VENUE_LONG: Record<string, string> = {
 
 export type CvSection =
   | { title: string; kind: 'prose'; body: string[] }
-  | { title: string; kind: 'entries'; spaced?: boolean | 'half'; entries: CvEntry[] }
+  | { title: string; kind: 'entries'; spaced?: boolean | 'half'; summary?: string; entries: CvEntry[] }
   | { title: string; kind: 'publications'; summary: string; items: CvPublication[] }
   | { title: string; kind: 'list'; summary?: string; groups: { title?: string; items: string[] }[] };
 
@@ -59,8 +59,8 @@ export const CV: { name: string; contact: string[]; sections: CvSection[] } = {
       title: 'Research Interests',
       kind: 'prose',
       body: [
-        'My research explores how generative AI and extended reality can enable embodied learning and creative living. My work focuses on enabling dynamic communication with content and transforming everyday living into creative activity through interactive systems where media dynamically adapt, evolve, and respond to users’ actions, context, and intentions.',
-        'Keywords: Human-Computer Interaction; Human-AI Interaction; Creativity Support Tools; Generative Agents; AI-driven Content Adaptation; Embodied AI; XR Interaction; Augmented Instruction',
+        'I am a Ph.D. student in Computer Science at the University of Colorado Boulder. My main research area is **Human-Computer Interaction**. My research goal is to **expand people’s capacity to create and learn** by building interactive systems with generative AI and extended reality that adapt content to their actions, context, and intentions. My work spans AI-assisted filmmaking, technology-enhanced learning, and embodied fitness training.',
+        'Keywords: human-AI interaction, creativity support tools, adaptive media, embodied interaction',
       ],
     },
     {
@@ -164,6 +164,7 @@ export const CV: { name: string; contact: string[]; sections: CvSection[] } = {
     {
       title: 'Fellowship and Awards',
       kind: 'entries',
+      summary: 'Summary: $176,000 in total funding awarded.',
       entries: [
         { title: 'Google Ph.D. Fellowship', date: 'Fall 2025 - Spring 2027', lines: ['Full tuition and stipend ($85,000/year)'] },
         { title: 'CU Boulder Computer Science Department', date: '2026', lines: ['Conference Support funds ($1,500)'] },

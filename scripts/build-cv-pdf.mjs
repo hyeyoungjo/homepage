@@ -1,4 +1,4 @@
-// Renders the built /cv page to public/cv.pdf with headless Chrome.
+// Renders the built /cv page to public/Jo_CV.pdf with headless Chrome.
 //
 //   npm run build && npm run cv
 //
@@ -22,7 +22,7 @@ const CHROME_CANDIDATES = [
 const root = resolve(dirname(new URL(import.meta.url).pathname), '..');
 const dist = resolve(root, 'dist');
 const page = resolve(dist, 'cv/index.html');
-const out = resolve(root, 'public/cv.pdf');
+const out = resolve(root, 'public/Jo_CV.pdf');
 
 if (!existsSync(page)) {
   console.error('dist/cv/index.html not found. Run `npm run build` first.');
@@ -74,7 +74,7 @@ server.close();
 
 // `astro build` copies public/ into dist/ before this script runs, so the
 // freshly written PDF is mirrored to keep a local preview in step.
-const mirrored = resolve(root, 'dist/cv.pdf');
+const mirrored = resolve(root, 'dist/Jo_CV.pdf');
 if (existsSync(dirname(mirrored))) copyFileSync(out, mirrored);
 
 console.log(`Wrote ${out.replace(root + '/', '')}`);
