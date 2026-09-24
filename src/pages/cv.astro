@@ -35,9 +35,10 @@ function splitLabel(text: string): { label?: string; rest: string } {
 
 const assets = import.meta.glob<{ default: ImageMetadata }>('../assets/cv/**/*.{jpg,png}', { eager: true });
 
-/** A list item's thumbnail: a project's teaser, or a file under src/assets/cv/. */
+/** A highlighted list item's thumbnail: a project's teaser, or a file under
+ *  src/assets/cv/. */
 async function listThumb(item: CvListItem) {
-  if (typeof item === 'string') return undefined;
+  if (typeof item === 'string' || !item.highlight) return undefined;
   let src: ImageMetadata | undefined;
   if (item.ref) {
     src = bySlug.get(item.ref)?.data.teaser;
@@ -46,8 +47,14 @@ async function listThumb(item: CvListItem) {
     src = assets[`../assets/cv/${item.image}`]?.default;
     if (!src) throw new Error(`cv: no image src/assets/cv/${item.image}`);
   }
-  // 300 dpi at the printed width (--cv-thumb), shared with the papers.
-  return src && (await getImage({ src, width: 270, format: 'jpg', quality: 85 })).src;
+  return src && collageImage(src);
+}
+
+/** A collage image and its aspect ratio, which sizes its tile. Wide enough
+ *  for the largest tile (about 4in) at 250 dpi. */
+async function collageImage(src: ImageMetadata) {
+  const img = await getImage({ src, width: Math.min(1000, src.width), format: 'jpg', quality: 85 });
+  return { src: img.src, aspect: src.width / src.height };
 }
 
 /** A range becomes two gutter lines, start (with its dash) over end. */
@@ -114,11 +121,41 @@ const pubs = new Map(
   ),
 );
 
+/** Collage tiles for a list section's extra works, each a site project. */
+async function collageWorks(slugs: string[] = []) {
+  return Promise.all(
+    slugs.map(async (slug) => {
+      if (slug.includes('/')) {
+        const src = assets[`../assets/cv/${slug}`]?.default;
+        if (!src) throw new Error(`cv: no image src/assets/cv/${slug}`);
+        const area = slug.split('/').pop()!.replace(/\.[^.]+$/, '');
+        return { area, ...(await collageImage(src)), caption: undefined as string | undefined };
+      }
+      const d = bySlug.get(slug)?.data;
+      if (!d?.teaser) throw new Error(`cv: no teaser for project "${slug}"`);
+      return { area: slug, ...(await collageImage(d.teaser)), caption: undefined as string | undefined };
+    }),
+  );
+}
+
+/** The text column (Letter, less the margins and date gutter) and the
+ *  collage gap, in points, for the collage's size arithmetic. */
+const COLLAGE_WIDTH_PT = 5.75 * 72;
+const COLLAGE_GAP_PT = 3;
+
+const works = new Map(
+  await Promise.all(
+    CV.sections.flatMap((s) =>
+      s.kind === 'list' && s.works ? [collageWorks(s.works).then((w) => [s.title, w] as const)] : [],
+    ),
+  ),
+);
+
 const listItems = new Map(
   await Promise.all(
     CV.sections.flatMap((s) =>
       s.kind === 'list'
-        ? s.groups.flatMap((g) => g.items).map(async (i) => [i, { ...splitLabel(typeof i === 'string' ? i : i.text), thumb: await listThumb(i) }] as const)
+        ? s.groups.flatMap((g) => g.items).map(async (i) => [i, { ...splitLabel(typeof i === 'string' ? i : i.text), date: typeof i === 'string' ? undefined : i.date, thumb: await listThumb(i)}] as const)
         : [],
     ),
   ),
@@ -145,7 +182,10 @@ const listItems = new Map(
       {
         CV.sections.map((section) => (
           <section class="cv__section">
-            <h2>{section.title}</h2>
+            <h2>
+              {section.title}
+              {'reel' in section && section.reel && <a class="cv__reel" href={section.reel}>(showreel)</a>}
+            </h2>
 
             {section.kind === 'prose' &&
               section.body.map((p) => <p class="cv__prose" set:html={inline(p)} />)}
@@ -209,17 +249,95 @@ const listItems = new Map(
 
             {section.kind === 'list' && (
               <>
+                {/* The summary travels with the collage, so neither is left alone
+                    at the foot of a page. */}
+                <div class="cv__lead">
                 {section.summary && <p class="cv__prose cv__summary" set:html={inline(section.summary)} />}
+                {/* A magazine-style collage of the highlighted works, above a
+                    uniform text list so the images never break its rhythm. */}
+                {section.collage && (() => {
+                  const tiles = new Map(
+                    [
+                      ...section.groups.flatMap((g) =>
+                        g.items
+                          .map((i) => listItems.get(i)!)
+                          .filter((it) => it.thumb)
+                          .map((it) => ({ area: it.label!, ...it.thumb!, caption: `[${it.label}]` as string | undefined })),
+                      ),
+                      ...(works.get(section.title) ?? []),
+                    ].map((t) => [t.area, t]),
+                  );
+                  const tile = (area: string) => {
+                    const t = tiles.get(area);
+                    if (!t) throw new Error(`cv: no collage tile "${area}"`);
+                    return t;
+                  };
+                  // Every size is computed here in points, so each image keeps its
+                  // aspect ratio: a row's columns share one height, a column's
+                  // stacked images share its width, and only the thin gaps
+                  // between stacked images are trimmed.
+                  const W = COLLAGE_WIDTH_PT;
+                  const G = COLLAGE_GAP_PT;
+                  return (
+                    <div class="cv__collage">
+                      {section.collage.map((row) => {
+                        // A column may pin its share of the row with ":", e.g.
+                        // "X1:0.62". The row's height then comes from the pinned
+                        // column, which keeps its aspect ratio; the other columns
+                        // share the rest and crop their images to fit.
+                        const cols = row.split(' ').map((col) => {
+                          const [names, share] = col.split(':');
+                          const stack = names.split('/').map(tile);
+                          return { stack, share: share ? Number(share) : undefined, aspect: 1 / stack.reduce((sum, t) => sum + 1 / t.aspect, 0) };
+                        });
+                        const free = W - (cols.length - 1) * G;
+                        const pinned = cols.find((c) => c.share);
+                        const h = pinned ? (free * pinned.share!) / pinned.aspect : free / cols.reduce((sum, c) => sum + c.aspect, 0);
+                        if (pinned) {
+                          const rest = cols.filter((c) => !c.share);
+                          const restAspect = rest.reduce((sum, c) => sum + c.aspect, 0);
+                          for (const c of rest) c.aspect = ((free * (1 - pinned.share!)) / h) * (c.aspect / restAspect);
+                        }
+                        return (
+                          <div class="cv__collage-row" style={`height: ${h}pt`}>
+                            {cols.map(({ stack, aspect }) => {
+                              const w = aspect * h;
+                              const freeH = h - (stack.length - 1) * G;
+                              const inv = stack.reduce((sum, t) => sum + 1 / t.aspect, 0);
+                              return (
+                                <div class="cv__collage-col" style={`width: ${w}pt`}>
+                                  {stack.map((t) => {
+                                    const caption = section.captions?.[t.area] ?? t.caption;
+                                    return (
+                                      <div class="cv__tile" style={`height: ${(freeH * (1 / t.aspect)) / inv}pt`}>
+                                        <img src={t.src} alt="" />
+                                        {caption && <span>{caption}</span>}
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                              );
+                            })}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                })()}
+                </div>
                 {section.groups.map((g) => (
                   <div class="cv__group">
-                    {g.title && <p class="cv__line"><strong>{g.title}</strong></p>}
+                    {g.title && (
+                      <p class="cv__line">
+                        <strong>{g.title}</strong>
+                        {g.reel && <a class="cv__reel" href={g.reel}>(showreel)</a>}
+                      </p>
+                    )}
                     {g.items.map((i) => {
                       const it = listItems.get(i)!;
                       return (
                         <p class="cv__row cv__item" id={it.label}>
-                          <span class="cv__gutter">
-                            {it.thumb && <img class="cv__item-thumb" src={it.thumb} alt="" style={g.aspect && `aspect-ratio: ${g.aspect}`} />}
-                          </span>
+                          <span class="cv__gutter cv__date">{it.date}</span>
                           <span set:html={(it.label ? `[${it.label}] ` : '') + inline(it.rest)} />
                         </p>
                       );
@@ -265,6 +383,7 @@ const listItems = new Map(
     --cv-gutter: 1.15in;
     --cv-gap: 12pt;
     --cv-thumb: 0.9in;
+    --cv-collage-gap: 3pt;
   }
 
   html {
@@ -307,6 +426,7 @@ const listItems = new Map(
   .cv__doc {
     margin-left: 0.6em;
     font-weight: normal;
+    color: var(--cv-muted);
   }
 
   .cv__contact {
@@ -381,8 +501,7 @@ const listItems = new Map(
   /* A line of text starts visually at its cap height, a few points below
      the top of its line box, so thumbnails drop by the same amount to line
      up with the first line. */
-  .cv__pub-thumb,
-  .cv__item-thumb {
+  .cv__pub-thumb {
     margin-top: 2.5pt;
   }
 
@@ -400,17 +519,76 @@ const listItems = new Map(
 
 
   .cv .cv__item {
-    align-items: start;
-    margin-bottom: 6pt;
+    margin-bottom: 4pt;
   }
 
-  /* Same width as the paper thumbnails; height follows the image, so
-     posters stay tall and photos stay wide. */
-  .cv__item-thumb {
-    width: var(--cv-thumb);
-    height: auto;
+  .cv a.cv__reel {
+    margin-left: 0.4em;
+    font-size: 10pt;
+    font-weight: normal;
+  }
+
+  /* Rows of uncropped images, each row as wide as the text column; the
+     caption sits on the image's upper-left corner. */
+  .cv__collage {
+    display: flex;
+    flex-direction: column;
+    gap: var(--cv-collage-gap);
+    margin: 2pt 0 12pt;
+    break-inside: avoid;
+  }
+
+  .cv__lead {
+    break-inside: avoid;
+  }
+
+  .cv__collage-row {
+    display: flex;
+    gap: var(--cv-collage-gap);
+  }
+
+  .cv__collage-col {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    gap: var(--cv-collage-gap);
+  }
+
+  .cv__tile {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    flex: none;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  /* Positioned so an image's intrinsic size never feeds the layout; the
+     tile's size comes from the aspect-ratio arithmetic alone. */
+  .cv__tile img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
   }
+
+  /* An opaque label in a bold sans serif reads over any image. */
+  .cv__tile span {
+    position: absolute;
+    left: 0;
+    top: 0;
+    line-height: 1.2;
+    white-space: nowrap;
+    padding: 1.5pt 5pt;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    background: #000;
+  }
+
 
   .cv__pub-award {
     color: var(--cv-award);
