@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { getImage } from 'astro:assets';
 import { CV, VENUE_LONG, type CvPublication } from '../data/cv';
 
 const projects = await getCollection('projects');
@@ -18,7 +19,7 @@ function inline(src: string): string {
 
 /** Build a publication line from the projects collection, so the CV and the
  *  site can never disagree about a title, author list, venue or award. */
-function publication(item: CvPublication) {
+async function publication(item: CvPublication) {
   const p = bySlug.get(item.ref);
   if (!p) throw new Error(`cv: no project "${item.ref}"`);
   const d = p.data;
@@ -34,6 +35,7 @@ function publication(item: CvPublication) {
   const venue = [
     long ? long.replace('{year}', String(d.year)) : `${d.venue ?? ''} ${d.year}`.trim(),
     item.venueNote,
+    d.acceptanceRate && `(Acceptance rate: ${d.acceptanceRate})`,
   ]
     .filter(Boolean)
     .join(' ');
@@ -43,8 +45,26 @@ function publication(item: CvPublication) {
     d.links.pdf && { label: 'PDF', href: d.links.pdf },
   ].filter(Boolean) as { label: string; href: string }[];
 
-  return { title: d.title, authors, venue, links, note: item.note ?? d.award };
+  // 300 dpi at the printed size (--cv-thumb), so the thumbnail stays sharp.
+  const thumb = d.teaser && (await getImage({ src: d.teaser, width: 270, format: 'jpg', quality: 85 }));
+
+  return {
+    title: d.title,
+    authors,
+    venue,
+    links,
+    note: item.note ?? d.award,
+    thumb: thumb && { src: thumb.src, alt: d.teaserAlt ?? '' },
+  };
 }
+
+const pubs = new Map(
+  await Promise.all(
+    CV.sections.flatMap((s) =>
+      s.kind === 'publications' ? s.items.map(async (i) => [i.label, await publication(i)] as const) : [],
+    ),
+  ),
+);
 ---
 
 <html lang="en">
@@ -61,7 +81,12 @@ function publication(item: CvPublication) {
 
       {
         CV.sections.map((section) => (
-          <section class={`cv__section${'spaced' in section && section.spaced ? ' is-spaced' : ''}`}>
+          <section
+            class:list={[
+              'cv__section',
+              'spaced' in section && section.spaced && (section.spaced === 'half' ? 'is-half-spaced' : 'is-spaced'),
+            ]}
+          >
             <h2>{section.title}</h2>
 
             {section.kind === 'prose' &&
@@ -90,21 +115,24 @@ function publication(item: CvPublication) {
               <>
                 <p class="cv__prose" set:html={inline(section.summary)} />
                 {section.items.map((item) => {
-                  const pub = publication(item);
+                  const pub = pubs.get(item.label)!;
                   return (
                     <div class="cv__pub">
-                      <p class="cv__pub-title">
-                        [{item.label}] {pub.title}
-                      </p>
-                      <p class="cv__pub-meta" set:html={inline(pub.authors)} />
-                      <p
-                        class="cv__pub-meta"
-                        set:html={[
-                          pub.venue,
-                          ...pub.links.map((l) => `(<a href="${l.href}">${l.label}</a>)`),
-                        ].join(' ')}
-                      />
-                      {pub.note && <p class="cv__pub-note">{pub.note}</p>}
+                      {pub.thumb && <img class="cv__pub-thumb" src={pub.thumb.src} alt={pub.thumb.alt} />}
+                      <div class="cv__pub-body">
+                        <p class="cv__pub-title">
+                          [{item.label}] {pub.title}
+                        </p>
+                        <p class="cv__pub-meta" set:html={inline(pub.authors)} />
+                        <p
+                          class="cv__pub-meta"
+                          set:html={[
+                            pub.venue,
+                            ...pub.links.map((l) => `(<a href="${l.href}">${l.label}</a>)`),
+                          ].join(' ')}
+                        />
+                        {pub.note && <p class="cv__pub-note">{pub.note}</p>}
+                      </div>
                     </div>
                   );
                 })}
@@ -126,17 +154,6 @@ function publication(item: CvPublication) {
         ))
       }
     </main>
-    <script>
-      // Paged.js implements @page margin boxes (the running header and page
-      // number), which Chrome does not support natively. It re-paginates the
-      // document, so it is opt-in: scripts/build-cv-pdf.mjs requests ?paged.
-      if (new URLSearchParams(location.search).has('paged')) {
-        document.documentElement.classList.add('is-paged');
-        // The package's exports map blocks a deep import of the polyfill
-        // bundle, so the Previewer is driven directly instead.
-        import('pagedjs').then(({ Previewer }) => new Previewer().preview());
-      }
-    </script>
   </body>
 </html>
 
@@ -182,7 +199,7 @@ function publication(item: CvPublication) {
     --cv-fg: #000;
     --cv-link: #1155cc;
     --cv-award: #980000;
-    --cv-indent: 0.44in;
+    --cv-thumb: 0.9in;
   }
 
   html {
@@ -239,6 +256,12 @@ function publication(item: CvPublication) {
     margin-top: 1.15em;
   }
 
+  /* Enough to separate entries that carry a description, without the full
+     blank line that would push the CV onto another page. */
+  .cv__section.is-half-spaced .cv__entry + .cv__entry {
+    margin-top: 0.3em;
+  }
+
   /* Title left, date hard right, matching the original's right tab stop. */
   .cv__head {
     display: flex;
@@ -255,8 +278,25 @@ function publication(item: CvPublication) {
     margin: 0;
   }
 
+  /* Teaser figure left, citation right: each paper's figure is the fastest
+     way to read what it contributes. */
   .cv__pub {
-    margin-bottom: 0;
+    display: grid;
+    grid-template-columns: var(--cv-thumb) 1fr;
+    gap: 10pt;
+    align-items: start;
+    margin-bottom: 8pt;
+  }
+
+  .cv__pub-thumb {
+    grid-column: 1;
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+
+  .cv__pub-body {
+    grid-column: 2;
   }
 
   .cv__pub-title {
@@ -266,7 +306,6 @@ function publication(item: CvPublication) {
   .cv__pub-meta,
   .cv__pub-note {
     margin: 0;
-    padding-left: var(--cv-indent);
   }
 
   .cv__pub-note {
@@ -280,23 +319,6 @@ function publication(item: CvPublication) {
 
   .cv__group {
     margin-bottom: 6pt;
-  }
-
-  .is-paged body {
-    background: #f4f4f5;
-  }
-
-  .is-paged .cv {
-    width: auto;
-    margin: 0;
-    padding: 0;
-    background: none;
-    box-shadow: none;
-  }
-
-  .pagedjs_page {
-    background: #fff;
-    margin: 0 auto 1rem;
   }
 
   @media print {

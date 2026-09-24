@@ -16,8 +16,5 @@
   },
   "dependencies": {
     "astro": "^5"
-  },
-  "devDependencies": {
-    "pagedjs": "^0.4.3"
   }
 }

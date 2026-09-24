@@ -47,7 +47,7 @@ export const VENUE_LONG: Record<string, string> = {
 
 export type CvSection =
   | { title: string; kind: 'prose'; body: string[] }
-  | { title: string; kind: 'entries'; spaced?: boolean; entries: CvEntry[] }
+  | { title: string; kind: 'entries'; spaced?: boolean | 'half'; entries: CvEntry[] }
   | { title: string; kind: 'publications'; summary: string; items: CvPublication[] }
   | { title: string; kind: 'list'; summary?: string; groups: { title?: string; items: string[] }[] };
 
@@ -112,36 +112,52 @@ export const CV: { name: string; contact: string[]; sections: CvSection[] } = {
     {
       title: 'Research Experience',
       kind: 'entries',
+      spaced: 'half',
       entries: [
         {
           title: 'Autodesk, HCI and Visualization Team',
           href: 'https://www.research.autodesk.com/research-areas/science/human-computer-interaction-and-visualization/',
           date: 'May 2026 - Aug 2026',
-          lines: ['Research Intern, Mentors: Frederik Brudy, David Ledo.'],
+          lines: [
+            'Research Intern, Mentors: Frederik Brudy, David Ledo.',
+            'Created a design space for film directing, grounded in a cinematic corpus, to establish a shared language between human creators and generative AI.',
+          ],
         },
         {
           title: 'Fujitsu Research of America, Converging Lab',
           href: 'https://www.fujitsu.com/us/about/businesspolicy/tech/rd/converging-lab/',
           date: 'May 2025 - Oct 2025',
-          lines: ['Research Intern, Mentors: Mose Sakashita, Aditi Mishra, Aakar Gupta, Koichiro Niinuma.'],
+          lines: [
+            'Research Intern, Mentors: Mose Sakashita, Aditi Mishra, Aakar Gupta, Koichiro Niinuma.',
+            'Built a system that grounds AI video generation in street-view imagery for spatially consistent shots, evaluated with 12 filmmakers [C8].',
+          ],
         },
         {
           title: 'CU Boulder, Programmable Reality Lab',
           href: 'https://www.colorado.edu/atlas/programmable-reality-lab',
           date: 'Aug 2024 - Present',
-          lines: ['Graduate Research Assistant, Mentor: Ryo Suzuki'],
+          lines: [
+            'Graduate Research Assistant, Mentor: Ryo Suzuki',
+            'Study how people create and consume video by building interactive systems with generative AI, extended reality, and virtual agents for storytelling and education [C7, C8, P1].',
+          ],
         },
         {
           title: 'Chung-Ang University, Artifab Lab',
           href: 'https://artifab.yoonji-kim.com/main-page',
-          date: 'Jan 2023 - July 2024',
-          lines: ['Research Assistant, Mentor: Yoonji Kim'],
+          date: 'Jan 2023 - Jul 2024',
+          lines: [
+            'Research Assistant, Mentor: Yoonji Kim',
+            'Built a filmmaking previsualization tool using image segmentation and deepfake face swapping [C4], and haptic systems that recreate a personal trainer’s touch through vibrotactile and electrical stimulation [E1, C6].',
+          ],
         },
         {
           title: 'KAIST, Make Lab',
           href: 'https://make.kaist.ac.kr/',
           date: 'Sep 2020 - Sep 2022',
-          lines: ['Graduate Research Assistant, Mentor: Andrea Bianchi'],
+          lines: [
+            'Graduate Research Assistant, Mentor: Andrea Bianchi',
+            'Designed and evaluated AR, VR, and haptic systems for home fitness, remote education, and immersive VR [C1-C3].',
+          ],
         },
       ],
     },
@@ -149,7 +165,7 @@ export const CV: { name: string; contact: string[]; sections: CvSection[] } = {
       title: 'Fellowship and Awards',
       kind: 'entries',
       entries: [
-        { title: 'Google Ph.D. Fellowship', date: '2025-2027', lines: ['Full tuition and stipend ($85,000/year)'] },
+        { title: 'Google Ph.D. Fellowship', date: 'Fall 2025 - Spring 2027', lines: ['Full tuition and stipend ($85,000/year)'] },
         { title: 'CU Boulder Computer Science Department', date: '2026', lines: ['Conference Support funds ($1,500)'] },
         { title: 'Ralph J. Slutz Student Excellence Award', date: '2025', lines: ['Slutz Excellence Fund ($1,000)'] },
         { title: 'Graduate and Professional Student Government', date: '2024', lines: ['Conference travel support ($500)'] },
@@ -182,11 +198,6 @@ export const CV: { name: string; contact: string[]; sections: CvSection[] } = {
       kind: 'entries',
       spaced: true,
       entries: [
-        {
-          title: 'Research Assistant at Chung-Ang University',
-          date: 'Jan 2023 - July 2024',
-          lines: ['Developed a creativity support tool [C4] and workout support tool that simulates a trainer’s tactile and auditory guidance in weightlifting [E1].'],
-        },
         {
           title: 'Film VFX Compositor and VR/AR Generalist at [Dexter Studios](https://www.dexterstudios.com/)',
           date: 'Sep 2016 - Apr 2020',
