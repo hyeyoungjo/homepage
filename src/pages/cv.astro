@@ -217,7 +217,9 @@ const listItems = new Map(
                       const it = listItems.get(i)!;
                       return (
                         <p class="cv__row cv__item" id={it.label}>
-                          <span class="cv__gutter">{it.thumb && <img class="cv__item-thumb" src={it.thumb} alt="" />}</span>
+                          <span class="cv__gutter">
+                            {it.thumb && <img class="cv__item-thumb" src={it.thumb} alt="" style={g.aspect && `aspect-ratio: ${g.aspect}`} />}
+                          </span>
                           <span set:html={(it.label ? `[${it.label}] ` : '') + inline(it.rest)} />
                         </p>
                       );
@@ -378,13 +380,10 @@ const listItems = new Map(
 
   /* A line of text starts visually at its cap height, a few points below
      the top of its line box, so thumbnails drop by the same amount to line
-     up with the first line. The hairline border gives white-background
-     figures an edge to align by. */
+     up with the first line. */
   .cv__pub-thumb,
   .cv__item-thumb {
     margin-top: 2.5pt;
-    box-sizing: border-box;
-    border: 0.5pt solid var(--cv-rule);
   }
 
   .cv__pub-thumb {
@@ -410,6 +409,7 @@ const listItems = new Map(
   .cv__item-thumb {
     width: var(--cv-thumb);
     height: auto;
+    object-fit: cover;
   }
 
   .cv__pub-award {

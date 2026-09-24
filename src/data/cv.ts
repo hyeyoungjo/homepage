@@ -78,7 +78,14 @@ export type CvSection =
   | { title: string; kind: 'prose'; body: string[]; keywords?: string[] }
   | { title: string; kind: 'entries'; summary?: string; entries: CvEntry[] }
   | { title: string; kind: 'publications'; summary?: string; items: CvPublication[] }
-  | { title: string; kind: 'list'; summary?: string; groups: { title?: string; items: CvListItem[] }[] };
+  | { title: string; kind: 'list'; summary?: string; groups: CvListGroup[] };
+
+/** `aspect` crops every thumbnail in the group to one shape, e.g. '4 / 3'. */
+export interface CvListGroup {
+  title?: string;
+  aspect?: string;
+  items: CvListItem[];
+}
 
 /** A list line, optionally with a thumbnail in the gutter: `ref` borrows a
  *  project's teaser, `image` names a file under src/assets/cv/. */
@@ -131,8 +138,8 @@ export const CV: {
           date: 'March 2011 - February 2016',
           lines: [
             'Bachelor of Fine Arts, Painting and Media Arts, *Cum Laude*',
-            'Graduation exhibition, Painting: fluid identity [A1]',
-            'Graduation exhibition, Media Arts: Korea’s [Sampo generation](https://en.wikipedia.org/wiki/N-po_generation) [A4]',
+            'Painting graduation exhibition on fluid identity [A1]',
+            'Media Arts graduation exhibition on Korea’s [Sampo generation](https://en.wikipedia.org/wiki/N-po_generation) [A4]',
             'Supervisor: Inhwan Oh, Cheol-Woong Sim',
           ],
         },
@@ -358,23 +365,25 @@ export const CV: {
       groups: [
         {
           title: 'Films',
+          aspect: '7 / 10',
           items: [
-            { text: '[F6] <Along with The Gods: The Last 49 Days>, Director: Yong-Hwa Kim, 2018, *2018 Grand Bell Awards - Best Visual Effects, over 12 million viewers in South Korea alone as of 2024.*', image: 'posters/along-with-the-gods-last-49-days.jpg' },
-            { text: '[F5] <1987: When The Day Comes>, Director: Jun-Hwan Jang, 2017, *2018 Blue Dragon Film Awards - Top Film Award, over 5 million viewers in South Korea alone as of 2024.*', image: 'posters/1987-when-the-day-comes.jpg' },
-            { text: '[F4] <Along with The Gods: The Two Worlds>, Director: Yong-Hwa Kim, 2017, *2018 Blue Dragon Film Awards - 4 Crowns, including Technology Award, over 11 million viewers in South Korea alone as of 2024.*', image: 'posters/along-with-the-gods-two-worlds.jpg' },
-            { text: '[F3] Kung Fu Yoga, Director: Stanley Tong, 2017', image: 'posters/kung-fu-yoga.jpg' },
-            { text: '[F2] <Real>, Director: Sa-Rang Lee, 2017', image: 'posters/real.jpg' },
-            { text: '[F1] <Fabricated City>, Director: Kwang-Hyun Park, 2017', image: 'posters/fabricated-city.jpg' },
+            { text: '[F6] <Along with The Gods: The Last 49 Days> ([VFX showreel](https://www.youtube.com/watch?v=qlAgdN0PIFw)), Director: Yong-Hwa Kim, 2018, *2018 Grand Bell Awards - Best Visual Effects, over 12 million viewers in South Korea alone as of 2024.*', image: 'posters/along-with-the-gods-last-49-days.jpg' },
+            { text: '[F5] <1987: When The Day Comes> ([VFX showreel](https://www.youtube.com/watch?v=54PSlSiwO9c)), Director: Jun-Hwan Jang, 2017, *2018 Blue Dragon Film Awards - Top Film Award, over 5 million viewers in South Korea alone as of 2024.*', image: 'posters/1987-when-the-day-comes.jpg' },
+            { text: '[F4] <Along with The Gods: The Two Worlds> ([VFX showreel](https://www.youtube.com/watch?v=4mYPlzP-38k)), Director: Yong-Hwa Kim, 2017, *2018 Blue Dragon Film Awards - 4 Crowns, including Technology Award, over 11 million viewers in South Korea alone as of 2024.*', image: 'posters/along-with-the-gods-two-worlds.jpg' },
+            { text: '[F3] Kung Fu Yoga ([VFX showreel](https://www.youtube.com/watch?v=LEXz0muRNiY)), Director: Stanley Tong, 2017', image: 'posters/kung-fu-yoga.jpg' },
+            { text: '[F2] <Real> ([trailer](https://www.youtube.com/watch?v=FGZOl5oq-OY)), Director: Sa-Rang Lee, 2017', image: 'posters/real.jpg' },
+            { text: '[F1] <Fabricated City> ([trailer](https://www.youtube.com/watch?v=2CfVL6WLvUg)), Director: Kwang-Hyun Park, 2017', image: 'posters/fabricated-city.jpg' },
           ],
         },
         {
           title: 'Immersive Content',
+          aspect: '4 / 3',
           items: [
-            { text: '[X5] VR Boxing Game <Meta-Boxing> ([video](https://youtu.be/-d2arU9pzFM)), Supervisor: Woontack Woo, *Excellence Award at Korea Metaverse Developer Contest 2021, Top Research Award at the 2022 joint research seminar of four universities - Seoul National University - KAIST - Sogang University - Korea University*', ref: 'meta-boxing' },
-            { text: '[X4] AR Mobile App <LGU+ 5G AR>, Supervisor: Sun-Gu Kim', ref: 'lg-uplus-ar-studio' },
-            { text: '[X3] VR Exhibition <Fashion For Help>, Supervisor: Young-Mo Son', ref: 'vr-fashion-for-help' },
+            { text: '[X5] VR Boxing Game <Meta-Boxing> ([video](https://youtu.be/-d2arU9pzFM)), Supervisor: Woontack Woo', ref: 'meta-boxing' },
+            { text: '[X4] AR Mobile App <LGU+ 5G AR> ([video](https://www.youtube.com/watch?v=jodknL45kXE), [article](https://www.koreajoongangdaily.com/business/want-a-tiny-kpop-star-to-perform-on-your-desk-lg-u-has-you-covered/10886585)), Supervisor: Sun-Gu Kim', ref: 'lg-uplus-ar-studio' },
+            { text: '[X3] VR Exhibition <Fashion For Help> ([video](https://youtu.be/ZBZmPHuDVew)), Supervisor: Young-Mo Son', ref: 'vr-fashion-for-help' },
             { text: '[X2] AR Exhibition <The Tide>, Supervisor: Sang-Hyoun Lee', ref: 'ar-the-tide' },
-            { text: '[X1] VR Toon Film <The Tide>, Director: Tae-Kyung Yoo, *Officially invited to the "New Frontier" category at the 2019 Sundance Film Festival.*', ref: 'vr-the-tide' },
+            { text: '[X1] VR Toon Film <The Tide> ([Steam](https://store.steampowered.com/app/1263410/The_Tide/)), Director: Tae-Kyung Yoo, *Officially invited to the "New Frontier" category at the 2019 Sundance Film Festival.*', ref: 'vr-the-tide' },
           ],
         },
       ],
@@ -385,6 +394,7 @@ export const CV: {
       summary: 'Summary: I participated in the following art events as an artist [A1-A5, A7] and VJ [A6].',
       groups: [
         {
+          aspect: '4 / 3',
           items: [
             { text: '[A7] Group Exhibition <Lapses>, Platform-L Contemporary Art Center, Curator: Eobchae, 2018 (funded by Hyundai’s ZER01NE project).', ref: 'measurer' },
             { text: '[A6] Live VJ Show <We Play>, Sangsangmadang, Supervisor: Hoon-Gyu Park (Parkpunk), 2016', image: 'art/we-play.jpg' },
