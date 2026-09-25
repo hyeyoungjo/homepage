@@ -88,7 +88,12 @@ writeFileSync(out, await pdf.save({ useObjectStreams: false }));
 
 // `astro build` copies public/ into dist/ before this script runs, so the
 // freshly written PDF is mirrored to keep a local preview in step.
-const mirrored = resolve(root, 'dist/Jo_CV.pdf');
-if (existsSync(dirname(mirrored))) copyFileSync(out, mirrored);
+// /cv.pdf is a stable alias for the fellowship form and older links.
+const aliases = ['Jo_CV.pdf', 'cv.pdf'];
+for (const name of aliases) {
+  if (name !== 'Jo_CV.pdf') copyFileSync(out, resolve(root, 'public', name));
+  const mirrored = resolve(root, 'dist', name);
+  if (existsSync(dirname(mirrored))) copyFileSync(out, mirrored);
+}
 
 console.log(`Wrote ${out.replace(root + '/', '')}`);

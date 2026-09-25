@@ -1,0 +1,30 @@
+---
+import { Image } from 'astro:assets';
+import { MARKS, newsParts } from '../lib/newsMarks';
+
+interface Props {
+  text: string;
+  marks?: string[];
+}
+
+const { text, marks } = Astro.props;
+const parts = newsParts(text, marks);
+---
+
+{
+  parts.map((p) =>
+    p.kind === 'name' ? (
+      <span class="news-name">
+        <Image
+          class:list={['news-mark', MARKS[p.id].width / MARKS[p.id].height > 1.8 && 'news-mark--wide']}
+          src={MARKS[p.id]}
+          alt=""
+          title={p.value}
+        />
+        {p.value}
+      </span>
+    ) : (
+      p.value
+    ),
+  )
+}

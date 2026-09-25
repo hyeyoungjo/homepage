@@ -1,14 +1,12 @@
 ---
 import { Image } from 'astro:assets';
-import { getCollection } from 'astro:content';
 import profile from '../assets/profile.jpg';
-import { SITE, fmtNewsDate } from '../lib/site';
+import { LATEST_NEWS, loadNews } from '../lib/news';
+import { SITE } from '../lib/site';
+import NewsList from './NewsList.astro';
 import SocialLinks from './SocialLinks.astro';
 
-const recentNews = (await getCollection('news'))
-  .sort((a, b) => +b.data.date - +a.data.date)
-  .slice(0, 4)
-  .map((n) => n.data);
+const recentNews = (await loadNews()).slice(0, LATEST_NEWS);
 ---
 
 <section class="hero container">
@@ -30,24 +28,9 @@ const recentNews = (await getCollection('news'))
   </div>
   <div class="hero__news">
     <h2 class="hero__news-head">
-      <a href="/news">News</a>
+      <a href="/news">Latest News</a>
     </h2>
-    <ul class="hero__news-list">
-      {
-        recentNews.map((n) => (
-          <li>
-            <time>{fmtNewsDate(n.date)}</time>
-            {n.link ? (
-              <a href={n.link} target="_blank" rel="noopener">
-                {n.text}
-              </a>
-            ) : (
-              <span>{n.text}</span>
-            )}
-          </li>
-        ))
-      }
-    </ul>
+    <NewsList items={recentNews} compact />
   </div>
 </section>
 

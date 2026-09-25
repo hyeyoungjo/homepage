@@ -216,9 +216,21 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.18; font-weight: 600
 .hero__news { width: 280px; }
 .hero__news-head { font-size: var(--section-title); margin: 0 0 0.5rem; }
 .hero__news-head a { color: var(--color-fg); }
-.hero__news-list { list-style: none; margin: 0; padding: 0; }
-.hero__news-list li { padding: 0.45rem 0; border-bottom: 1px solid var(--color-border); font-size: 0.8rem; line-height: 1.4; }
-.hero__news-list time { display: block; color: var(--color-muted); font-size: 0.7rem; margin-bottom: 0.1rem; }
+.hero__news .news--compact { font-size: 0.8rem; line-height: 1.4; }
+.hero__news .news--compact .news__item { display: block; padding: 0.45rem 0; }
+.hero__news .news--compact .news__date { display: block; font-size: 0.7rem; min-width: 0; margin-bottom: 0.1rem; }
+.news-name { white-space: nowrap; }
+.news-mark {
+  display: inline-block;
+  height: 1.15em;
+  width: auto;
+  vertical-align: -0.2em;
+  margin-right: 0.2em;
+}
+.news-mark--wide {
+  height: 0.72em;
+  vertical-align: 0.05em;
+}
 .news-photos {
   display: flex;
   flex-wrap: wrap;

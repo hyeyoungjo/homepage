@@ -64,6 +64,8 @@ const news = defineCollection({
       image: image().optional(),
       images: z.array(image()).optional(),
       imageAlt: z.string().optional(),
+      // Org marks sit before the institution name — they never replace the words.
+      marks: z.array(z.enum(['autodesk', 'cau', 'cuboulder', 'dexter', 'fujitsu', 'kaist', 'prl', 'snu'])).optional(),
     }),
 });
 

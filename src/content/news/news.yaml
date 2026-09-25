@@ -1,19 +1,25 @@
 # Dated updates shown on the home page (newest first is computed automatically).
-# Each item needs a unique `id`. `link`, `image`, and `images` are optional.
+# Each item needs a unique `id`. `link`, `image`, `images`, and `marks` are optional.
+# `marks` sit before the institution name on join and finish/leave only.
 # Lead with a past-tense verb when she did it (Presented, Joined, Received).
-# Acceptances keep the project as the subject (Map2Video was accepted…).
+# Papers: write Presented only when she gave the talk (first author, plus TingleTouch).
+# If she went and did not speak, write Attended.
 - id: autodesk-wrap-2026
   date: 2026-08-19
-  text: "Finished up my Autodesk internship."
+  text: "Finishing up my Autodesk internship."
+  marks: [autodesk]
   images:
-    - ./autodesk-1.jpg
-    - ./autodesk-2.jpg
-    - ./autodesk-3.jpg
-    - ./autodesk-4.jpg
-    - ./autodesk-5.jpg
-    - ./autodesk-6.jpg
     - ./autodesk-7.jpg
+    - ./autodesk-6.jpg
+    - ./autodesk-1.jpg
+    - ./autodesk-11.jpg
+    - ./autodesk-4.jpg
+    - ./autodesk-10.jpg
+    - ./autodesk-3.jpg
+    - ./autodesk-5.jpg
     - ./autodesk-8.jpg
+    - ./autodesk-2.jpg
+    - ./autodesk-9.jpg
   imageAlt: "Memories from the Autodesk internship in Toronto"
 - id: uist-2026
   date: 2026-08-12
@@ -22,18 +28,19 @@
   date: 2026-08-03
   text: "Celebrated Haru's first birthday."
   images:
-    - ./haru-1.jpg
     - ./haru-2.jpg
+    - ./haru-5.jpg
+    - ./haru-8.jpg
     - ./haru-3.jpg
     - ./haru-4.jpg
-    - ./haru-5.jpg
     - ./haru-6.jpg
+    - ./haru-1.jpg
     - ./haru-7.jpg
-    - ./haru-8.jpg
   imageAlt: "Haru's first birthday"
 - id: autodesk-internship-2026
   date: 2026-05-04
-  text: "Joined the Autodesk HCI & Visualization team in Toronto for a summer internship 🇨🇦"
+  text: "Joined the Autodesk HCI & Visualization team in Toronto for a summer internship."
+  marks: [autodesk]
 - id: tingletouch-chi-2026
   date: 2026-04-17
   text: "Presented TingleTouch at CHI 2026 in Barcelona."
@@ -41,14 +48,15 @@
   date: 2025-12-05
   text: "Adopted Haru."
   images:
-    - ./adopt-1.jpg
-    - ./adopt-2.jpg
-    - ./adopt-3.jpg
-    - ./adopt-4.jpg
     - ./adopt-5.jpg
-    - ./adopt-6.jpg
-    - ./adopt-7.jpg
     - ./adopt-8.jpg
+    - ./adopt-9.jpg
+    - ./adopt-1.jpg
+    - ./adopt-7.jpg
+    - ./adopt-4.jpg
+    - ./adopt-2.jpg
+    - ./adopt-6.jpg
+    - ./adopt-3.jpg
   imageAlt: "The day Haru came home"
 - id: slutz-award-2025
   date: 2025-12-04
@@ -56,18 +64,30 @@
 - id: google-phd-fellowship-2025
   date: 2025-10-23
   text: "Received the Google PhD Fellowship in Human-Computer Interaction 🏆"
+- id: ismar-2025
+  date: 2025-10-08
+  text: "Attended ISMAR 2025."
 - id: fujitsu-talk-2025
   date: 2025-10-02
   text: "Gave an invited talk at Fujitsu Research of America on AI-driven video generation."
-- id: ismar-2025
-  date: 2025-09-22
-  text: "Our paper on hand and forearm gestures for avatar deformation was accepted to ISMAR 2025!"
-- id: chi26-submission-2025
-  date: 2025-09-18
-  text: "Submitted 4 papers to CHI'26. Fingers crossed 🤞"
+- id: fujitsu-wrap-2025
+  date: 2025-08-20
+  text: "Finishing up my Fujitsu internship."
+  marks: [fujitsu]
+  images:
+    - ./fujitsu-3.jpg
+    - ./fujitsu-5.jpg
+    - ./fujitsu-1.jpg
+    - ./fujitsu-4.jpg
+    - ./fujitsu-2.jpg
+    - ./fujitsu-6.jpg
+    - ./fujitsu-8.jpg
+    - ./fujitsu-7.jpg
+  imageAlt: "Memories from the Fujitsu internship in Pittsburgh"
 - id: fujitsu-internship-2025
   date: 2025-05-27
   text: "Joined the Fujitsu Converging Technology Lab in Pittsburgh for a summer internship."
+  marks: [fujitsu]
 - id: kaist-talk-2025
   date: 2025-05-23
   text: "Gave an invited talk at the MAKE Lab (Prof. Andrea Bianchi), KAIST."
@@ -77,24 +97,64 @@
 - id: uist-2024
   date: 2024-10-13
   text: "Attended UIST 2024 in Pittsburgh."
-- id: chi25-submission-2024
-  date: 2024-09-12
-  text: "Submitted a paper to CHI'25. Fingers crossed 🤞"
 - id: phd-start-2024
   date: 2024-08-18
-  text: "Started my PhD in the Programmable Reality Lab led by Prof. Ryo Suzuki 😃"
-- id: moved-us-2024
-  date: 2024-07-23
-  text: "Moved to Boulder, Colorado 🇺🇸"
+  text: "Started my PhD in Computer Science at the University of Colorado Boulder, in the Programmable Reality Lab led by Prof. Ryo Suzuki 😃"
+  marks: [cuboulder, prl]
 - id: chi24-collagevis-2024
   date: 2024-05-14
-  text: "Presented CollageVis at CHI 2024 in Hawaii 👍"
+  text: "Presented CollageVis at CHI 2024 in Hawaii."
+- id: marsden-award-2024
+  date: 2024-04-01
+  text: "Received the Gary Marsden Travel Award to attend CHI 2024 🏆"
 - id: uist23-trainertap-2023
   date: 2023-08-28
-  text: "Presented the TrainerTap poster at UIST 2023 in San Francisco 😁"
+  text: "Presented the TrainerTap poster at UIST 2023 in San Francisco."
 - id: chi23-flowar-2023
-  date: 2023-03-01
-  text: "FlowAR was accepted to CHI 2023 😊"
+  date: 2023-04-23
+  text: "Presented FlowAR at CHI 2023 in Hamburg."
 - id: kaist-commencement-2023
   date: 2023-02-17
-  text: "Graduated from the Industrial Design MS program at KAIST."
+  text: "Graduated from the Industrial Design MS program at KAIST with the Best Master's Thesis Award."
+  marks: [kaist]
+- id: cau-join-2023
+  date: 2023-01-01
+  text: "Joined the Human-AI Interaction Design & Fabrication Lab at Chung-Ang University."
+  marks: [cau]
+- id: hcik-best-paper-2022
+  date: 2022-01-26
+  text: "Our VR remote education paper received a Best Paper Award at HCI Korea 2022 🏆"
+- id: metaboxing-award-2021
+  date: 2021-12-16
+  text: "Meta-Boxing received an Excellence Award at the 2021 Korea Metaverse Developer Contest 🏆"
+  images:
+    - ./metaboxing-1.jpg
+    - ./metaboxing-2.jpg
+    - ./metaboxing-3.jpg
+    - ./metaboxing-4.jpg
+    - ./metaboxing-5.jpg
+  imageAlt: "Excellence Award for Meta-Boxing"
+- id: chi21-gamesbond-2021
+  date: 2021-05-08
+  text: "GamesBond received an Honorable Mention at CHI 2021 🏆"
+- id: kaist-ms-start-2020
+  date: 2020-09-01
+  text: "Started my MS in Industrial Design at KAIST."
+  marks: [kaist]
+- id: dexter-immersive-2018
+  date: 2018-08-01
+  text: "Moved to the New Media Division at Dexter Studios as a VR/AR generalist."
+  marks: [dexter]
+- id: dexter-join-2016
+  date: 2016-09-01
+  text: "Joined Dexter Studios as a film VFX compositor."
+  marks: [dexter]
+- id: snu-commencement-2016
+  date: 2016-02-17
+  text: "Graduated from the BFA program in Painting and Media Arts at Seoul National University."
+  marks: [snu]
+  images:
+    - ./snu-1.jpg
+    - ./snu-2.jpg
+    - ./snu-3.jpg
+  imageAlt: "Graduation day at Seoul National University"
