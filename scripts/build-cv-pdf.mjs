@@ -7,10 +7,11 @@
 // mean maintaining the design twice.
 
 import { execFile } from 'node:child_process';
-import { copyFileSync, existsSync, mkdirSync, readFileSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { createServer } from 'node:http';
 import { dirname, extname, resolve } from 'node:path';
 import { promisify } from 'node:util';
+import { PDFDocument } from 'pdf-lib';
 
 const CHROME_CANDIDATES = [
   '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
@@ -66,11 +67,24 @@ await promisify(execFile)(
     '--headless',
     '--disable-gpu',
     '--no-pdf-header-footer',
+    // Section headings become PDF bookmarks, so a reader can jump between
+    // sections from the viewer's sidebar.
+    '--generate-pdf-document-outline',
     `--print-to-pdf=${out}`,
     `${origin}/cv/`,
   ],
 );
 server.close();
+
+// Chrome writes only the title; the rest of the document properties are set
+// here so the file identifies its author wherever it is opened.
+const pdf = await PDFDocument.load(readFileSync(out), { updateMetadata: false });
+pdf.setTitle('Hye-Young Jo · Curriculum Vitae', { showInWindowTitleBar: true });
+pdf.setAuthor('Hye-Young Jo');
+pdf.setSubject('Curriculum vitae');
+pdf.setKeywords(['Human-Computer Interaction', 'human-AI interaction', 'creativity support tools', 'adaptive media', 'embodied interaction']);
+pdf.setCreator('hyeyoungjo.com');
+writeFileSync(out, await pdf.save({ useObjectStreams: false }));
 
 // `astro build` copies public/ into dist/ before this script runs, so the
 // freshly written PDF is mirrored to keep a local preview in step.

@@ -122,7 +122,7 @@ export const CV: {
   sections: CvSection[];
 } = {
   name: 'Hye-Young Jo',
-  address: ['Roser ATLAS Center, Room 231', '1125 18th St, 320 UCB', 'Boulder, CO 80309-0320, United States'],
+  address: ['Programmable Reality Lab, Roser ATLAS Center, Room 231', '1125 18th St, 320 UCB', 'Boulder, CO 80309-0320, United States'],
   contact: [
     '[www.hyeyoungjo.com](https://hyeyoungjo.com)',
     '[hye-young.jo@colorado.edu](mailto:hye-young.jo@colorado.edu)',
@@ -215,7 +215,7 @@ export const CV: {
           date: 'September 2020 - September 2022',
           lines: [
             'Graduate Research Assistant, Mentor: Andrea Bianchi',
-            'Designed and evaluated AR, VR, and haptic systems for home fitness, remote education, and immersive VR [C1-C3].',
+            'Designed and evaluated augmented reality (AR), virtual reality (VR), and haptic systems for home fitness, remote education, and immersive VR [C1-C3].',
           ],
         },
       ],
@@ -223,7 +223,7 @@ export const CV: {
     {
       title: 'Work Experience',
       kind: 'entries',
-      summary: 'Summary: Before research, I spent nearly four years at Dexter Studios, first as a film VFX compositor and then as a VR/AR generalist.',
+      summary: 'Summary: Before research, I spent nearly four years at Dexter Studios, first as a film VFX compositor and later as a VR/AR generalist.',
       entries: [
         {
           title: 'VR/AR Generalist at [Dexter Studios](https://www.dexterstudios.com/)',
@@ -247,7 +247,7 @@ export const CV: {
       title: 'Peer-Reviewed Full Papers',
       kind: 'publications',
       summary:
-        'Summary: 8 full papers published in CHI (4), UIST (2), ISMAR (1, in IEEE TVCG), and HCIK (1). Two additional full papers are under review.',
+        'Summary: I have published 8 full papers in CHI (4), UIST (2), ISMAR (1, in IEEE TVCG), and HCIK (1), and have two more under review.',
       items: [
         { label: 'C8', ref: 'map2video', also: 'Also accepted to the UIST ’26 demo track.' },
         { label: 'C7', ref: 'cinemaworld', also: 'Also accepted to the UIST ’26 demo track.' },
@@ -276,7 +276,7 @@ export const CV: {
     {
       title: 'Fellowship and Awards',
       kind: 'entries',
-      summary: 'Summary: $176,000 in total funding awarded.',
+      summary: 'Summary: I have received $176,000 in fellowships, awards, and travel grants.',
       entries: [
         { title: 'Google Ph.D. Fellowship', date: 'Fall 2025 - Spring 2027', lines: ['Awarded in the Human-Computer Interaction category; full tuition and stipend ($85,000/year).'] },
         { title: 'Conference Support Fund', date: '2026', lines: ['Awarded by the Department of Computer Science, University of Colorado Boulder ($1,500).'] },
@@ -306,31 +306,36 @@ export const CV: {
     {
       title: 'Invited Talks and Lectures',
       kind: 'entries',
-      summary: 'Summary: I gave six talks and guest lectures on generative video, content creation, AI tools, prototyping, and moving from art and film VFX to VR at Fujitsu Research of America, KAIST, Seoul National University, the University of Colorado Boulder, and Kookmin University.',
+      summary: 'Summary: I gave seven talks and guest lectures on AI-assisted video creation, prototyping, and my transition from art and film VFX to immersive media at companies and universities in the U.S. and Korea.',
       entries: [
         {
-          title: 'Fujitsu Research of America Lunch Seminar',
+          title: 'Autodesk Research, Summer Internship Showcase',
+          date: 'August 2026',
+          lines: ['Understanding Film Directing for AI-Assisted Video Creation'],
+        },
+        {
+          title: 'Fujitsu Research of America, Lunch Seminar',
           date: 'October 2025',
           lines: ['Grounding Generative Video in Real-World Geographies for Spatial Consistency'],
         },
-        { title: 'KAIST Make Lab Seminar', date: 'May 2025', lines: ['Reimagining How We Create and Consume Content'] },
+        { title: 'KAIST, Make Lab Seminar', date: 'May 2025', lines: ['Reimagining How We Create and Consume Content'] },
         {
-          title: 'Seoul National University Human-Centered Computing Systems Lab Seminar',
+          title: 'Seoul National University, Human-Centered Computing Systems Lab Seminar',
           date: 'May 2025',
           lines: ['Reimagining How We Create and Consume Content'],
         },
         {
-          title: 'University of Colorado Boulder, CSCI 7000 How to Hack Almost Anything Guest Lecture',
+          title: 'University of Colorado Boulder, Guest Lecture in How to Hack Almost Anything (graduate course)',
           date: 'February 2025',
           lines: ['Utilizing AI Services and APIs for Coding and Virtual Agent Creation'],
         },
         {
-          title: 'KAIST ID220 Interaction Prototyping Class Guest Lecture',
+          title: 'KAIST, Guest Lecture in Interaction Prototyping (undergraduate course)',
           date: 'October 2022',
           lines: ['DIY Arduino paper cases without 3D printing, using Adobe Illustrator, Autodesk Fusion 360, and Blender'],
         },
         {
-          title: 'Kookmin University Department of Entertainment Design Career Seminar',
+          title: 'Kookmin University, Department of Entertainment Design Career Seminar',
           date: 'November 2019',
           lines: ['Transitioning from Art and Film VFX to VR Content Creation'],
         },
@@ -339,26 +344,28 @@ export const CV: {
     {
       title: 'Teaching and Mentoring',
       kind: 'entries',
-      summary: 'Summary: I have taught two courses as a teaching assistant and mentored four undergraduate researchers.',
+      summary: 'Summary: I have taught introductory programming and physical prototyping as a teaching assistant, and mentored four undergraduate researchers building wearable haptic systems for fitness.',
       entries: [
         {
           title: 'Teaching Assistant',
           rows: [
-            { text: 'CSCI 1300 Starting Computing (C++), Instructor: Rhonda Hoenigman', date: 'Fall 2025' },
-            { text: 'ID220 Interaction Prototyping (Arduino)', date: 'Fall 2022' },
+            { text: 'Starting Computing, introductory programming in C++, University of Colorado Boulder, Instructor: Rhonda Hoenigman', date: 'Fall 2025' },
+            { text: 'Interaction Prototyping, physical prototyping with Arduino, KAIST', date: 'Fall 2022' },
           ],
         },
         {
           title: 'Undergraduate Research Assistant',
           date: 'Spring 2024',
-          lines: ['Chan Hu Wie, Yejin Jang, Dong-Uk Kim, Yurim Son (Chung-Ang University)'],
+          lines: [
+            'Chan Hu Wie, Yejin Jang, Dong-Uk Kim, Yurim Son (Chung-Ang University)',
+            'Guided them through designing, building, and evaluating wearable haptic systems that recreate a personal trainer’s touch, leading to a UIST poster [P1] and a CHI paper [C6].',
+          ],
         },
       ],
     },
     {
       title: 'Service',
       kind: 'entries',
-      summary: 'Summary: I review for CHI and DIS and mentor prospective and international students.',
       entries: [
         { title: 'Reviewer', date: '2025 - Present', lines: ['CHI 2025-2026, DIS 2026'] },
         {
@@ -373,10 +380,9 @@ export const CV: {
     {
       title: 'Media Coverage',
       kind: 'entries',
-      summary: 'Summary: My Google Ph.D. Fellowship and my research on bimanual haptics in VR were covered by the University of Colorado Boulder and Microsoft Research.',
       entries: [
         {
-          title: 'University of Colorado Boulder Graduate School News',
+          title: 'University of Colorado Boulder, Graduate School News',
           date: 'October 2025',
           lines: ['[“CU Boulder graduate student named a Google PhD fellow”](https://www.colorado.edu/graduateschool/2025/10/24/cu-boulder-graduate-student-named-google-phd-fellow)'],
         },
@@ -392,15 +398,15 @@ export const CV: {
       kind: 'list',
       reel: 'https://youtu.be/0x7Rzw4ejqM',
       summary:
-        'Summary: I worked as a VFX compositor on six feature films [F1-F6]; three of them each drew over five million viewers in South Korea.',
+        'Summary: I worked as a visual effects (VFX) compositor on six feature films, three of which each drew over five million viewers in South Korea.',
       collage: ['F6 F5 F4'],
       groups: [
         {
           items: [
-            { text: '[F6] <Along with The Gods: The Last 49 Days> ([VFX showreel](https://www.youtube.com/watch?v=qlAgdN0PIFw)), Director: Yong-Hwa Kim. *2018 Grand Bell Awards - Best Visual Effects, over 12 million viewers in South Korea alone as of 2024.*', date: '2018', image: 'posters/along-with-the-gods-last-49-days.jpg', highlight: true },
-            { text: '[F5] <1987: When The Day Comes> ([VFX showreel](https://www.youtube.com/watch?v=54PSlSiwO9c)), Director: Jun-Hwan Jang. *2018 Blue Dragon Film Awards - Top Film Award, over 5 million viewers in South Korea alone as of 2024.*', date: '2017', image: 'posters/1987-when-the-day-comes.jpg', highlight: true },
-            { text: '[F4] <Along with The Gods: The Two Worlds> ([VFX showreel](https://www.youtube.com/watch?v=4mYPlzP-38k)), Director: Yong-Hwa Kim. *2018 Blue Dragon Film Awards - 4 Crowns, including Technology Award, over 11 million viewers in South Korea alone as of 2024.*', date: '2017', image: 'posters/along-with-the-gods-two-worlds.jpg', highlight: true },
-            { text: '[F3] Kung Fu Yoga ([VFX showreel](https://www.youtube.com/watch?v=LEXz0muRNiY)), Director: Stanley Tong', date: '2017', image: 'posters/kung-fu-yoga.jpg' },
+            { text: '[F6] <Along with the Gods: The Last 49 Days> ([VFX showreel](https://www.youtube.com/watch?v=qlAgdN0PIFw)), Director: Yong-Hwa Kim. *Best Visual Effects, 2018 Grand Bell Awards. Over 12 million viewers in South Korea as of 2024.*', date: '2018', image: 'posters/along-with-the-gods-last-49-days.jpg', highlight: true },
+            { text: '[F5] <1987: When the Day Comes> ([VFX showreel](https://www.youtube.com/watch?v=54PSlSiwO9c)), Director: Jun-Hwan Jang. *Best Film, 2018 Blue Dragon Film Awards. Over 5 million viewers in South Korea as of 2024.*', date: '2017', image: 'posters/1987-when-the-day-comes.jpg', highlight: true },
+            { text: '[F4] <Along with the Gods: The Two Worlds> ([VFX showreel](https://www.youtube.com/watch?v=4mYPlzP-38k)), Director: Yong-Hwa Kim. *Four awards including Best Technical Achievement, 2018 Blue Dragon Film Awards. Over 11 million viewers in South Korea as of 2024.*', date: '2017', image: 'posters/along-with-the-gods-two-worlds.jpg', highlight: true },
+            { text: '[F3] <Kung Fu Yoga> ([VFX showreel](https://www.youtube.com/watch?v=LEXz0muRNiY)), Director: Stanley Tong', date: '2017', image: 'posters/kung-fu-yoga.jpg' },
             { text: '[F2] <Real> ([trailer](https://www.youtube.com/watch?v=FGZOl5oq-OY)), Director: Sa-Rang Lee', date: '2017', image: 'posters/real.jpg' },
             { text: '[F1] <Fabricated City> ([trailer](https://www.youtube.com/watch?v=2CfVL6WLvUg)), Director: Kwang-Hyun Park', date: '2017', image: 'posters/fabricated-city.jpg' },
           ],
@@ -412,7 +418,7 @@ export const CV: {
       kind: 'list',
       reel: 'https://youtu.be/xaiEH6rCV44',
       summary:
-        'Summary: I created VR films, AR exhibitions, and AR apps as a CG generalist [X1-X5], developer [X3], and camera operator [X4].',
+        'Summary: I created immersive experiences across VR and AR, including a VR horror film and AR exhibition, an AR app featuring miniature K-pop idols, a commissioned VR showroom for a tech-fashion exhibition, and a VR boxing game. I worked across concept design, 3D modeling, lighting, look development, coding, and camera operation.',
       collage: ['X1:0.62 X2/X3'],
       groups: [
         {
@@ -421,7 +427,7 @@ export const CV: {
             { text: '[X4] AR Mobile App <LGU+ 5G AR> ([video](https://www.youtube.com/watch?v=jodknL45kXE), [article](https://www.koreajoongangdaily.com/business/want-a-tiny-kpop-star-to-perform-on-your-desk-lg-u-has-you-covered/10886585)), Supervisor: Sun-Gu Kim', date: '2019', ref: 'lg-uplus-ar-studio' },
             { text: '[X3] VR Exhibition <Fashion For Help> ([video](https://youtu.be/ZBZmPHuDVew)), Supervisor: Young-Mo Son', date: '2019', image: 'xr/fashion-for-help.jpg', highlight: true },
             { text: '[X2] AR Exhibition <The Tide>, Supervisor: Sang-Hyoun Lee', date: '2019', image: 'xr/ar-the-tide.jpg', highlight: true },
-            { text: '[X1] VR Toon Film <The Tide> ([Steam](https://store.steampowered.com/app/1263410/The_Tide/)), Director: Tae-Kyung Yoo. *Officially invited to the "New Frontier" category at the 2019 Sundance Film Festival.*', date: '2019', image: 'xr/vr-the-tide.jpg', highlight: true },
+            { text: '[X1] VR Toon Film <The Tide> ([Steam](https://store.steampowered.com/app/1263410/The_Tide/)), Director: Tae-Kyung Yoo. *Official selection, New Frontier, 2019 Sundance Film Festival.*', date: '2019', image: 'xr/vr-the-tide.jpg', highlight: true },
           ],
         },
       ],
@@ -452,7 +458,7 @@ export const CV: {
         'summer closet-inside-the-closet/A4 A7/paper-animation story-you-cannot-tell',
         'A1 pencil-drawing A6',
       ],
-      summary: 'Summary: I took part in art events as an artist [A1-A5, A7] and video jockey [A6].',
+      summary: 'Summary: My art explores the human body, emotion, and relationships between people through identity and belonging, the precarity of young adults in Korea, and fear and isolation. Across painting, video, installation, and performance, I am drawn to real-time and participatory work that audiences help complete, from a one-on-one cocktail bar to live video mixing.',
       groups: [
         {
               items: [

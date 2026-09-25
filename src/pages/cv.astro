@@ -60,7 +60,7 @@ async function collageImage(src: ImageMetadata) {
 /** A range becomes two gutter lines, start (with its dash) over end. */
 function dateLines(date: string): string[] {
   const [start, end] = date.split(' - ');
-  return end ? [`${start} –`, end] : [start];
+  return end ? [`${start} -`, end] : [start];
 }
 
 /** Build a publication line from the projects collection, so the CV and the
@@ -98,8 +98,8 @@ async function publication(item: CvPublication) {
     d.links.pdf && { label: 'PDF', href: d.links.pdf },
   ].filter(Boolean) as { label: string; href: string }[];
 
-  // 300 dpi at the printed size (--cv-thumb), so the thumbnail stays sharp.
-  const thumb = d.teaser && (await getImage({ src: d.teaser, width: 270, format: 'jpg', quality: 85 }));
+  // 300 dpi at the printed size (--cv-thumb, 1in), so the thumbnail stays sharp.
+  const thumb = d.teaser && (await getImage({ src: d.teaser, width: 300, format: 'jpg', quality: 85 }));
 
   return {
     citation,
@@ -168,11 +168,12 @@ const listItems = new Map(
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{CV.name} · CV</title>
     <meta name="description" content={`Curriculum vitae of ${CV.name}`} />
+    <meta name="author" content={CV.name} />
   </head>
   <body>
     <main class="cv">
       <header class="cv__header">
-        <h1 class="cv__name">{CV.name}<span class="cv__doc">Curriculum Vitae</span></h1>
+        <h1 class="cv__name">{CV.name}</h1>
         <div class="cv__contact">
           <p>{CV.address.map((l) => <span>{l}</span>)}</p>
           <p class="cv__contact-right">{CV.contact.map((l) => <span set:html={inline(l)} />)}</p>
@@ -182,10 +183,12 @@ const listItems = new Map(
       {
         CV.sections.map((section) => (
           <section class="cv__section">
-            <h2>
-              {section.title}
+            {/* The showreel link sits beside the heading, not inside it, so the
+                PDF bookmark (taken from the heading) reads as the title alone. */}
+            <div class="cv__heading">
+              <h2>{section.title}</h2>
               {'reel' in section && section.reel && <a class="cv__reel" href={section.reel}>(showreel)</a>}
-            </h2>
+            </div>
 
             {section.kind === 'prose' &&
               section.body.map((p) => <p class="cv__prose" set:html={inline(p)} />)}
@@ -364,7 +367,7 @@ const listItems = new Map(
     /* One footer on every page, right-aligned. Chrome draws margin boxes as
        plain generated text, so the whole line shares one style. */
     @bottom-right {
-      content: 'Hye-Young Jo · curriculum vitae, page ' counter(page);
+      content: 'Hye-Young Jo · page ' counter(page);
       font-family: var(--cv-font);
       font-size: 10pt;
       color: var(--cv-muted);
@@ -382,7 +385,7 @@ const listItems = new Map(
     --cv-award: #980000;
     --cv-gutter: 1.15in;
     --cv-gap: 12pt;
-    --cv-thumb: 0.9in;
+    --cv-thumb: 1in;
     --cv-collage-gap: 3pt;
   }
 
@@ -423,11 +426,6 @@ const listItems = new Map(
     line-height: 1.2;
   }
 
-  .cv__doc {
-    margin-left: 0.6em;
-    font-weight: normal;
-    color: var(--cv-muted);
-  }
 
   .cv__contact {
     display: flex;
@@ -443,10 +441,17 @@ const listItems = new Map(
     text-align: right;
   }
 
-  .cv__section h2 {
+  .cv__heading {
+    display: flex;
+    align-items: baseline;
     margin: 20pt 0 8pt;
     padding-bottom: 2pt;
     border-bottom: 0.5pt solid var(--cv-rule);
+    break-after: avoid;
+  }
+
+  .cv__section h2 {
+    margin: 0;
     font-size: 14pt;
     line-height: 1.2;
   }
@@ -461,9 +466,11 @@ const listItems = new Map(
     text-align: left;
   }
 
-  /* A section summary is read apart from the items it introduces. */
+  /* A section summary is read apart from the items it introduces; it is
+     left-aligned, since justifying a short paragraph stretches its gaps. */
   .cv .cv__summary {
     margin-bottom: 12pt;
+    text-align: left;
   }
 
   .cv__entry + .cv__entry {
@@ -502,7 +509,7 @@ const listItems = new Map(
      the top of its line box, so thumbnails drop by the same amount to line
      up with the first line. */
   .cv__pub-thumb {
-    margin-top: 2.5pt;
+    margin-top: 1.5pt;
   }
 
   .cv__pub-thumb {
@@ -615,7 +622,7 @@ const listItems = new Map(
     .cv__section {
       break-inside: auto;
     }
-    .cv__section h2,
+    .cv__heading,
     .cv__summary {
       break-after: avoid;
     }
