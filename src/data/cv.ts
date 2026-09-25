@@ -108,10 +108,11 @@ export interface CvListGroup {
 
 /** A list line with an optional thumbnail: `ref` borrows a project's
  *  teaser, `image` names a file under src/assets/cv/. Only `highlight`ed
- *  items appear in the section's collage, linking to the item. */
+ *  items appear in the section's collage; a tile opens `video` when given,
+ *  otherwise the full-size image. */
 export type CvListItem =
   | string
-  | { text: string; date?: string; ref?: string; image?: string; highlight?: boolean };
+  | { text: string; date?: string; ref?: string; image?: string; highlight?: boolean; video?: string };
 
 export const CV: {
   name: string;
@@ -247,7 +248,7 @@ export const CV: {
       title: 'Peer-Reviewed Full Papers',
       kind: 'publications',
       summary:
-        'Summary: I have published 8 full papers in CHI (4), UIST (2), ISMAR (1, in IEEE TVCG), and HCIK (1), and have two more under review.',
+        'Summary: I have published 8 full papers in ACM CHI (4), ACM UIST (2), IEEE ISMAR (1, in IEEE TVCG), and HCI Korea (1), and have two more under review.',
       items: [
         { label: 'C8', ref: 'map2video', also: 'Also accepted to the UIST ’26 demo track.' },
         { label: 'C7', ref: 'cinemaworld', also: 'Also accepted to the UIST ’26 demo track.' },
@@ -403,9 +404,9 @@ export const CV: {
       groups: [
         {
           items: [
-            { text: '[F6] <Along with the Gods: The Last 49 Days> ([VFX showreel](https://www.youtube.com/watch?v=qlAgdN0PIFw)), Director: Yong-Hwa Kim. *Best Visual Effects, 2018 Grand Bell Awards. Over 12 million viewers in South Korea as of 2024.*', date: '2018', image: 'posters/along-with-the-gods-last-49-days.jpg', highlight: true },
-            { text: '[F5] <1987: When the Day Comes> ([VFX showreel](https://www.youtube.com/watch?v=54PSlSiwO9c)), Director: Jun-Hwan Jang. *Best Film, 2018 Blue Dragon Film Awards. Over 5 million viewers in South Korea as of 2024.*', date: '2017', image: 'posters/1987-when-the-day-comes.jpg', highlight: true },
-            { text: '[F4] <Along with the Gods: The Two Worlds> ([VFX showreel](https://www.youtube.com/watch?v=4mYPlzP-38k)), Director: Yong-Hwa Kim. *Four awards including Best Technical Achievement, 2018 Blue Dragon Film Awards. Over 11 million viewers in South Korea as of 2024.*', date: '2017', image: 'posters/along-with-the-gods-two-worlds.jpg', highlight: true },
+            { text: '[F6] <Along with the Gods: The Last 49 Days> ([VFX showreel](https://www.youtube.com/watch?v=qlAgdN0PIFw)), Director: Yong-Hwa Kim. *Best Visual Effects, 2018 Grand Bell Awards. Over 12 million viewers in South Korea as of 2024.*', date: '2018', image: 'posters/along-with-the-gods-last-49-days.jpg', highlight: true, video: 'https://www.youtube.com/watch?v=qlAgdN0PIFw' },
+            { text: '[F5] <1987: When the Day Comes> ([VFX showreel](https://www.youtube.com/watch?v=54PSlSiwO9c)), Director: Jun-Hwan Jang. *Best Film, 2018 Blue Dragon Film Awards. Over 5 million viewers in South Korea as of 2024.*', date: '2017', image: 'posters/1987-when-the-day-comes.jpg', highlight: true, video: 'https://www.youtube.com/watch?v=54PSlSiwO9c' },
+            { text: '[F4] <Along with the Gods: The Two Worlds> ([VFX showreel](https://www.youtube.com/watch?v=4mYPlzP-38k)), Director: Yong-Hwa Kim. *Four awards including Best Technical Achievement, 2018 Blue Dragon Film Awards. Over 11 million viewers in South Korea as of 2024.*', date: '2017', image: 'posters/along-with-the-gods-two-worlds.jpg', highlight: true, video: 'https://www.youtube.com/watch?v=4mYPlzP-38k' },
             { text: '[F3] <Kung Fu Yoga> ([VFX showreel](https://www.youtube.com/watch?v=LEXz0muRNiY)), Director: Stanley Tong', date: '2017', image: 'posters/kung-fu-yoga.jpg' },
             { text: '[F2] <Real> ([trailer](https://www.youtube.com/watch?v=FGZOl5oq-OY)), Director: Sa-Rang Lee', date: '2017', image: 'posters/real.jpg' },
             { text: '[F1] <Fabricated City> ([trailer](https://www.youtube.com/watch?v=2CfVL6WLvUg)), Director: Kwang-Hyun Park', date: '2017', image: 'posters/fabricated-city.jpg' },
@@ -425,7 +426,7 @@ export const CV: {
           items: [
             { text: '[X5] VR Boxing Game <Meta-Boxing> ([video](https://youtu.be/-d2arU9pzFM)), Supervisor: Woontack Woo', date: '2021', ref: 'meta-boxing' },
             { text: '[X4] AR Mobile App <LGU+ 5G AR> ([video](https://www.youtube.com/watch?v=jodknL45kXE), [article](https://www.koreajoongangdaily.com/business/want-a-tiny-kpop-star-to-perform-on-your-desk-lg-u-has-you-covered/10886585)), Supervisor: Sun-Gu Kim', date: '2019', ref: 'lg-uplus-ar-studio' },
-            { text: '[X3] VR Exhibition <Fashion For Help> ([video](https://youtu.be/ZBZmPHuDVew)), Supervisor: Young-Mo Son', date: '2019', image: 'xr/fashion-for-help.jpg', highlight: true },
+            { text: '[X3] VR Exhibition <Fashion For Help> ([video](https://youtu.be/ZBZmPHuDVew)), Supervisor: Young-Mo Son', date: '2019', image: 'xr/fashion-for-help.jpg', highlight: true, video: 'https://youtu.be/ZBZmPHuDVew' },
             { text: '[X2] AR Exhibition <The Tide>, Supervisor: Sang-Hyoun Lee', date: '2019', image: 'xr/ar-the-tide.jpg', highlight: true },
             { text: '[X1] VR Toon Film <The Tide> ([Steam](https://store.steampowered.com/app/1263410/The_Tide/)), Director: Tae-Kyung Yoo. *Official selection, New Frontier, 2019 Sundance Film Festival.*', date: '2019', image: 'xr/vr-the-tide.jpg', highlight: true },
           ],
@@ -462,13 +463,13 @@ export const CV: {
       groups: [
         {
               items: [
-            { text: '[A7] Group Exhibition <Lapses>, Platform-L Contemporary Art Center, Curator: Eobchae (funded by Hyundai’s ZER01NE project)', date: '2018', image: 'art/measurer-exit.jpg', highlight: true },
+            { text: '[A7] Group Exhibition <Lapses> (video: [Measurer](https://youtu.be/joxBljTtwj8)), Platform-L Contemporary Art Center, Curator: Eobchae (funded by Hyundai’s ZER01NE project)', date: '2018', image: 'art/measurer-exit.jpg', highlight: true, video: 'https://youtu.be/joxBljTtwj8' },
             { text: '[A6] Live Video Jockey Performance <We Play>, Sangsangmadang, Supervisor: Hoon-Gyu Park (Parkpunk)', date: '2016', image: 'art/we-play.jpg', highlight: true },
             { text: '[A5] Invited Exhibition <Don’t fake it, believe it>, Mythtake Museum', date: '2016', image: 'art/dont-fake-it.jpg' },
-            { text: '[A4] Group Exhibition <Dirt Luv for Graduation> (videos: [Package for Me](https://youtu.be/Y4RHAj9OX2c), [Human-furniture](https://youtu.be/-P_kXegSiZk), [Walking on the Spot](https://youtu.be/Z6fDNiB5Prg)), Seoul National University', date: '2015', ref: 'human-furniture', highlight: true },
+            { text: '[A4] Group Exhibition <Dirt Luv for Graduation> (videos: [Package for Me](https://youtu.be/Y4RHAj9OX2c), [Human-furniture](https://youtu.be/-P_kXegSiZk), [Walking on the Spot](https://youtu.be/Z6fDNiB5Prg)), Seoul National University', date: '2015', ref: 'human-furniture', highlight: true, video: 'https://youtu.be/-P_kXegSiZk' },
             { text: '[A3] Group Exhibition <8-bit>, Seoul National University', date: '2015', image: 'art/8-bit.jpg' },
             { text: '[A2] Group Exhibition <Crawling>, Seoul National University', date: '2015', image: 'art/crawling.jpg' },
-            { text: '[A1] Group Exhibition <The Great Exodus> (videos: [Closet Inside the Closet](https://www.youtube.com/watch?v=sdEbfhA2u90), [1:1 Bar](https://www.youtube.com/watch?v=67qUyOnCZyI)), Seoul National University. *One of three finalists for the Brighton Prize.*', date: '2014', image: 'art/one-to-one-bar.jpg', highlight: true },
+            { text: '[A1] Group Exhibition <The Great Exodus> (videos: [Closet Inside the Closet](https://www.youtube.com/watch?v=sdEbfhA2u90), [1:1 Bar](https://www.youtube.com/watch?v=67qUyOnCZyI)), Seoul National University. *One of three finalists for the Brighton Prize.*', date: '2014', image: 'art/one-to-one-bar.jpg', highlight: true, video: 'https://www.youtube.com/watch?v=67qUyOnCZyI' },
           ],
         },
       ],

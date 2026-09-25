@@ -4,6 +4,11 @@ import { getImage } from 'astro:assets';
 import { CV, VENUES, type CvListItem, type CvPublication } from '../data/cv';
 
 const projects = await getCollection('projects');
+
+/** Images link to their video, or else to the full-size image on the site,
+ *  so a reader can open either from the PDF. The PDF is built from the same
+ *  dist/ that is deployed, so these /_astro/ paths exist on the live site. */
+const SITE = 'https://hyeyoungjo.com';
 const bySlug = new Map(projects.map((p) => [p.id, p]));
 
 /** Inline markup shared by every CV string: **bold**, *italic*, [text](href),
@@ -50,10 +55,10 @@ async function listThumb(item: CvListItem) {
   return src && collageImage(src);
 }
 
-/** A collage image and its aspect ratio, which sizes its tile. Wide enough
- *  for the largest tile (about 4in) at 250 dpi. */
+/** A collage image and its aspect ratio, which sizes its tile. Up to 2000px
+ *  wide, about 500 dpi for the largest tile, so it holds up when zoomed. */
 async function collageImage(src: ImageMetadata) {
-  const img = await getImage({ src, width: Math.min(1000, src.width), format: 'jpg', quality: 85 });
+  const img = await getImage({ src, width: Math.min(2000, src.width), format: 'jpg', quality: 92 });
   return { src: img.src, aspect: src.width / src.height };
 }
 
@@ -98,8 +103,9 @@ async function publication(item: CvPublication) {
     d.links.pdf && { label: 'PDF', href: d.links.pdf },
   ].filter(Boolean) as { label: string; href: string }[];
 
-  // 300 dpi at the printed size (--cv-thumb, 1in), so the thumbnail stays sharp.
-  const thumb = d.teaser && (await getImage({ src: d.teaser, width: 300, format: 'jpg', quality: 85 }));
+  // The teaser at its full resolution (800px, about 890 dpi at the printed
+  // 0.9in), so the figure's small text stays legible when zoomed in.
+  const thumb = d.teaser && (await getImage({ src: d.teaser, width: d.teaser.width, format: 'jpg', quality: 92 }));
 
   return {
     citation,
@@ -107,7 +113,7 @@ async function publication(item: CvPublication) {
     links,
     award: item.note ?? d.award,
     also: item.also,
-    thumb: thumb && { src: thumb.src, alt: d.teaserAlt ?? '' },
+    thumb: thumb && { src: thumb.src, alt: d.teaserAlt ?? '', href: d.links.youtube ?? `${SITE}${thumb.src}` },
   };
 }
 
@@ -129,11 +135,11 @@ async function collageWorks(slugs: string[] = []) {
         const src = assets[`../assets/cv/${slug}`]?.default;
         if (!src) throw new Error(`cv: no image src/assets/cv/${slug}`);
         const area = slug.split('/').pop()!.replace(/\.[^.]+$/, '');
-        return { area, ...(await collageImage(src)), caption: undefined as string | undefined };
+        return { area, ...(await collageImage(src)), caption: undefined as string | undefined, video: undefined as string | undefined };
       }
       const d = bySlug.get(slug)?.data;
       if (!d?.teaser) throw new Error(`cv: no teaser for project "${slug}"`);
-      return { area: slug, ...(await collageImage(d.teaser)), caption: undefined as string | undefined };
+      return { area: slug, ...(await collageImage(d.teaser)), caption: undefined as string | undefined, video: d.links.youtube };
     }),
   );
 }
@@ -155,7 +161,7 @@ const listItems = new Map(
   await Promise.all(
     CV.sections.flatMap((s) =>
       s.kind === 'list'
-        ? s.groups.flatMap((g) => g.items).map(async (i) => [i, { ...splitLabel(typeof i === 'string' ? i : i.text), date: typeof i === 'string' ? undefined : i.date, thumb: await listThumb(i)}] as const)
+        ? s.groups.flatMap((g) => g.items).map(async (i) => [i, { ...splitLabel(typeof i === 'string' ? i : i.text), date: typeof i === 'string' ? undefined : i.date, thumb: await listThumb(i), video: typeof i === 'string' ? undefined : i.video }] as const)
         : [],
     ),
   ),
@@ -232,7 +238,11 @@ const listItems = new Map(
                   return (
                     <div class="cv__pub" id={item.label}>
                       <span class="cv__gutter">
-                        {pub.thumb && <img class="cv__pub-thumb" src={pub.thumb.src} alt={pub.thumb.alt} />}
+                        {pub.thumb && (
+                          <a href={pub.thumb.href}>
+                            <img class="cv__pub-thumb" src={pub.thumb.src} alt={pub.thumb.alt} />
+                          </a>
+                        )}
                       </span>
                       <p>
                         [{item.label}] <Fragment set:html={inline(pub.citation)} />
@@ -265,7 +275,7 @@ const listItems = new Map(
                         g.items
                           .map((i) => listItems.get(i)!)
                           .filter((it) => it.thumb)
-                          .map((it) => ({ area: it.label!, ...it.thumb!, caption: `[${it.label}]` as string | undefined })),
+                          .map((it) => ({ area: it.label!, ...it.thumb!, caption: `[${it.label}]` as string | undefined, video: it.video })),
                       ),
                       ...(works.get(section.title) ?? []),
                     ].map((t) => [t.area, t]),
@@ -312,10 +322,10 @@ const listItems = new Map(
                                   {stack.map((t) => {
                                     const caption = section.captions?.[t.area] ?? t.caption;
                                     return (
-                                      <div class="cv__tile" style={`height: ${(freeH * (1 / t.aspect)) / inv}pt`}>
+                                      <a class="cv__tile" href={t.video ?? `${SITE}${t.src}`} style={`height: ${(freeH * (1 / t.aspect)) / inv}pt`}>
                                         <img src={t.src} alt="" />
                                         {caption && <span>{caption}</span>}
-                                      </div>
+                                      </a>
                                     );
                                   })}
                                 </div>
@@ -385,7 +395,7 @@ const listItems = new Map(
     --cv-award: #980000;
     --cv-gutter: 1.15in;
     --cv-gap: 12pt;
-    --cv-thumb: 1in;
+    --cv-thumb: 0.9in;
     --cv-collage-gap: 3pt;
   }
 
@@ -509,7 +519,7 @@ const listItems = new Map(
      the top of its line box, so thumbnails drop by the same amount to line
      up with the first line. */
   .cv__pub-thumb {
-    margin-top: 0.75pt;
+    margin-top: 0.25pt;
   }
 
   .cv__pub-thumb {
@@ -561,6 +571,7 @@ const listItems = new Map(
     gap: var(--cv-collage-gap);
   }
 
+  .cv a.cv__tile,
   .cv__tile {
     position: relative;
     display: block;
