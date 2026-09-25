@@ -55,11 +55,16 @@ const projects = defineCollection({
 // "news" collection — a single YAML data file of dated updates.
 const news = defineCollection({
   loader: file('./src/content/news/news.yaml'),
-  schema: z.object({
-    date: z.coerce.date(),
-    text: z.string(),
-    link: z.string().url().optional(),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      date: z.coerce.date(),
+      text: z.string(),
+      link: z.string().url().optional(),
+      // Optional — only when the photo is part of the update, not decoration.
+      image: image().optional(),
+      images: z.array(image()).optional(),
+      imageAlt: z.string().optional(),
+    }),
 });
 
 export const collections = { projects, news };

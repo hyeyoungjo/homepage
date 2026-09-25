@@ -32,6 +32,16 @@ export const TYPE_LABELS: Record<string, string> = {
 // Order types appear in the filter bar.
 export const TYPE_ORDER = ['research', 'xr', 'film', 'art', 'tool'];
 
+// YAML `2025-12-05` is parsed as UTC midnight. Format in UTC so Colorado
+// (UTC-6/-7) does not shift the printed day back by one.
+export const fmtNewsDate = (d: Date) =>
+  d.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    timeZone: 'UTC',
+  });
+
 type Dated = { id: string; data: { year: number; date?: Date } };
 
 // Projects without an exact date count as January 1 of their year.

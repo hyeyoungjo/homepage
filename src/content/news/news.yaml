@@ -1,16 +1,55 @@
 # Dated updates shown on the home page (newest first is computed automatically).
-# Each item needs a unique `id`. `link` is optional.
+# Each item needs a unique `id`. `link`, `image`, and `images` are optional.
 # Lead with a past-tense verb when she did it (Presented, Joined, Received).
 # Acceptances keep the project as the subject (Map2Video was accepted…).
+- id: autodesk-wrap-2026
+  date: 2026-08-19
+  text: "Finished up my Autodesk internship."
+  images:
+    - ./autodesk-1.jpg
+    - ./autodesk-2.jpg
+    - ./autodesk-3.jpg
+    - ./autodesk-4.jpg
+    - ./autodesk-5.jpg
+    - ./autodesk-6.jpg
+    - ./autodesk-7.jpg
+    - ./autodesk-8.jpg
+  imageAlt: "Memories from the Autodesk internship in Toronto"
 - id: uist-2026
   date: 2026-08-12
   text: "Map2Video and CinemaWorld were accepted to UIST 2026! 🎉"
+- id: haru-birthday-2026
+  date: 2026-08-03
+  text: "Celebrated Haru's first birthday."
+  images:
+    - ./haru-1.jpg
+    - ./haru-2.jpg
+    - ./haru-3.jpg
+    - ./haru-4.jpg
+    - ./haru-5.jpg
+    - ./haru-6.jpg
+    - ./haru-7.jpg
+    - ./haru-8.jpg
+  imageAlt: "Haru's first birthday"
 - id: autodesk-internship-2026
   date: 2026-05-04
   text: "Joined the Autodesk HCI & Visualization team in Toronto for a summer internship 🇨🇦"
 - id: tingletouch-chi-2026
   date: 2026-04-17
   text: "Presented TingleTouch at CHI 2026 in Barcelona."
+- id: haru-adopt-2025
+  date: 2025-12-05
+  text: "Adopted Haru."
+  images:
+    - ./adopt-1.jpg
+    - ./adopt-2.jpg
+    - ./adopt-3.jpg
+    - ./adopt-4.jpg
+    - ./adopt-5.jpg
+    - ./adopt-6.jpg
+    - ./adopt-7.jpg
+    - ./adopt-8.jpg
+  imageAlt: "The day Haru came home"
 - id: slutz-award-2025
   date: 2025-12-04
   text: "Received the Ralph J. Slutz Student Excellence Award 🏆"

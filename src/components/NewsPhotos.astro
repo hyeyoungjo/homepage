@@ -1,0 +1,109 @@
+---
+import { Image, getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  images: ImageMetadata[];
+  alt?: string;
+}
+
+const { images, alt = '' } = Astro.props;
+
+const slides = await Promise.all(
+  images.map(async (src) => ({
+    src,
+    full: (await getImage({ src, width: 1600 })).src,
+  })),
+);
+---
+
+{
+  slides.length > 0 && (
+    <div class="news-photos">
+      {slides.map((s, i) => (
+        <button type="button" data-lb-open data-i={i} data-src={s.full} data-alt={alt}>
+          <Image src={s.src} alt={alt} width={160} height={160} />
+        </button>
+      ))}
+    </div>
+  )
+}
+
+<script>
+  // One overlay for every news gallery on the page.
+  const root = () => {
+    let el = document.querySelector('.lightbox');
+    if (el) return el;
+    el = document.createElement('div');
+    el.className = 'lightbox';
+    el.hidden = true;
+    el.innerHTML =
+      '<button type="button" class="lightbox__close" aria-label="Close">×</button>' +
+      '<button type="button" class="lightbox__prev" aria-label="Previous">‹</button>' +
+      '<img alt="" />' +
+      '<button type="button" class="lightbox__next" aria-label="Next">›</button>';
+    document.body.append(el);
+    return el;
+  };
+
+  let set = [];
+  let at = 0;
+
+  const show = () => {
+    const box = root();
+    const img = box.querySelector('img');
+    const cur = set[at];
+    if (!img || !cur) return;
+    img.src = cur.src;
+    img.alt = cur.alt;
+    box.hidden = false;
+    box.querySelector('.lightbox__prev').hidden = set.length < 2;
+    box.querySelector('.lightbox__next').hidden = set.length < 2;
+    document.body.style.overflow = 'hidden';
+  };
+
+  const close = () => {
+    const box = document.querySelector('.lightbox');
+    if (box) box.hidden = true;
+    document.body.style.overflow = '';
+  };
+
+  document.addEventListener('click', (e) => {
+    const open = e.target.closest('[data-lb-open]');
+    if (open) {
+      const wrap = open.parentElement;
+      set = Array.from(wrap.querySelectorAll('[data-lb-open]')).map((b) => ({
+        src: b.dataset.src,
+        alt: b.dataset.alt ?? '',
+      }));
+      at = Number(open.dataset.i) || 0;
+      show();
+      return;
+    }
+    const box = e.target.closest('.lightbox');
+    if (!box) return;
+    if (e.target.closest('.lightbox__prev')) {
+      at = (at - 1 + set.length) % set.length;
+      show();
+    } else if (e.target.closest('.lightbox__next')) {
+      at = (at + 1) % set.length;
+      show();
+    } else if (e.target.closest('.lightbox__close') || e.target === box) {
+      close();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    const box = document.querySelector('.lightbox');
+    if (!box || box.hidden) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft' && set.length > 1) {
+      at = (at - 1 + set.length) % set.length;
+      show();
+    }
+    if (e.key === 'ArrowRight' && set.length > 1) {
+      at = (at + 1) % set.length;
+      show();
+    }
+  });
+</script>
