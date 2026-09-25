@@ -1,6 +1,6 @@
 import path from 'node:path';
 
-// Turn `![caption](./clip.mp4|.webm|.mov|.gif)` into a responsive <video>.
+// Turn `![](./clip.mp4|.webm|.mov|.gif)` into a responsive <video>.
 // Source files are emitted by `npm run assets` to /public/p/<slug>/<name>.mp4,
 // so the user only ever writes the same `![]()` syntax used for images.
 const VIDEO_RE = /\.(mp4|webm|mov|gif)$/i;
@@ -13,8 +13,7 @@ function makeVideo(node, slug) {
   const attrs = isGif
     ? 'autoplay muted loop playsinline'
     : 'controls muted playsinline preload="metadata"';
-  const caption = node.alt ? `<figcaption>${node.alt}</figcaption>` : '';
-  const value = `<figure class="md-video"><video ${attrs} src="${src}"></video>${caption}</figure>`;
+  const value = `<figure class="md-video"><video ${attrs} src="${src}"></video></figure>`;
   return { type: 'html', value };
 }
 

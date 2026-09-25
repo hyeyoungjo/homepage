@@ -13,6 +13,7 @@ tags: ["AR", "generative AI", "film"]
 links:
   pdf: "https://arxiv.org/pdf/2603.08060"
   doi: "https://doi.org/10.1145/3830398.3830520"
+  youtube: "https://youtu.be/HD1V7CWHo8w"
 featured: true
 draft: false
 bibtex: |
@@ -51,8 +52,6 @@ context, effect types, objects, background textures, and lighting. The room is c
 Quest 3 surface detection or higher-fidelity LiDAR scanning. Generative AI then produces the
 textures, lighting, particles, and 3D objects, rendered on the Quest 3 aligned to the room geometry
 and synchronized with the movie timeline.
-
-![CinemaWorld system video](./cinemaworld.mp4)
 
 ## Evaluation
 

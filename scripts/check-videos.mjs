@@ -12,7 +12,6 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 
 const PROJECTS_DIR = 'src/content/projects';
-const REELS_COMPONENT = 'src/components/JourneyReels.astro';
 const UA =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0 Safari/537.36';
 
@@ -54,11 +53,6 @@ async function collect() {
       const ext = m[2] === 'webm' ? 'webm' : 'mp4';
       targets.push({ where: slug, kind: 'local', ref: `public/p/${slug}/${m[1]}.${ext}` });
     }
-  }
-
-  const reels = await fs.readFile(REELS_COMPONENT, 'utf8');
-  for (const m of reels.matchAll(/src: '(\/reels\/[\w.-]+)'/g)) {
-    targets.push({ where: 'showreels', kind: 'local', ref: `public${m[1]}` });
   }
 
   return targets;

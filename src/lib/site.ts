@@ -23,9 +23,9 @@ export const SITE = {
 // Display labels for the project `type` field (used by gallery filters + cards).
 export const TYPE_LABELS: Record<string, string> = {
   research: 'Research',
-  xr: 'XR',
+  xr: 'VR/AR',
   film: 'Film',
-  art: 'Art',
+  art: 'Artwork',
   tool: 'Tool',
 };
 

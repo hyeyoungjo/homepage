@@ -11,69 +11,103 @@ const all = (await getCollection('projects', ({ data }) => !data.draft)).sort(by
 // The archive, grouped the way the work itself divides. The last section is a
 // catch-all so a new project type can never fall off the page unnoticed.
 const SECTIONS: { title: string; types: Project['data']['type'][] }[] = [
-  { title: 'Publication', types: ['research'] },
-  { title: 'Film and Immersive Content', types: ['film', 'xr'] },
-  { title: 'Art and Performances', types: ['art'] },
-  { title: 'Tools', types: ['tool'] },
+  { title: 'Research', types: ['research'] },
+  { title: 'VR/AR', types: ['xr'] },
+  { title: 'Film', types: ['film'] },
+  { title: 'Artwork', types: ['art'] },
+  { title: 'Tool', types: ['tool'] },
 ];
 
 const sections = SECTIONS.map((s) => ({
   ...s,
-  id: s.title.toLowerCase().replace(/\s+/g, '-'),
+  id: s.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
   items: all.filter((p) => s.types.includes(p.data.type)),
 })).filter((s) => s.items.length > 0);
 ---
 
 <BaseLayout
   title="Work"
-  description="Hye-Young Jo: publications, film and immersive content, art and performances"
+  description="Hye-Young Jo: research, VR/AR, film, artwork, and tools"
 >
   <div class="container section work">
-    <h1 class="work__title">Work</h1>
-    <p class="work__lead">
-      Everything, by kind — papers, films and immersive pieces, artworks and performances.
-    </p>
-
-    <div class="work__controls">
-      <nav class="work__jump">
-        {sections.map((s) => <a href={`#${s.id}`}>{s.title}</a>)}
+    <aside class="work__outline">
+      <h1 class="work__title">Work</h1>
+      <nav>
+        {
+          sections.map((s) => (
+            <a href={`#${s.id}`} data-outline={s.id}>{s.title}</a>
+          ))
+        }
       </nav>
-      <input class="gallery__search" type="search" placeholder="Search…" aria-label="Search work" />
-    </div>
-    <p class="gallery__count" aria-live="polite"></p>
+      <input class="gallery__search work__search" type="search" placeholder="Search…" aria-label="Search work" />
+    </aside>
 
-    {
-      sections.map((s) => (
-        <section class="work__sec" id={s.id} data-section>
-          <h2>
-            {s.title} <span>{s.items.length}</span>
-          </h2>
-          <div class="gallery__grid">
-            {s.items.map((p) => (
-              <ProjectCard project={p} />
-            ))}
-          </div>
-        </section>
-      ))
-    }
-    <p class="work__empty" hidden>Nothing matches.</p>
+    <div class="work__main">
+      {
+        sections.map((s) => (
+          <section class="work__sec" id={s.id} data-section>
+            <h2>
+              {s.title} <span>{s.items.length}</span>
+            </h2>
+            <div class="gallery__grid is-list">
+              {s.items.map((p) => (
+                <ProjectCard project={p} />
+              ))}
+            </div>
+          </section>
+        ))
+      }
+      <p class="work__empty" hidden>Nothing matches.</p>
+    </div>
   </div>
 </BaseLayout>
 
 <style>
-  .work__title { font-size: 2rem; margin: 0 0 0.4rem; }
-  .work__lead { color: var(--color-muted); margin: 0 0 1.25rem; max-width: 52ch; }
-
-  .work__controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
+  .work {
+    display: grid;
+    grid-template-columns: 10rem minmax(0, 1fr);
+    column-gap: 2.25rem;
+    align-items: start;
   }
-  .work__jump { display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem; font-size: 0.9rem; }
 
-  .work__sec { margin-top: 2.5rem; }
+  .work__outline {
+    position: sticky;
+    /* Match header + section padding so the outline does not slide up on scroll. */
+    top: calc(var(--header-h) + 3rem);
+  }
+  .work__outline nav { display: flex; flex-direction: column; gap: 0.55rem; }
+  .work__outline a {
+    color: var(--color-muted);
+    font-size: 0.88rem;
+    line-height: 1.3;
+    text-decoration: none;
+  }
+  .work__outline a:hover { color: var(--color-fg); }
+  .work__outline a.is-active { color: var(--color-fg); font-weight: 600; }
+  .work__outline a[hidden] { display: none; }
+  .work__search {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    margin-top: 1.15rem;
+    padding: 0.35rem 0.65rem;
+    font-size: 0.8rem;
+  }
+
+  .work__title {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .work__sec { margin-top: 2.5rem; scroll-margin-top: calc(var(--header-h) + 3rem); }
+  .work__sec:first-of-type { margin-top: 0; }
   .work__sec[hidden] { display: none; }
   .work__sec h2 {
     font-size: 1.25rem;
@@ -89,8 +123,27 @@ const sections = SECTIONS.map((s) => ({
     margin-left: 0.35rem;
   }
 
-  @media (max-width: 600px) {
-    .gallery__search { order: 1; width: 100%; }
+  @media (max-width: 800px) {
+    .work {
+      grid-template-columns: 1fr;
+      /* Room for the fixed outline; JS writes the real height. */
+      padding-top: var(--outline-h, 6.5rem);
+    }
+    .work__outline {
+      position: fixed;
+      top: var(--header-h);
+      left: 0;
+      right: 0;
+      z-index: 9;
+      margin: 0;
+      padding: 0.65rem 1.25rem;
+      background: var(--header-bg);
+      backdrop-filter: saturate(180%) blur(8px);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .work__outline nav { flex-direction: row; flex-wrap: wrap; gap: 0.45rem 1rem; }
+    .work__search { margin-top: 0.7rem; }
+    .work__sec { scroll-margin-top: calc(var(--header-h) + var(--outline-h, 6.5rem)); }
   }
 </style>
 
@@ -98,9 +151,18 @@ const sections = SECTIONS.map((s) => ({
   // Keyword search across every section. A section with nothing left hides its
   // heading too, so the page never shows an empty group.
   const search = document.querySelector('.gallery__search');
-  const count = document.querySelector('.gallery__count');
   const empty = document.querySelector('.work__empty');
   const sections = Array.from(document.querySelectorAll('[data-section]'));
+  const outline = Array.from(document.querySelectorAll('[data-outline]'));
+  const outlineEl = document.querySelector('.work__outline');
+  const work = document.querySelector('.work');
+
+  const pinOutline = () => {
+    if (!outlineEl || !work) return;
+    work.style.setProperty('--outline-h', `${outlineEl.offsetHeight}px`);
+  };
+  pinOutline();
+  if (outlineEl) new ResizeObserver(pinOutline).observe(outlineEl);
 
   const apply = () => {
     const q = (search?.value ?? '').trim().toLowerCase();
@@ -113,11 +175,21 @@ const sections = SECTIONS.map((s) => ({
         if (match) visible++;
       }
       section.hidden = visible === 0;
+      const link = outline.find((a) => a.getAttribute('data-outline') === section.id);
+      if (link) link.hidden = visible === 0;
       shown += visible;
     }
-    if (count) count.textContent = q ? `${shown} of ${sections.reduce((n, s) => n + s.querySelectorAll('.card').length, 0)}` : '';
     if (empty) empty.hidden = shown !== 0;
   };
+
+  const io = new IntersectionObserver((entries) => {
+    const visible = entries.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+    const top = visible[0]?.target;
+    if (!top) return;
+    for (const a of outline) a.classList.toggle('is-active', a.getAttribute('data-outline') === top.id);
+  }, { rootMargin: '-20% 0px -65% 0px', threshold: 0 });
+
+  for (const section of sections) io.observe(section);
 
   search?.addEventListener('input', apply);
   apply();

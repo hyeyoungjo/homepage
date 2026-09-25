@@ -1,7 +1,6 @@
 ---
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
-import { TYPE_LABELS } from '../lib/site';
 import LinkRow from './LinkRow.astro';
 
 interface Props {
@@ -51,7 +50,6 @@ const meta = [
     }
   </a>
   <div class="card__body">
-    <span class="card__type">{TYPE_LABELS[d.type] ?? d.type}</span>
     <h3 class="card__title"><a href={href}>{d.title}</a></h3>
     {
       d.authors.length > 0 && (

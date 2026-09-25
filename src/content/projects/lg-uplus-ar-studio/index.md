@@ -20,5 +20,3 @@ capture a performer (K-pop stars, yoga trainers) from a full 360°; a single 30-
 3-4 hours to render, and the finished holograms are delivered to LG U+ subscribers on their phones. I
 was part of the team led by supervisor Sun-Gu Kim, working as one of the **camera operators and
 graphic designers**.
-
-![](./image-01.png)
