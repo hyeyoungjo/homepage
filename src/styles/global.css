@@ -1,5 +1,5 @@
 :root {
-  --max-width: 72rem;
+  --max-width: 86rem;
   --content-width: 46rem;
   --color-bg: #ffffff;
   --color-fg: #1a1a1a;
@@ -14,6 +14,7 @@
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
     Arial, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
   --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --section-title: 1.35rem;
 }
 
 /* Dark theme — applied per-page via <body class="theme-dark">. Overrides the
@@ -198,14 +199,14 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.18; font-weight: 600
    would reset left/right to 0, making sections full-bleed on narrow screens). */
 .section { padding-top: 3rem; padding-bottom: 3rem; }
 .section__head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1.25rem; }
-.section h2 { font-size: 1.5rem; margin: 0 0 1.25rem; }
+.section h2 { font-size: var(--section-title); margin: 0 0 1.25rem; }
 .section__head h2 { margin: 0; }
 
 /* Hero */
-.hero { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 2.5rem; align-items: start; padding: 3rem 1.25rem; }
+.hero { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 2.5rem; align-items: start; padding: 3rem 1.25rem 1rem; }
 .hero__news { width: 210px; }
-.hero__news-head { margin-bottom: 0.5rem; }
-.hero__news-head a { font-family: var(--font-serif); font-weight: 600; color: var(--color-fg); }
+.hero__news-head { font-size: var(--section-title); margin: 0 0 0.5rem; }
+.hero__news-head a { color: var(--color-fg); }
 .hero__news-list { list-style: none; margin: 0; padding: 0; }
 .hero__news-list li { padding: 0.55rem 0; border-bottom: 1px solid var(--color-border); font-size: 0.9rem; line-height: 1.45; }
 .hero__news-list time { display: block; color: var(--color-muted); font-size: 0.76rem; margin-bottom: 0.1rem; }
@@ -237,7 +238,7 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.18; font-weight: 600
 /* Research interests — subtle, right-aligned above the Work gallery */
 .work__interests { color: #9a9a9a; font-size: 0.78rem; line-height: 1.5; text-align: right; margin: 0 0 0.5rem; }
 .work__interests-label { color: #9a9a9a; }
-.hero__photo img { width: 230px; height: 230px; border-radius: 50%; object-fit: cover; }
+.hero__photo img { width: 300px; height: 300px; border-radius: 50%; object-fit: cover; }
 
 /* About page */
 .about__head { display: flex; align-items: center; gap: 1.25rem; margin-bottom: 1rem; }
@@ -289,17 +290,11 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.18; font-weight: 600
 }
 .card { display: block; color: inherit; }
 .card[hidden] { display: none; } /* needed: .card{display:block} otherwise overrides [hidden] */
-.card__media { display: block; overflow: hidden; border-radius: var(--thumb-radius); }
-.card__media img { transition: transform 0.45s ease; }
-.card:hover .card__media img { transform: scale(1.06); }
-.card:active .card__media img { transform: scale(1.02); }
+.card__media { display: block; border-radius: var(--thumb-radius); }
 .card__title a { color: inherit; text-decoration: none; }
-@media (prefers-reduced-motion: reduce) {
-  .card__media img { transition: none; }
-  .card:hover .card__media img { transform: none; }
-}
 .card__links { display: none; }
-.card__media img, .card__placeholder { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: var(--thumb-radius); background: var(--color-border); display: block; }
+.card__media img { width: 100%; height: auto; display: block; border-radius: var(--thumb-radius); background: var(--color-border); }
+.card__placeholder { width: 100%; aspect-ratio: 16 / 10; border-radius: var(--thumb-radius); background: var(--color-border); }
 .card__type { display: inline-block; margin-top: 0.6rem; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--color-accent); }
 .card__title { font-family: var(--font-serif); font-size: 1.05rem; line-height: 1.25; margin: 0.25rem 0 0.2rem; }
 .card__meta { color: var(--color-muted); font-size: 0.88rem; margin: 0; }
@@ -323,7 +318,7 @@ h1, h2, h3 { font-family: var(--font-serif); line-height: 1.18; font-weight: 600
 /* Mobile */
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr; gap: 1.75rem; padding-top: 2rem; }
-  .hero__photo img { width: 200px; height: 200px; }
+  .hero__photo img { width: 220px; height: 220px; }
   .hero__news { width: 100%; }
 }
 @media (max-width: 640px) {

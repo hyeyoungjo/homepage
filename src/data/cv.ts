@@ -126,7 +126,7 @@ export const CV: {
   address: ['Programmable Reality Lab, Roser ATLAS Center, Room 231', '1125 18th St, 320 UCB', 'Boulder, CO 80309-0320, United States'],
   contact: [
     '[www.hyeyoungjo.com](https://hyeyoungjo.com)',
-    '[hye-young.jocolorado.edu](mailto:hye-young.jocolorado.edu)',
+    '[hye-young.jo@colorado.edu](mailto:hye-young.jo@colorado.edu)',
     '[Google Scholar](https://scholar.google.com/citations?user=vSQMUMgAAAAJ)',
   ],
   sections: [
@@ -134,7 +134,7 @@ export const CV: {
       title: 'Research Interests',
       kind: 'prose',
       body: [
-        'I am a Ph.D. student in Computer Science at the University of Colorado Boulder. My main research area is **Human-Computer Interaction**. My research goal is to **expand people’s capacity to create and learn** by building interactive systems with generative AI and extended reality that adapt content to their actions, context, and intentions. My work spans AI-assisted filmmaking, technology-enhanced learning, and embodied fitness training.',
+        'I am a PhD student in Computer Science at the University of Colorado Boulder. My main research area is **Human-Computer Interaction**. My research goal is to **expand people’s capacity to create and learn** by building interactive systems with generative AI and extended reality that adapt content to their actions, context, and intentions. My work spans AI-assisted filmmaking, technology-enhanced learning, and embodied fitness training.',
       ],
       keywords: ['human-AI interaction', 'creativity support tools', 'adaptive media', 'embodied interaction'],
     },
@@ -146,7 +146,7 @@ export const CV: {
         {
           title: 'University of Colorado Boulder',
           date: 'Aug 2024 - Present',
-          lines: ['Ph.D. student, Computer Science', 'Supervisor: Prof. Ryo Suzuki'],
+          lines: ['PhD student, Computer Science', 'Supervisor: Prof. Ryo Suzuki'],
         },
         {
           title: 'Korea Advanced Institute of Science and Technology (KAIST)',
@@ -310,7 +310,7 @@ export const CV: {
       kind: 'entries',
       summary: 'Summary: I have received $176,000 in fellowships, awards, and travel grants.',
       entries: [
-        { title: 'Google Ph.D. Fellowship', date: 'Fall 2025 - Spring 2027', lines: ['Awarded in the Human-Computer Interaction category; full tuition and stipend ($85,000/year).'] },
+        { title: 'Google PhD Fellowship', date: 'Fall 2025 - Spring 2027', lines: ['Awarded in the Human-Computer Interaction category; full tuition and stipend ($85,000/year).'] },
         { title: 'Ralph J. Slutz Student Excellence Award', date: '2025', lines: ['Awarded by the Department of Computer Science, University of Colorado Boulder ($1,000).'] },
         { title: 'Gary Marsden Travel Award', date: '2024', lines: ['Awarded by ACM SIGCHI to attend CHI 2024 ($3,000).'] },
         {

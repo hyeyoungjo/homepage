@@ -1,0 +1,124 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { byNewest } from '../lib/site';
+
+type Project = CollectionEntry<'projects'>;
+
+const all = (await getCollection('projects', ({ data }) => !data.draft)).sort(byNewest);
+
+// The archive, grouped the way the work itself divides. The last section is a
+// catch-all so a new project type can never fall off the page unnoticed.
+const SECTIONS: { title: string; types: Project['data']['type'][] }[] = [
+  { title: 'Publication', types: ['research'] },
+  { title: 'Film and Immersive Content', types: ['film', 'xr'] },
+  { title: 'Art and Performances', types: ['art'] },
+  { title: 'Tools', types: ['tool'] },
+];
+
+const sections = SECTIONS.map((s) => ({
+  ...s,
+  id: s.title.toLowerCase().replace(/\s+/g, '-'),
+  items: all.filter((p) => s.types.includes(p.data.type)),
+})).filter((s) => s.items.length > 0);
+---
+
+<BaseLayout
+  title="Work"
+  description="Hye-Young Jo: publications, film and immersive content, art and performances"
+>
+  <div class="container section work">
+    <h1 class="work__title">Work</h1>
+    <p class="work__lead">
+      Everything, by kind — papers, films and immersive pieces, artworks and performances.
+    </p>
+
+    <div class="work__controls">
+      <nav class="work__jump">
+        {sections.map((s) => <a href={`#${s.id}`}>{s.title}</a>)}
+      </nav>
+      <input class="gallery__search" type="search" placeholder="Search…" aria-label="Search work" />
+    </div>
+    <p class="gallery__count" aria-live="polite"></p>
+
+    {
+      sections.map((s) => (
+        <section class="work__sec" id={s.id} data-section>
+          <h2>
+            {s.title} <span>{s.items.length}</span>
+          </h2>
+          <div class="gallery__grid">
+            {s.items.map((p) => (
+              <ProjectCard project={p} />
+            ))}
+          </div>
+        </section>
+      ))
+    }
+    <p class="work__empty" hidden>Nothing matches.</p>
+  </div>
+</BaseLayout>
+
+<style>
+  .work__title { font-size: 2rem; margin: 0 0 0.4rem; }
+  .work__lead { color: var(--color-muted); margin: 0 0 1.25rem; max-width: 52ch; }
+
+  .work__controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .work__jump { display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem; font-size: 0.9rem; }
+
+  .work__sec { margin-top: 2.5rem; }
+  .work__sec[hidden] { display: none; }
+  .work__sec h2 {
+    font-size: 1.25rem;
+    margin: 0 0 1.25rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .work__sec h2 span {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--color-muted);
+    margin-left: 0.35rem;
+  }
+
+  @media (max-width: 600px) {
+    .gallery__search { order: 1; width: 100%; }
+  }
+</style>
+
+<script>
+  // Keyword search across every section. A section with nothing left hides its
+  // heading too, so the page never shows an empty group.
+  const search = document.querySelector('.gallery__search');
+  const count = document.querySelector('.gallery__count');
+  const empty = document.querySelector('.work__empty');
+  const sections = Array.from(document.querySelectorAll('[data-section]'));
+
+  const apply = () => {
+    const q = (search?.value ?? '').trim().toLowerCase();
+    let shown = 0;
+    for (const section of sections) {
+      let visible = 0;
+      for (const card of section.querySelectorAll('.card')) {
+        const match = !q || (card.dataset.search || '').includes(q);
+        card.hidden = !match;
+        if (match) visible++;
+      }
+      section.hidden = visible === 0;
+      shown += visible;
+    }
+    if (count) count.textContent = q ? `${shown} of ${sections.reduce((n, s) => n + s.querySelectorAll('.card').length, 0)}` : '';
+    if (empty) empty.hidden = shown !== 0;
+  };
+
+  search?.addEventListener('input', apply);
+  apply();
+</script>

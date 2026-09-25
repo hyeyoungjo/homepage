@@ -15,7 +15,7 @@ const fmtDate = (d: Date) =>
 
 <section class="hero container">
   <div class="hero__photo">
-    <Image src={profile} alt={SITE.name} widths={[280, 560]} sizes="240px" />
+    <Image src={profile} alt={SITE.name} widths={[300, 600]} sizes="300px" />
   </div>
   <div class="hero__text">
     <h1 class="hero__greeting">
@@ -31,9 +31,9 @@ const fmtDate = (d: Date) =>
     <SocialLinks />
   </div>
   <div class="hero__news">
-    <div class="hero__news-head">
+    <h2 class="hero__news-head">
       <a href="/news">News</a>
-    </div>
+    </h2>
     <ul class="hero__news-list">
       {
         recentNews.map((n) => (

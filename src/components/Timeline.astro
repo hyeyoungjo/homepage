@@ -1,0 +1,379 @@
+---
+import { CAREER, EDUCATION, RULER_YEARS, TICK_YEARS, gradMark, nowMark, place, yearMark, type Entry } from '../data/timeline';
+
+// Horizontal on wide screens, vertical on narrow ones. Both read the same data,
+// so a box is described once and only the axis it hangs off changes.
+const boxClass = (e: Entry) =>
+  ['tl__box', e.opens && 'tl__box--opens', e.closes && 'tl__box--closes', e.expected && 'tl__box--expected']
+    .filter(Boolean)
+    .join(' ');
+
+const across = (e: Entry) => {
+  const { start, length } = place(e);
+  return `--l:${start};--w:${length};--tone:var(--tl-${e.tone})`;
+};
+
+const down = (e: Entry) => {
+  const { start, length } = place(e);
+  return `--t:${start};--h:${length};--tone:var(--tl-${e.tone})`;
+};
+
+const atGrad = (e: Entry) => `--l:${gradMark(e)};--tone:var(--tl-${e.tone})`;
+const downGrad = (e: Entry) => `--t:${gradMark(e)};--tone:var(--tl-${e.tone})`;
+const now = nowMark();
+---
+
+<section class="tl container section">
+  <h2 class="tl__title">Timeline</h2>
+
+  <div class="tl__wide">
+    <div></div>
+    <div class="tl__zone tl__zone--up">
+      <div class="tl__wash" aria-hidden="true"></div>
+      {
+        CAREER.map((e) => (
+          <div class={boxClass(e)} style={across(e)}>
+            <b>{e.title}{e.mark && ` ${e.mark}`}</b>
+            <span>{e.where ?? ''}</span>
+            {e.note && <span>{e.note}</span>}
+          </div>
+        ))
+      }
+    </div>
+
+    <div></div>
+    <div class="tl__years">
+      {RULER_YEARS.map((y) => <span style={`--x:${yearMark(y)}`}>{y}</span>)}
+    </div>
+
+    <div class="tl__axis">
+      <span class="tl__axis-a">Career</span>
+      <span class="tl__axis-b">Education</span>
+    </div>
+    <div class="tl__ruler" style={`--now:${now}`}>
+      <div class="tl__rail tl__rail--past"></div>
+      <div class="tl__rail tl__rail--future"></div>
+      {TICK_YEARS.map((y) => (
+        <i class="tl__tick" style={`--x:${yearMark(y)}`} />
+      ))}
+      <i class="tl__playhead" title="Today"></i>
+    </div>
+
+    <div></div>
+    <div class="tl__zone tl__zone--down">
+      {
+        EDUCATION.map((e) => (
+          <div class={boxClass(e)} style={atGrad(e)}>
+            <b>{e.title}{e.mark && ` ${e.mark}`}</b>
+            <span>{e.where ?? ''}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="tl__narrow">
+    <div class="tl__heads">
+      <span class="tl__heads-a">Career</span>
+      <span class="tl__heads-b">Education</span>
+    </div>
+    <div class="tl__cols">
+      <div class="tl__track tl__track--left">
+        <div class="tl__wash" aria-hidden="true"></div>
+        {
+          CAREER.map((e) => (
+            <div class={boxClass(e)} style={down(e)}>
+              <b>{e.title}{e.mark && ` ${e.mark}`}</b>
+              <span>{e.where ?? ''}</span>
+              {e.note && <span>{e.note}</span>}
+            </div>
+          ))
+        }
+      </div>
+      <div class="tl__vruler" style={`--now:${now}`}>
+        <div class="tl__rail tl__rail--past"></div>
+        <div class="tl__rail tl__rail--future"></div>
+        {TICK_YEARS.map((y) => (
+          <i class="tl__tick" style={`--x:${yearMark(y)}`} />
+        ))}
+        {RULER_YEARS.map((y) => <span style={`--x:${yearMark(y)}`}>{y}</span>)}
+        <i class="tl__playhead" title="Today"></i>
+      </div>
+      <div class="tl__track tl__track--right">
+        {
+          EDUCATION.map((e) => (
+            <div class={boxClass(e)} style={downGrad(e)}>
+              <b>{e.title}{e.mark && ` ${e.mark}`}</b>
+              <span>{e.where ?? ''}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Career is one wash: yellow → green → cyan → blue, fading in and out.
+     Education is labels only — the years already place each degree. */
+  .tl {
+    --tl-art: #fdffb6;
+    --tl-film: #caffbf;
+    --tl-immersive: #9bf6ff;
+    --tl-research: #a0c4ff;
+    --tl-edge: #6f9ae8;
+    --tl-stops: transparent 0%, var(--tl-art) 7%, var(--tl-art) 24%,
+      var(--tl-film) 26%, var(--tl-film) 34%, var(--tl-immersive) 36%,
+      var(--tl-immersive) 44%, var(--tl-research) 46%, var(--tl-research) 82%,
+      transparent 100%;
+    padding-top: 0.6rem;
+    padding-bottom: 0.7rem;
+  }
+  .tl__title { font-size: var(--section-title); margin: 0 0 0.55rem; }
+
+  .tl__box {
+    position: absolute;
+    background: var(--tone);
+    padding: 0.18rem 0.35rem 0.2rem;
+  }
+  .tl__box b {
+    display: block;
+    font-weight: 600;
+    font-size: min(0.66rem, 0.68vw);
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    color: #1a1a1a;
+    white-space: nowrap;
+  }
+  .tl__box span {
+    display: block;
+    min-height: 0.75rem;
+    font-size: min(0.58rem, 0.58vw);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: #3c3c3c;
+    white-space: nowrap;
+  }
+  .tl__box--expected {
+    border: none;
+  }
+
+  /* ---------------- horizontal ---------------- */
+  .tl__wide {
+    --gap: 0.7rem;
+    display: grid;
+    grid-template-columns: 5.6rem minmax(0, 1fr);
+    column-gap: var(--gap);
+    padding-right: 1.7rem;
+  }
+  .tl__axis { position: relative; align-self: stretch; }
+  /* A single hairline into the band — no upright stem at the join. */
+  .tl__axis::before {
+    content: '';
+    position: absolute;
+    left: 0.1rem;
+    right: calc(-1 * var(--gap));
+    top: 50%;
+    height: 2px;
+    margin-top: -1px;
+    background: var(--color-fg);
+  }
+  .tl__axis span {
+    position: absolute;
+    right: 0.4rem;
+    font-size: 0.6rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .tl__axis-a { bottom: calc(50% + 0.16rem); }
+  .tl__axis-b { top: calc(50% + 0.16rem); }
+
+  .tl__zone { position: relative; height: 2.55rem; }
+  .tl__zone--up { height: 3.15rem; margin-bottom: 0.2rem; overflow: hidden; }
+  .tl__zone--down { height: 2.7rem; margin-top: 0.28rem; }
+  .tl__zone--up .tl__box { left: var(--l); width: var(--w); top: 0; background: none; padding-left: 0; }
+  .tl__zone--up .tl__box--opens { padding-left: 1.7rem; }
+  .tl__zone--down .tl__box {
+    left: var(--l);
+    width: max-content;
+    top: 0;
+    background: none;
+    padding-left: 0;
+    transform: translateX(-50%);
+    text-align: center;
+  }
+
+  /* Years sit above the tick, left-aligned with the career that starts there. */
+  .tl__years { position: relative; height: 1rem; margin-bottom: 0.12rem; }
+  .tl__years span {
+    position: absolute;
+    left: var(--x);
+    bottom: 0;
+    transform: translateX(-50%);
+    font-size: 0.62rem;
+    color: #1a1a1a;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    line-height: 1;
+  }
+  .tl__zone--up .tl__wash {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, var(--tl-stops));
+  }
+
+  /* Plain axis — color lives in the career wash only. */
+  .tl__ruler { position: relative; height: 1rem; }
+  .tl__ruler .tl__rail {
+    position: absolute;
+    top: 50%;
+    height: 2px;
+    margin-top: -1px;
+  }
+  .tl__ruler .tl__rail--past {
+    left: 0;
+    width: var(--now);
+    background: var(--color-fg);
+  }
+  .tl__ruler .tl__rail--future {
+    left: var(--now);
+    right: -0.75rem;
+    height: 0;
+    border-top: 2px dashed var(--color-fg);
+    background: none;
+  }
+  .tl__ruler .tl__tick {
+    position: absolute;
+    left: var(--x);
+    top: calc(50% - 4px);
+    width: 1px;
+    height: 8px;
+    background: #1a1a1a;
+  }
+  .tl__ruler .tl__playhead {
+    position: absolute;
+    left: var(--now);
+    top: 50%;
+    width: 10px;
+    height: 13px;
+    transform: translate(-50%, -50%);
+    background: var(--color-fg);
+    clip-path: polygon(0 0, 100% 0, 100% 58%, 50% 100%, 0 58%);
+    z-index: 2;
+  }
+  .tl__ruler::after {
+    content: '';
+    position: absolute;
+    right: -1.35rem;
+    top: 50%;
+    transform: translateY(-50%);
+    border-left: 0.65rem solid var(--color-fg);
+    border-top: 0.38rem solid transparent;
+    border-bottom: 0.38rem solid transparent;
+  }
+
+  /* ---------------- vertical ---------------- */
+  .tl__narrow { display: none; }
+  .tl__heads,
+  .tl__cols {
+    --vband: 2.1rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) var(--vband) minmax(0, 1fr);
+    gap: 0 0.55rem;
+  }
+  .tl__heads {
+    position: relative;
+    height: 1rem;
+    margin-bottom: 0.35rem;
+    font-size: 0.6rem;
+    font-weight: 700;
+  }
+  .tl__heads-a { justify-self: end; align-self: end; }
+  .tl__heads-b { grid-column: 3; align-self: end; }
+  .tl__track { position: relative; height: 22rem; }
+  .tl__track--left .tl__box { top: var(--t); min-height: var(--h); left: 0; right: 0; }
+  .tl__track--right .tl__box { top: var(--t); min-height: 0; left: 0; right: 0; }
+  .tl__track--left .tl__wash {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, var(--tl-stops));
+  }
+  .tl__track--left .tl__box { text-align: right; background: none; }
+  .tl__track--left .tl__box--opens { padding-top: 1.2rem; }
+  .tl__track--right .tl__box { background: none; padding-left: 0; text-align: center; transform: translateY(-50%); }
+  .tl__vruler { position: relative; height: 22rem; }
+  .tl__vruler .tl__rail {
+    position: absolute;
+    left: 50%;
+    width: 2px;
+    margin-left: -1px;
+  }
+  .tl__vruler .tl__rail--past {
+    top: 0;
+    height: var(--now);
+    background: var(--color-fg);
+  }
+  .tl__vruler .tl__rail--future {
+    top: var(--now);
+    bottom: -0.75rem;
+    width: 0;
+    border-left: 2px dashed var(--color-fg);
+    background: none;
+  }
+  .tl__vruler span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: var(--x);
+    transform: translateY(calc(-100% - 2px));
+    text-align: center;
+    font-size: 0.6rem;
+    color: #1a1a1a;
+    font-variant-numeric: tabular-nums;
+    background: none;
+  }
+  .tl__vruler .tl__tick {
+    position: absolute;
+    top: var(--x);
+    left: calc(50% - 4px);
+    height: 1px;
+    width: 8px;
+    background: #1a1a1a;
+  }
+  .tl__vruler .tl__playhead {
+    position: absolute;
+    top: var(--now);
+    left: 50%;
+    width: 10px;
+    height: 13px;
+    transform: translate(-50%, -50%) rotate(-90deg);
+    background: var(--color-fg);
+    clip-path: polygon(0 0, 100% 0, 100% 58%, 50% 100%, 0 58%);
+    z-index: 2;
+  }
+  .tl__vruler::after {
+    content: '';
+    position: absolute;
+    bottom: -1.35rem;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top: 0.65rem solid var(--color-fg);
+    border-left: 0.38rem solid transparent;
+    border-right: 0.38rem solid transparent;
+  }
+
+  @media (max-width: 900px) {
+    .tl__wide { display: none; }
+    .tl__narrow { display: block; padding-bottom: 1.5rem; }
+    .tl__box b {
+      font-size: 0.62rem;
+      letter-spacing: 0;
+      white-space: normal;
+    }
+    .tl__box span {
+      font-size: 0.55rem;
+      letter-spacing: 0;
+      white-space: normal;
+    }
+  }
+</style>

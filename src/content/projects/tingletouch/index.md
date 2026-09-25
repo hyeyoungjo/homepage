@@ -15,7 +15,7 @@ links:
   doi: "https://doi.org/10.1145/3772318.3791646"
   youtube: "https://youtu.be/yZm9aFTJ3pE"
   presentation: "https://www.youtube.com/watch?v=c2V6KSM-8po"
-featured: false
+featured: true
 draft: false
 bibtex: |
   @inproceedings{10.1145/3772318.3791646,

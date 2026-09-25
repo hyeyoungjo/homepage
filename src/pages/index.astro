@@ -1,33 +1,97 @@
 ---
+import { Image } from 'astro:assets';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
-import Gallery from '../components/Gallery.astro';
+import Timeline from '../components/Timeline.astro';
+import { byNewest } from '../lib/site';
 
 type Project = CollectionEntry<'projects'>;
 
-// Within a year, a paper I first-authored outranks the rest. A venue is what
-// separates a published paper from a class project, and solo artwork is
-// trivially "first author", so neither should jump the queue.
-const isFirstAuthorPaper = (p: Project) =>
-  p.data.type === 'research' &&
-  !!p.data.venue &&
-  (p.data.authors[0]?.startsWith('Hye-Young Jo') ?? false);
-// Projects without an exact date count as January 1 of their year.
-const timeOf = (p: Project) => +(p.data.date ?? new Date(p.data.year, 0, 1));
+// The home page is curated: only the handful marked `featured`, newest first.
+// Everything else lives on /work.
+const recent = (await getCollection('projects', ({ data }) => data.featured && !data.draft))
+  .sort(byNewest)
+  .slice(0, 4);
 
-const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
-  (a, b) =>
-    b.data.year - a.data.year ||
-    Number(isFirstAuthorPaper(b)) - Number(isFirstAuthorPaper(a)) ||
-    timeOf(b) - timeOf(a)
-);
+// First sentence of the abstract, so the strip stays one or two lines.
+const gist = (abstract?: string) => abstract?.split(/(?<=\.)\s/)[0] ?? '';
 ---
 
 <BaseLayout>
   <Hero />
+  <Timeline />
 
-  <section id="work" class="container section">
-    <Gallery projects={projects} />
+  <section class="recent container section">
+    <div class="recent__head">
+      <h2>Recent Projects</h2>
+      <a href="/work">All work →</a>
+    </div>
+    <div class="recent__row">
+      {
+        recent.map((p) => (
+          <figure class="recent__item">
+            <a href={`/${p.id}`}>
+              {p.data.teaser && (
+                <Image
+                  src={p.data.teaser}
+                  alt={p.data.teaserAlt ?? p.data.title}
+                  widths={[320, 640]}
+                  sizes="(max-width: 900px) 50vw, 300px"
+                />
+              )}
+            </a>
+            <figcaption>
+              <a href={`/${p.id}`}>{p.data.title}</a>
+              <span>{gist(p.data.abstract)}</span>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
   </section>
 </BaseLayout>
+
+<style>
+  .recent.section { padding-top: 1.1rem; }
+
+  .recent__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 1.1rem;
+  }
+  .recent__head h2 { font-size: var(--section-title); margin: 0; }
+  .recent__head a { font-size: 0.9rem; }
+
+  .recent__row {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+  .recent__item { margin: 0; }
+  .recent__item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--thumb-radius);
+    background: var(--color-code-bg);
+  }
+  .recent__item figcaption { margin-top: 0.55rem; font-size: 0.95rem; }
+  .recent__item figcaption a { color: var(--color-fg); font-weight: 600; }
+  .recent__item figcaption span {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.85rem;
+    line-height: 1.45;
+    color: var(--color-muted);
+  }
+
+  @media (max-width: 900px) {
+    .recent__row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 520px) {
+    .recent__row { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>
