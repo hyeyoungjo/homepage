@@ -453,7 +453,7 @@ export const CV: {
       kind: 'list',
       reel: 'https://youtu.be/xaiEH6rCV44',
       summary:
-        'Summary: I created immersive experiences across VR and AR, including a VR horror film and AR exhibition, an AR app featuring miniature K-pop idols, a commissioned VR showroom for a tech-fashion exhibition, and a VR boxing game. I worked across concept design, 3D modeling, lighting, look development, coding, and camera operation.',
+        'Summary: I created immersive experiences across VR and AR, including a VR horror film and AR exhibition, an AR app featuring miniature K-pop idols, a commissioned VR showroom for a tech-fashion exhibition, and a VR boxing game. I worked across concept design, 3D modeling, lighting, look development, coding, and volumetric multi-camera capture.',
       collage: ['X1:0.62 X2/X3'],
       captions: { X1: 'VR Toon Film [X1]', X2: 'AR Exhibition [X2]', X3: 'VR Fashion Exhibition [X3]' },
       groups: [
@@ -494,7 +494,7 @@ export const CV: {
         'summer closet-inside-the-closet/A4 A7/paper-animation story-you-cannot-tell',
         'A1 pencil-drawing A6',
       ],
-      summary: 'Summary: My art explores the human body, emotion, and relationships between people through identity and belonging, the precarity of young adults in Korea, and fear and isolation. Across painting, video, installation, and performance, I am drawn to real-time and participatory work that audiences help complete, from a one-on-one cocktail bar to live video mixing.',
+      summary: 'Summary: My art explores the human body, emotion, and relationships between people through identity and belonging, the precarity of young adults in Korea, and fear and isolation. Across painting, video, installation, and performance, I am drawn to real-time and participatory work that audiences help complete.',
       groups: [
         {
               items: [
