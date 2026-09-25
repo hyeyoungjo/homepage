@@ -299,7 +299,7 @@ export const CV: {
           ],
         },
         { title: 'Honorable Mention Award', date: '2021', lines: ['Awarded to the top 5% of submissions at CHI 2021 [C1].'] },
-        { title: 'Top Award', date: '2016', lines: ['Graduated first in class from the Maya 3D computer graphics course, Green Computer Academy ([portfolio video](https://www.youtube.com/watch?v=fJjPREWzGOQ)).'] },
+        { title: 'Top Award', date: '2016', lines: ['Graduated first in class from the Maya 3D computer graphics course, Green Computer Academy.'] },
         { title: 'Alumni Award', date: '2016', lines: ['Graduated second in class across all departments of the College of Fine Arts, Seoul National University.'] },
       ],
     },
