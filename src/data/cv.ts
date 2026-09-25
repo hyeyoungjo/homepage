@@ -21,7 +21,7 @@ export interface CvEntry {
 }
 
 export interface CvPublication {
-  /** Reference key cited elsewhere in the CV, e.g. "C8". */
+  /** Reference key cited elsewhere in the CV, e.g. "C7". */
   label: string;
   /** Slug of the entry in the projects collection, which supplies title,
    *  authors, venue, year, award and links. */
@@ -126,7 +126,7 @@ export const CV: {
   address: ['Programmable Reality Lab, Roser ATLAS Center, Room 231', '1125 18th St, 320 UCB', 'Boulder, CO 80309-0320, United States'],
   contact: [
     '[www.hyeyoungjo.com](https://hyeyoungjo.com)',
-    '[hye-young.jo@colorado.edu](mailto:hye-young.jo@colorado.edu)',
+    '[hye-young.jocolorado.edu](mailto:hye-young.jocolorado.edu)',
     '[Google Scholar](https://scholar.google.com/citations?user=vSQMUMgAAAAJ)',
   ],
   sections: [
@@ -145,12 +145,12 @@ export const CV: {
       entries: [
         {
           title: 'University of Colorado Boulder',
-          date: 'August 2024 - Present',
+          date: 'Aug 2024 - Present',
           lines: ['Ph.D. student, Computer Science', 'Supervisor: Ryo Suzuki'],
         },
         {
           title: 'Korea Advanced Institute of Science and Technology (KAIST)',
-          date: 'September 2020 - August 2022',
+          date: 'Sep 2020 - Aug 2022',
           lines: [
             'Master of Science, Industrial Design, *Best Master’s Thesis Award*',
             'Thesis: Exploring Different Augmented Reality Visualization Methods of Fitness Videos and Their Effects on the Exercise Experience',
@@ -159,7 +159,7 @@ export const CV: {
         },
         {
           title: 'Seoul National University',
-          date: 'March 2011 - February 2016',
+          date: 'Mar 2011 - Feb 2016',
           lines: [
             'Bachelor of Fine Arts, Painting and Media Arts, *Cum Laude*',
             'Painting graduation exhibition on fluid identity [A1]',
@@ -177,7 +177,7 @@ export const CV: {
         {
           title: 'Autodesk, HCI and Visualization Team',
           href: 'https://www.research.autodesk.com/research-areas/science/human-computer-interaction-and-visualization/',
-          date: 'May 2026 - August 2026',
+          date: 'May 2026 - Aug 2026',
           lines: [
             'Research Intern, Mentors: Frederik Brudy, David Ledo',
             'Created a design space for film directing, grounded in a cinematic corpus, to establish a shared language between human creators and generative AI.',
@@ -186,34 +186,34 @@ export const CV: {
         {
           title: 'Fujitsu Research of America, Converging Lab',
           href: 'https://www.fujitsu.com/us/about/businesspolicy/tech/rd/converging-lab/',
-          date: 'May 2025 - October 2025',
+          date: 'May 2025 - Oct 2025',
           lines: [
             'Research Intern, Mentors: Mose Sakashita, Aditi Mishra, Aakar Gupta, Koichiro Niinuma',
-            'Built a system that grounds AI video generation in street-view imagery for spatially consistent shots, evaluated with 12 filmmakers [C8].',
+            'Built a system that grounds AI video generation in street-view imagery for spatially consistent shots, evaluated with 12 filmmakers [C7].',
           ],
         },
         {
           title: 'University of Colorado Boulder, Programmable Reality Lab',
           href: 'https://www.colorado.edu/atlas/programmable-reality-lab',
-          date: 'August 2024 - Present',
+          date: 'Aug 2024 - Present',
           lines: [
             'Graduate Research Assistant, Mentor: Ryo Suzuki',
-            'Study how people create and consume video by building interactive systems with generative AI, extended reality, and virtual agents for storytelling and education [C7, C8, U1].',
+            'Study how people create and consume video by building interactive systems with generative AI, extended reality, and virtual agents for storytelling and education [C6, C7, R1].',
           ],
         },
         {
           title: 'Chung-Ang University, Human-AI Interaction Design & Fabrication Lab',
           href: 'https://artifab.yoonji-kim.com/main-page',
-          date: 'January 2023 - July 2024',
+          date: 'Jan 2023 - Jul 2024',
           lines: [
             'Research Assistant, Mentor: Yoonji Kim',
-            'Built a filmmaking previsualization tool using image segmentation and deepfake face swapping [C4], and haptic systems that recreate a personal trainer’s touch through vibrotactile and electrical stimulation [P1, C6].',
+            'Built a filmmaking previsualization tool using image segmentation and deepfake face swapping [C4], and haptic systems that recreate a personal trainer’s touch through vibrotactile and electrical stimulation [E1, C5].',
           ],
         },
         {
           title: 'KAIST, Make Lab',
           href: 'https://make.kaist.ac.kr/',
-          date: 'September 2020 - September 2022',
+          date: 'Sep 2020 - Sep 2022',
           lines: [
             'Graduate Research Assistant, Mentor: Andrea Bianchi',
             'Designed and evaluated augmented reality (AR), virtual reality (VR), and haptic systems for home fitness, remote education, and immersive VR [C1-C3].',
@@ -228,7 +228,7 @@ export const CV: {
       entries: [
         {
           title: 'VR/AR Generalist at [Dexter Studios](https://www.dexterstudios.com/)',
-          date: 'August 2018 - April 2020',
+          date: 'Aug 2018 - Apr 2020',
           lines: [
             'New Media Division, Immersive Content and Virtual Production',
             'Created 3D graphics for VR films, AR exhibitions and apps, and virtual production, covering character design, environments, visual scripting, lighting, and look development [X1-X2, X4].',
@@ -236,7 +236,7 @@ export const CV: {
         },
         {
           title: 'Film VFX Compositor at [Dexter Studios](https://www.dexterstudios.com/)',
-          date: 'September 2016 - July 2018',
+          date: 'Sep 2016 - Jul 2018',
           lines: [
             'Film Post-Production VFX Compositing Team',
             'Composited live-action plates, 2D elements, and 3D CG renders into seamless final shots for feature films [F1-F6].',
@@ -245,15 +245,46 @@ export const CV: {
       ],
     },
     {
-      title: 'Peer-Reviewed Full Papers',
-      kind: 'publications',
+      title: 'Research Overview',
+      kind: 'list',
       summary:
         'Summary: I have published 8 full papers in ACM CHI (4), ACM UIST (2), IEEE ISMAR (1, in IEEE TVCG), and HCI Korea (1), and have two more under review.',
+      works: [
+        'research/map2video.jpg',
+        'research/collagevis.jpg',
+        'research/generative-lecture.jpg',
+        'research/flowar.jpg',
+        'research/tingletouch.jpg',
+        'research/gamesbond.jpg',
+        'research/physical-computing-metaverse.jpg',
+      ],
+      captions: {
+        map2video: 'Video Generation Control [C7]',
+        'generative-lecture': 'Lecture Video Augmentation [R1]',
+        collagevis: 'Film Scene Prototyping [C4]',
+        flowar: 'Workout Video Augmentation [C3]',
+        tingletouch: 'EMS Motion Guidance [C5]',
+        gamesbond: 'Bimanual Haptic Illusion [C1]',
+        'physical-computing-metaverse': 'VR Remote Education [C2]',
+      },
+      // Frames from each paper's video, uncropped. The four lead projects
+      // print large; the last row shows the breadth of other work (haptics,
+      // VR interaction, VR education).
+      collage: [
+        'map2video collagevis',
+        'generative-lecture flowar',
+        'physical-computing-metaverse tingletouch gamesbond',
+      ],
+      groups: [],
+    },
+    {
+      title: 'Peer-Reviewed Full Papers',
+      kind: 'publications',
       items: [
-        { label: 'C8', ref: 'map2video', also: 'Also accepted to the UIST ’26 demo track.' },
-        { label: 'C7', ref: 'cinemaworld', also: 'Also accepted to the UIST ’26 demo track.' },
-        { label: 'C6', ref: 'tingletouch' },
-        { label: 'C5', ref: 'forearm-gesture' },
+        { label: 'C7', ref: 'map2video', also: 'Also accepted to the UIST ’26 demo track.' },
+        { label: 'C6', ref: 'cinemaworld', also: 'Also accepted to the UIST ’26 demo track.' },
+        { label: 'C5', ref: 'tingletouch' },
+        { label: 'J1', ref: 'forearm-gesture' },
         { label: 'C4', ref: 'collagevis' },
         { label: 'C3', ref: 'flowar' },
         { label: 'C2', ref: 'physical-computing-metaverse' },
@@ -264,14 +295,14 @@ export const CV: {
       title: 'Posters',
       kind: 'publications',
       items: [
-        { label: 'P1', ref: 'trainertap' },
+        { label: 'E1', ref: 'trainertap' },
       ],
     },
     {
       title: 'Preprints',
       kind: 'publications',
       items: [
-        { label: 'U1', ref: 'generative-lecture' },
+        { label: 'R1', ref: 'generative-lecture' },
       ],
     },
     {
@@ -311,12 +342,12 @@ export const CV: {
       entries: [
         {
           title: 'Autodesk Research, Summer Internship Showcase',
-          date: 'August 2026',
+          date: 'Aug 2026',
           lines: ['Understanding Film Directing for AI-Assisted Video Creation'],
         },
         {
           title: 'Fujitsu Research of America, Lunch Seminar',
-          date: 'October 2025',
+          date: 'Oct 2025',
           lines: ['Grounding Generative Video in Real-World Geographies for Spatial Consistency'],
         },
         { title: 'KAIST, Make Lab Seminar', date: 'May 2025', lines: ['Reimagining How We Create and Consume Content'] },
@@ -327,17 +358,17 @@ export const CV: {
         },
         {
           title: 'University of Colorado Boulder, Guest Lecture in How to Hack Almost Anything (graduate course)',
-          date: 'February 2025',
+          date: 'Feb 2025',
           lines: ['Utilizing AI Services and APIs for Coding and Virtual Agent Creation'],
         },
         {
           title: 'KAIST, Guest Lecture in Interaction Prototyping (undergraduate course)',
-          date: 'October 2022',
+          date: 'Oct 2022',
           lines: ['DIY Arduino paper cases without 3D printing, using Adobe Illustrator, Autodesk Fusion 360, and Blender'],
         },
         {
           title: 'Kookmin University, Department of Entertainment Design Career Seminar',
-          date: 'November 2019',
+          date: 'Nov 2019',
           lines: ['Transitioning from Art and Film VFX to VR Content Creation'],
         },
       ],
@@ -359,7 +390,7 @@ export const CV: {
           date: 'Spring 2024',
           lines: [
             'Chan Hu Wie, Yejin Jang, Dong-Uk Kim, Yurim Son (Chung-Ang University)',
-            'Guided them through designing, building, and evaluating wearable haptic systems that recreate a personal trainer’s touch, leading to a UIST poster [P1] and a CHI paper [C6].',
+            'Guided them through designing, building, and evaluating wearable haptic systems that recreate a personal trainer’s touch, leading to a UIST poster [E1] and a CHI paper [C5].',
           ],
         },
       ],
@@ -384,7 +415,7 @@ export const CV: {
       entries: [
         {
           title: 'University of Colorado Boulder, Graduate School News',
-          date: 'October 2025',
+          date: 'Oct 2025',
           lines: ['[“CU Boulder graduate student named a Google PhD fellow”](https://www.colorado.edu/graduateschool/2025/10/24/cu-boulder-graduate-student-named-google-phd-fellow)'],
         },
         {
@@ -421,6 +452,7 @@ export const CV: {
       summary:
         'Summary: I created immersive experiences across VR and AR, including a VR horror film and AR exhibition, an AR app featuring miniature K-pop idols, a commissioned VR showroom for a tech-fashion exhibition, and a VR boxing game. I worked across concept design, 3D modeling, lighting, look development, coding, and camera operation.',
       collage: ['X1:0.62 X2/X3'],
+      captions: { X1: 'VR Toon Film [X1]', X2: 'AR Exhibition [X2]', X3: 'VR Fashion Exhibition [X3]' },
       groups: [
         {
           items: [

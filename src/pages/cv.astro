@@ -103,9 +103,6 @@ async function publication(item: CvPublication) {
     d.links.pdf && { label: 'PDF', href: d.links.pdf },
   ].filter(Boolean) as { label: string; href: string }[];
 
-  // The teaser at its full resolution (800px, about 890 dpi at the printed
-  // 0.9in), so the figure's small text stays legible when zoomed in.
-  const thumb = d.teaser && (await getImage({ src: d.teaser, width: d.teaser.width, format: 'jpg', quality: 92 }));
 
   return {
     citation,
@@ -113,7 +110,6 @@ async function publication(item: CvPublication) {
     links,
     award: item.note ?? d.award,
     also: item.also,
-    thumb: thumb && { src: thumb.src, alt: d.teaserAlt ?? '', href: d.links.youtube ?? `${SITE}${thumb.src}` },
   };
 }
 
@@ -144,9 +140,10 @@ async function collageWorks(slugs: string[] = []) {
   );
 }
 
-/** The text column (Letter, less the margins and date gutter) and the
- *  collage gap, in points, for the collage's size arithmetic. */
-const COLLAGE_WIDTH_PT = 5.75 * 72;
+/** The text column in points for the collage's size arithmetic: Letter
+ *  (8.5in) less the page margins (0.6in + 0.9in), the date gutter (0.75in,
+ *  --cv-gutter) and the gutter gap (12pt, --cv-gap). */
+const COLLAGE_WIDTH_PT = (8.5 - 0.6 - 0.9 - 0.75) * 72 - 12;
 const COLLAGE_GAP_PT = 3;
 
 const works = new Map(
@@ -237,13 +234,6 @@ const listItems = new Map(
                   const pub = pubs.get(item.label)!;
                   return (
                     <div class="cv__pub" id={item.label}>
-                      <span class="cv__gutter">
-                        {pub.thumb && (
-                          <a href={pub.thumb.href}>
-                            <img class="cv__pub-thumb" src={pub.thumb.src} alt={pub.thumb.alt} />
-                          </a>
-                        )}
-                      </span>
                       <p>
                         [{item.label}] <Fragment set:html={inline(pub.citation)} />
                         <br />
@@ -393,9 +383,9 @@ const listItems = new Map(
     --cv-rule: #bbb;
     --cv-link: #1155cc;
     --cv-award: #980000;
-    --cv-gutter: 1.15in;
+    /* Fits the widest date line, "Spring 2027" (0.7in). */
+    --cv-gutter: 0.75in;
     --cv-gap: 12pt;
-    --cv-thumb: 0.9in;
     --cv-collage-gap: 3pt;
   }
 
@@ -415,7 +405,7 @@ const listItems = new Map(
      the padding with a negative margin. */
   .cv {
     box-sizing: content-box;
-    width: 5.75in;
+    width: calc(7in - var(--cv-gutter) - var(--cv-gap));
     margin: 2rem auto;
     padding: 0.8in 0.9in 0.8in calc(0.6in + var(--cv-gutter) + var(--cv-gap));
     background: #fff;
@@ -490,8 +480,7 @@ const listItems = new Map(
   /* An entry, row or paper with something in the gutter: the gutter cell
      hangs left of the content column by exactly its own width plus the gap,
      and spans the whole item so a two-line date never pushes text down. */
-  .cv .cv__row,
-  .cv .cv__pub {
+  .cv .cv__row {
     display: grid;
     grid-template-columns: var(--cv-gutter) 1fr;
     column-gap: var(--cv-gap);
@@ -511,22 +500,10 @@ const listItems = new Map(
   }
 
   .cv__pub {
-    align-items: start;
     margin-bottom: 8pt;
   }
 
-  /* A line of text starts visually at its cap height, a few points below
-     the top of its line box, so thumbnails drop by the same amount to line
-     up with the first line. */
-  .cv__pub-thumb {
-    margin-top: 0.25pt;
-  }
 
-  .cv__pub-thumb {
-    width: var(--cv-thumb);
-    aspect-ratio: 1;
-    object-fit: cover;
-  }
 
   /* Citations stay in the text colour; they are links, not emphasis. */
   .cv a.cv__ref {
@@ -552,10 +529,11 @@ const listItems = new Map(
     flex-direction: column;
     gap: var(--cv-collage-gap);
     margin: 2pt 0 12pt;
-    break-inside: avoid;
   }
 
-  .cv__lead {
+  /* A collage may break between rows, never inside one, so a tall collage
+     does not push its whole section to the next page. */
+  .cv__collage-row {
     break-inside: avoid;
   }
 
@@ -636,6 +614,9 @@ const listItems = new Map(
     .cv__heading,
     .cv__summary {
       break-after: avoid;
+    }
+    .cv__summary {
+      break-inside: avoid;
     }
     .cv__entry,
     .cv__pub {
