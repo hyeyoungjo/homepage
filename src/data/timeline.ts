@@ -42,7 +42,7 @@ export const CAREER: Entry[] = [
   {
     title: 'Human-Computer Interaction (HCI) Research',
     mark: '📝',
-    where: 'KAIST, Chung-Ang University, University of Colorado Boulder, Fujitsu, Autodesk',
+    where: 'KAIST, CAU, CU Boulder, Fujitsu, Autodesk',
     from: [2020, 1],
     to: END,
     tone: 'research',
