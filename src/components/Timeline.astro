@@ -35,7 +35,6 @@ const now = nowMark();
           <div class={boxClass(e)} style={across(e)}>
             <b>{e.title}{e.mark && <span class="tl__mark">{`\u00A0${e.mark}`}</span>}</b>
             <span>{e.where ?? ''}</span>
-            {e.note && <span>{e.note}</span>}
           </div>
         ))
       }
@@ -86,7 +85,6 @@ const now = nowMark();
             <div class={boxClass(e)} style={down(e)}>
               <b>{e.title}{e.mark && <span class="tl__mark">{`\u00A0${e.mark}`}</span>}</b>
               <span>{e.where ?? ''}</span>
-              {e.note && <span>{e.note}</span>}
             </div>
           ))
         }
@@ -192,7 +190,7 @@ const now = nowMark();
   .tl__axis-b { top: calc(50% + 0.16rem); }
 
   .tl__zone { position: relative; height: 2.55rem; }
-  .tl__zone--up { height: 3.15rem; margin-bottom: 0.2rem; overflow: hidden; }
+  .tl__zone--up { height: 2.55rem; margin-bottom: 0.2rem; overflow: hidden; }
   .tl__zone--down { height: 2.7rem; margin-top: 0.28rem; }
   .tl__zone--up .tl__box { left: var(--l); width: var(--w); top: 0; background: none; padding-left: 0; }
   .tl__zone--up .tl__box--opens { padding-left: 1.7rem; }

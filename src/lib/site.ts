@@ -10,7 +10,8 @@ export const SITE = {
     'My research goal is to <strong>expand people’s capacity to create and learn</strong> by building interactive systems with <strong>generative AI</strong> and <strong>extended reality</strong>. This work has been recognized and supported by the <a href="https://www.colorado.edu/graduateschool/2025/10/24/cu-boulder-graduate-student-named-google-phd-fellow" target="_blank" rel="noopener">Google PhD Fellowship</a>.',
   audio: '/hi-im-hyeyoung.mp3',
   email: 'hye-young.jo@colorado.edu',
-  cv: '/Jo_CV.pdf',
+  // #page=1 so Chrome / Acrobat do not restore the last scroll position.
+  cv: '/Jo_CV.pdf#page=1',
   socials: {
     scholar: 'https://scholar.google.com/citations?user=vSQMUMgAAAAJ&hl=en',
     github: 'https://github.com/hyeyoungjo',

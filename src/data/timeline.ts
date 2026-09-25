@@ -20,8 +20,6 @@ export interface Entry {
   title: string;
   /** The institution, and nothing else — the ruler already gives the dates. */
   where?: string;
-  /** A short aside that still belongs to this chapter, e.g. internships. */
-  note?: string;
   /** Degree / award marks, e.g. 🎓🥈 for a BFA with honors. */
   mark?: string;
   from: YearMonth;
@@ -44,8 +42,7 @@ export const CAREER: Entry[] = [
   {
     title: 'Human-Computer Interaction (HCI) Research',
     mark: '📝',
-    where: 'KAIST, Chung-Ang University, University of Colorado Boulder',
-    note: 'Internship at Fujitsu Research of America (2025 Summer), Autodesk (2026 Summer)',
+    where: 'KAIST, Chung-Ang University, University of Colorado Boulder, Fujitsu, Autodesk',
     from: [2020, 1],
     to: END,
     tone: 'research',
