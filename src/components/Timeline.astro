@@ -111,6 +111,82 @@ const now = nowMark();
     </div>
   </div>
 </section>
+<script is:inline>
+  // Set the starting state while the page is still parsing, so nothing flashes before the entrance.
+  // Preview variants with ?tl=sweep|trail|draw|rise (default: sweep).
+  (() => {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const tl = document.currentScript.previousElementSibling;
+    const asked = new URLSearchParams(location.search).get('tl');
+    tl.dataset.anim = ['sweep', 'trail', 'draw', 'rise'].includes(asked) ? asked : 'sweep';
+    tl.classList.add('is-armed');
+    tl.style.setProperty('--tl-fill', '0%');
+    tl.style.setProperty('--tl-head', '0%');
+    if (tl.dataset.anim === 'draw') tl.style.setProperty('--tl-rail', '0%');
+  })();
+</script>
+
+<script>
+  // Timeline entrance, played once when it scrolls into view.
+  //   sweep  the playhead paints the wash, and each label appears as the playhead reaches it
+  //   trail  the wash sweeps in first, then the playhead runs and labels appear as it passes
+  //   draw   the ruler is drawn from scratch; ticks, years, wash, and labels all follow the playhead
+  //   rise   like sweep, with a soft leading edge on the wash and labels lifting into place
+  const ease = (x: number) => (x < 0.5 ? 2 * x * x : 1 - (-2 * x + 2) ** 2 / 2);
+  const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+  // Drive a 0..1 value over `ms`; the clock starts on the first painted frame,
+  // so a background tab does not skip ahead.
+  const run = (ms: number, step: (k: number) => void) =>
+    new Promise<void>((done) => {
+      let t0 = -1;
+      const tick = (t: number) => {
+        if (t0 < 0) t0 = t;
+        const k = Math.min(1, (t - t0) / ms);
+        step(ease(k));
+        if (k < 1) requestAnimationFrame(tick);
+        else done();
+      };
+      requestAnimationFrame(tick);
+    });
+
+  const pos = (el: HTMLElement) =>
+    parseFloat(el.style.getPropertyValue('--l') || el.style.getPropertyValue('--t') || el.style.getPropertyValue('--x') || '0');
+
+  document.querySelectorAll<HTMLElement>('.tl').forEach((tl) => {
+    if (!tl.classList.contains('is-armed')) return;
+    const mode = tl.dataset.anim;
+    const now = parseFloat(tl.querySelector<HTMLElement>('.tl__ruler')?.style.getPropertyValue('--now') ?? '100');
+    const set = (name: string, pct: number) => tl.style.setProperty(name, `${pct.toFixed(2)}%`);
+    // Everything that appears on its date: labels always, ticks and years only when drawing
+    const items = [...tl.querySelectorAll<HTMLElement>(
+      mode === 'draw' ? '.tl__box, .tl__tick, .tl__years span, .tl__vruler span' : '.tl__box',
+    )].map((el) => ({ el, at: pos(el) }));
+    const reveal = (upTo: number) => items.forEach((i) => { if (i.at <= upTo + 0.5) i.el.classList.add('is-in'); });
+    const play = async () => {
+      if (mode === 'trail') {
+        await run(1100, (k) => set('--tl-fill', k * 100));
+        tl.style.removeProperty('--tl-fill');
+        await wait(250);
+      }
+      // One continuous pass over the whole ruler: the playhead stops at today,
+      // while the wash and the future labels carry on without a pause
+      await run(mode === 'draw' ? 2400 : 2000, (k) => {
+        const p = k * 100;
+        set('--tl-head', Math.min(p, now));
+        if (mode !== 'trail') set('--tl-fill', p);
+        if (mode === 'draw') set('--tl-rail', Math.min(p, now));
+        if (p >= now) tl.classList.add('is-done');
+        reveal(p);
+      });
+      ['--tl-head', '--tl-fill', '--tl-rail'].forEach((n) => tl.style.removeProperty(n));
+    };
+
+    new IntersectionObserver((entries, io) => {
+      if (entries.some((e) => e.isIntersecting)) { io.disconnect(); play(); }
+    }, { threshold: 0.4 }).observe(tl);
+  });
+</script>
 
 <style>
   /* Career is one wash: yellow → green → cyan → blue, fading in and out.
@@ -220,6 +296,7 @@ const now = nowMark();
   .tl__zone--up .tl__wash {
     position: absolute;
     inset: 0;
+    clip-path: inset(0 calc(100% - var(--tl-fill, 100%)) 0 0);
     background: linear-gradient(90deg, var(--tl-stops));
   }
 
@@ -233,7 +310,7 @@ const now = nowMark();
   }
   .tl__ruler .tl__rail--past {
     left: 0;
-    width: var(--now);
+    width: var(--tl-rail, var(--now));
     background: var(--color-fg);
   }
   .tl__ruler .tl__rail--future {
@@ -253,7 +330,7 @@ const now = nowMark();
   }
   .tl__ruler .tl__playhead {
     position: absolute;
-    left: var(--now);
+    left: var(--tl-head, var(--now));
     top: 50%;
     width: 10px;
     height: 13px;
@@ -316,6 +393,7 @@ const now = nowMark();
   .tl__track--left .tl__wash {
     position: absolute;
     inset: 0;
+    clip-path: inset(0 0 calc(100% - var(--tl-fill, 100%)) 0);
     background: linear-gradient(180deg, var(--tl-stops));
   }
   .tl__track--left .tl__box { text-align: right; background: none; }
@@ -330,7 +408,7 @@ const now = nowMark();
   }
   .tl__vruler .tl__rail--past {
     top: 0;
-    height: var(--now);
+    height: var(--tl-rail, var(--now));
     background: var(--color-fg);
   }
   .tl__vruler .tl__rail--future {
@@ -366,7 +444,7 @@ const now = nowMark();
   .tl__vruler .tl__tick:first-of-type { display: none; }
   .tl__vruler .tl__playhead {
     position: absolute;
-    top: var(--now);
+    top: var(--tl-head, var(--now));
     left: 50%;
     width: 10px;
     height: 13px;
@@ -400,4 +478,32 @@ const now = nowMark();
       white-space: normal;
     }
   }
+
+  /* Entrance (see the script above for the variants). Items fade in when the animation reaches them. */
+  .tl.is-armed .tl__box { opacity: 0; transition: opacity 0.4s ease, translate 0.4s ease; }
+  .tl.is-armed .tl__box.is-in { opacity: 1; }
+  /* rise: labels lift into place, and the wash has a soft leading edge */
+  .tl.is-armed[data-anim='rise'] .tl__box { translate: 0 0.45rem; }
+  .tl.is-armed[data-anim='rise'] .tl__box.is-in { translate: 0 0; }
+  .tl.is-armed[data-anim='rise'] .tl__zone--up .tl__wash {
+    clip-path: none;
+    mask-image: linear-gradient(90deg, #000 calc(var(--tl-fill, 100%) - 8%), transparent var(--tl-fill, 100%));
+  }
+  .tl.is-armed[data-anim='rise'] .tl__track--left .tl__wash {
+    clip-path: none;
+    mask-image: linear-gradient(180deg, #000 calc(var(--tl-fill, 100%) - 8%), transparent var(--tl-fill, 100%));
+  }
+  /* draw: the ruler itself is drawn, ticks and years appear as the playhead reaches them */
+  .tl.is-armed[data-anim='draw'] .tl__tick,
+  .tl.is-armed[data-anim='draw'] .tl__years span,
+  .tl.is-armed[data-anim='draw'] .tl__vruler span { opacity: 0; transition: opacity 0.3s ease; }
+  .tl.is-armed[data-anim='draw'] .tl__tick.is-in,
+  .tl.is-armed[data-anim='draw'] .tl__years span.is-in,
+  .tl.is-armed[data-anim='draw'] .tl__vruler span.is-in { opacity: 1; }
+  .tl.is-armed[data-anim='draw'] .tl__rail--future,
+  .tl.is-armed[data-anim='draw'] .tl__ruler::after,
+  .tl.is-armed[data-anim='draw'] .tl__vruler::after { opacity: 0; transition: opacity 0.4s ease; }
+  .tl.is-armed[data-anim='draw'].is-done .tl__rail--future,
+  .tl.is-armed[data-anim='draw'].is-done .tl__ruler::after,
+  .tl.is-armed[data-anim='draw'].is-done .tl__vruler::after { opacity: 1; }
 </style>
