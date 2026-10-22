@@ -388,7 +388,7 @@ export const CV: {
       title: 'Service',
       kind: 'entries',
       entries: [
-        { title: 'External Reviewer', date: '2025 - Present', lines: ['CHI 2025-2026, DIS 2026'] },
+        { title: 'External Reviewer', date: '2025 - Present', lines: ['CHI 2025-2027, DIS 2026'] },
         {
           title: 'Mentor',
           rows: [
