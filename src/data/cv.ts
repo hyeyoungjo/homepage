@@ -134,7 +134,7 @@ export const CV: {
       title: 'Research Interests',
       kind: 'prose',
       body: [
-        'I am a PhD student in Computer Science at the University of Colorado Boulder. My main research area is **Human-Computer Interaction**. My research goal is to **expand people’s capacity to create and learn** by building interactive systems with generative AI and extended reality that adapt content to their actions, context, and intentions. My work spans AI-assisted filmmaking, technology-enhanced learning, and embodied fitness training.',
+        'I am a PhD student in Computer Science at the University of Colorado Boulder. My main research area is **Human-Computer Interaction**. My research goal is to **expand people’s capacity to create and learn** by building interactive systems with generative AI and extended reality that adapt content to their actions, context, and intentions. My work spans AI-assisted video authoring, technology-enhanced learning, and embodied fitness training.',
       ],
       keywords: ['human-AI interaction', 'creativity support tools', 'adaptive media', 'embodied interaction'],
     },

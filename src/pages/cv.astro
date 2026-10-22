@@ -55,10 +55,11 @@ async function listThumb(item: CvListItem) {
   return src && collageImage(src);
 }
 
-/** A collage image and its aspect ratio, which sizes its tile. Up to 2000px
- *  wide, about 500 dpi for the largest tile, so it holds up when zoomed. */
+/** A collage image and its aspect ratio, which sizes its tile. Up to 1200px
+ *  wide, about 300 dpi for the largest tile, which keeps the PDF under the
+ *  5 MB upload limit of application portals. */
 async function collageImage(src: ImageMetadata) {
-  const img = await getImage({ src, width: Math.min(2000, src.width), format: 'jpg', quality: 92 });
+  const img = await getImage({ src, width: Math.min(1200, src.width), format: 'jpg', quality: 88 });
   return { src: img.src, aspect: src.width / src.height };
 }
 
@@ -104,10 +105,18 @@ async function publication(item: CvPublication) {
   ].filter(Boolean) as { label: string; href: string }[];
 
 
+  // A small teaser in the gutter, which papers otherwise leave empty; it
+  // opens the paper's video, or else its PDF.
+  const thumb = d.teaser && {
+    src: (await getImage({ src: d.teaser, width: 400, format: 'jpg', quality: 85 })).src,
+    href: d.links.youtube ?? d.links.pdf,
+  };
+
   return {
     citation,
     meta,
     links,
+    thumb,
     award: item.note ?? d.award,
     also: item.also,
   };
@@ -233,7 +242,12 @@ const listItems = new Map(
                 {section.items.map((item) => {
                   const pub = pubs.get(item.label)!;
                   return (
-                    <div class="cv__pub" id={item.label}>
+                    <div class:list={['cv__pub', pub.thumb && 'cv__row']} id={item.label}>
+                      {pub.thumb && (
+                        <a class="cv__gutter cv__pub-thumb" href={pub.thumb.href}>
+                          <img src={pub.thumb.src} alt="" />
+                        </a>
+                      )}
                       <p>
                         [{item.label}] <Fragment set:html={inline(pub.citation)} />
                         <br />
@@ -501,6 +515,17 @@ const listItems = new Map(
 
   .cv__pub {
     margin-bottom: 8pt;
+  }
+
+  /* Square, so the gutter reads as a tidy column. A line of text starts
+     visually at its cap height, a little below the top of its line box, so
+     the thumbnail drops by the same amount to line up with the first line. */
+  .cv__pub-thumb img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    margin-top: 0.75pt;
   }
 
 
